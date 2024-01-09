@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "/rate_calculator" => "rate_calculator#show", as: :rate_calculators
+  post "/rate_calculator" => "rate_calculator#create"
 end
