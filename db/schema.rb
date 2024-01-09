@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_09_091036) do
-  create_table "examples", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_094103) do
+  create_table "rate_calculators", force: :cascade do |t|
     t.integer "col1"
     t.integer "col2"
     t.integer "col3"

@@ -1,1 +1,18 @@
 <h1>Rate Calculator</h1>
+
+<%= form_with model: @rate_calculator do |form|%>
+  <div>
+    <%= form.label :col1 %>
+    <%= form.text_field :col1%>
+  </div>
+  <div>
+    <%= form.label :col2 %>
+    <%= form.text_area :col2%>
+  </div>
+  <div>
+    <%= form.label :col3 %>
+    <%= form.text_area :col3%>
+  </div>
+
+  <%= form.button%>
+<% end %>
