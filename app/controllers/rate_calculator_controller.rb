@@ -1,5 +1,5 @@
 class RateCalculatorController < ApplicationController
-  def form
+  def show
     @rate_calculator = RateCalculator.new
   end
 end
