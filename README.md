@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Freelancer Helper is a web app with utilities to help freelancers get organized, earn more and work less. This is version 2.0 in Node/Express, with a major code refactor and new functionalities.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Currently, this a work in progress. Please check [this presentation](https://docs.google.com/presentation/d/1JbWWOwOo35lFC8JhxrZ8EUhQx-9nscmbsC73P5WCXT0) for more details about the scope of the project and planned improvements over the legacy version.
