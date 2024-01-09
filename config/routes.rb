@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   get "/rate_calculator" => "rate_calculator#collect", as: :rate_calculators
   post "/rate_calculator" => "rate_calculator#create"
-  post "/rate_calculator/:id" => "rate_calculator#show"
+  get "/rate_calculator/:id" => "rate_calculator#show", as: :rate_calculator_show
 end

@@ -12,12 +12,14 @@ class RateCalculatorController < ApplicationController
     @rate_calculator.col1 = col1
     @rate_calculator.col2 = col2
     @rate_calculator.col3 = col3
+
     @rate_calculator.save
-    if @rate_calculator.save
-      redirect_to @rate_calculator
-    else
-      render :new, status: :unprocessable_entity
-    end
+    redirect_to controller: 'rate_calculator', action: 'show', id: @rate_calculator.id
+    
+  end
+
+  def show
+    @rate_calculator = RateCalculator.find(params[:id])
   end
 
   private
