@@ -91,13 +91,20 @@ RSpec.describe RateCalculator do
         expect(rate.tax_percent).to eq(25)
       end
 
-      it 'calculates gross earnings per year and saves them in rate' do
+      it 'calculates gross earnings per year and saves it in rate' do
 
         id = rate_calculator.do
 
         rate = Rate.find(id)
         expect(rate.gross_year).to eq(45250)
       end
+    end
+
+    it 'calculates final goal rate and saves it in rate' do
+      id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.rate).to eq(42.3)
     end
   end
 
