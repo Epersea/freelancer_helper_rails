@@ -5,17 +5,18 @@ class RateCalculatorController < ApplicationController
 
   def create
 
-    rate_calculator = Rate.new(params["expenses"]["long_term"])
-    long_term = rate_calculator.calculate_long_term
+    rate = Rate.new(params["expenses"]["long_term"])
+    long_term = rate.calculate_long_term
     annual = params["expenses"]["annual"]
     monthly = params["expenses"]["monthly"]
    
     @rate_calculator = RateCalculator.new
     @rate_calculator.col1 = long_term
-    @rate_calculator.col2 = annual
+    
     @rate_calculator.col3 = monthly
 
     @rate_calculator.save
+    @rate_calculator.col2 = rate.edit_annual(@rate_calculator.id)
     redirect_to show_rate_path(@rate_calculator)
   end
 
