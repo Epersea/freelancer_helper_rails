@@ -13,7 +13,7 @@ class RateCalculatorController < ApplicationController
     @rate_calculator.col3 = col3
 
     @rate_calculator.save
-    redirect_to controller: 'rate_calculator', action: 'show', id: @rate_calculator.id
+    redirect_to show_rate_path(@rate_calculator)
   end
 
   def show

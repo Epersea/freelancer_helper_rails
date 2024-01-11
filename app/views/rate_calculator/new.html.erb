@@ -1,6 +1,6 @@
 <h1>Rate Calculator</h1>
 
-<%= form_with(url: "/rate_calculator", method: :post) do |form| %>
+<%= form_with(url: rate_calculator_path, method: :post) do |form| %>
   <div class="field1">
     <%= form.label :col1 %>
     <%= form.text_field :col1 %>
