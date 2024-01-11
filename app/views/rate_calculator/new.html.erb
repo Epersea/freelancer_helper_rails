@@ -23,11 +23,11 @@
       <p>Computer and other hardware:</p>
       <div class="longterm1">
         <%= form.label :amount %>
-        <%= form.text_field 'long_term[][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]' %>
       </div>
       <div class="longterm1">
         <%= form.label :years %>
-        <%= form.text_field 'long_term[][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]' %>
       </div>
       <br>
     </div>
@@ -36,11 +36,11 @@
       <p>Office equipment:</p>
       <div class="longterm2">
         <%= form.label :amount %>
-        <%= form.text_field 'long_term[][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]' %>
       </div>
       <div class="longterm2">
         <%= form.label :years %>
-        <%= form.text_field 'long_term[][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]' %>
       </div>
       <br>
     </div>
@@ -49,11 +49,11 @@
       <p>Set-up marketing costs (for example, creating a website):</p>
       <div class="longterm3">
         <%= form.label :amount %>
-        <%= form.text_field 'long_term[][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]' %>
       </div>
       <div class="longterm3">
         <%= form.label :years %>
-        <%= form.text_field 'long_term[][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]' %>
       </div>
       <br>
     </div>
@@ -62,11 +62,11 @@
       <p>Other long-term expenses:</p>
       <div class="longterm4">
         <%= form.label :amount %>
-        <%= form.text_field 'long_term[][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]' %>
       </div>
       <div class="longterm4">
         <%= form.label :years %>
-        <%= form.text_field 'long_term[][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]' %>
       </div>
       <br>
     </div>
@@ -75,7 +75,7 @@
     <p>For example: training, software with annual licenses, office supplies, professional memberships, Internet domains, marketing and advertising, business trips…</p>
     <div class="annual">
       <%= form.label :annual %>
-      <%= form.text_field 'annual' %>
+      <%= form.text_field 'expenses[annual]' %>
     </div>
   </div>
   <br>
@@ -84,7 +84,7 @@
     <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
     <div class="monthly">
       <%= form.label :monthly %>
-      <%= form.text_field 'monthly' %>
+      <%= form.text_field 'expenses[monthly]' %>
     </div>
   </div>
   <br>
