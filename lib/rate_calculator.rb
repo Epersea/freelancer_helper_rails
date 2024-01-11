@@ -12,6 +12,7 @@ class RateCalculator
     rate.hours_year = hours_per_year
     rate.net_month = net_month
     rate.tax_percent = tax_percent
+    rate.gross_year = gross_year
     rate.save
 
     rate.id
@@ -83,5 +84,14 @@ class RateCalculator
 
   def tax_percent
     @user_info["tax_percent"].to_i
+  end
+
+  def gross_year
+    net_year = net_month * 12
+    net_percent = 100 - tax_percent
+    gross_minus_expenses = (net_year * 100) / net_percent
+    gross_year = gross_minus_expenses + total_annual_expenses
+
+    gross_year
   end
 end
