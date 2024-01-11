@@ -12,13 +12,15 @@ class RateCalculator
   end
 
   def calculate_long_term
-    total_user_info = 0
+    long_term_expenses = @user_info["expenses"]["long_term"]
+    long_term_per_year = 0
     
-    @user_info.each do |expense|
-      total_expenses += expense["amount"].to_i
+    long_term_expenses.each do |expense|
+      annual_impact = expense["amount"].to_i / expense["years"].to_i
+      long_term_per_year += annual_impact
     end
 
-    total_expenses
+    long_term_per_year
   end
 
   def edit_annual(id)

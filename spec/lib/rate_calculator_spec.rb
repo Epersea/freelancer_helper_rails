@@ -4,9 +4,20 @@ require 'rate_calculator'
 RSpec.describe RateCalculator do
   it 'creates a new rate and returns its id' do
     rate_calculator = RateCalculator.new(user_info)
+
     id = rate_calculator.do
     
     expect(id).to be_a(Numeric)
+  end
+
+  describe 'Expenses' do
+    it 'calculates impact of long-term expenses per year' do
+      rate_calculator = RateCalculator.new(user_info)
+
+      long_term_expenses_per_year = rate_calculator.calculate_long_term
+
+      expect(long_term_expenses_per_year).to eq(650)
+    end
   end
 
 
