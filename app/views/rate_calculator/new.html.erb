@@ -1,22 +1,94 @@
 <h1>Rate Calculator</h1>
 
+<h2>How to fill this form</h2>
+<p>Welcome to our rate calculator! For starters, we are going to start reviewing your expenses.</p>
+<p>As a freelancer, you are your own business. And every business has expenses that we need to take into account.</p>
+<p>For the sake of this calculation, we have divided expenses in 3 groups:</p>
+<ol>
+  <li>Long-term investments, like a computer or office furniture.</li>
+  <li>Annual expenses, such as software licenses or professional memberships.</li>
+  <li>Monthly expenses, like renting office space.</li>
+</ol>
+<p>Use whatever currency you are used to work with.</p>
+<p>For long-term investments, please include the amount spent and number of years you plan to use them. For instance, if your laptop costs 1,000 dollars and you plan to use it for 5 years, write “1000” in the amount field and “5” in the years field.</p>
+<p>For annual and monthly expenses, just write the estimated total.</p>
+<p>If any of the fields does not apply to your situation, just write a zero.</p>
+<p>Next, you will need to decide how much do you want to work per day and per week. We encourage you to be realistic and mindful of your health and work-life balance. We do not recommend working more than 8 hours per day or 5 days per week long-term.</p>
+<p>And finally, you will have to input how much do you want to earn per month and what percentage will be dedicated to taxes.</p>
+<p>When you are done, just click on "Calculate"!</p>
+
 <%= form_with(url: rate_calculator_path, method: :post) do |form| %>
-  <div class="field1">
-    <%= form.label :col1 %>
-    <%= form.text_field :col1 %>
-  </div>
+  <h2>Long term investments</h2>
+    <div>
+      <p>Computer and other hardware:</p>
+      <div class="longterm1">
+        <%= form.label :amount %>
+        <%= form.text_field 'long_term[][amount]' %>
+      </div>
+      <div class="longterm1">
+        <%= form.label :years %>
+        <%= form.text_field 'long_term[][years]' %>
+      </div>
+      <br>
+    </div>
 
-  <div class="field1">
-    <%= form.label :col2 %>
-    <%= form.text_field :col2 %>
-  </div>
+    <div>
+      <p>Office equipment:</p>
+      <div class="longterm2">
+        <%= form.label :amount %>
+        <%= form.text_field 'long_term[][amount]' %>
+      </div>
+      <div class="longterm2">
+        <%= form.label :years %>
+        <%= form.text_field 'long_term[][years]' %>
+      </div>
+      <br>
+    </div>
 
-  <div class="field1">
-    <%= form.label :col3 %>
-    <%= form.text_field :col3 %>
+    <div>
+      <p>Set-up marketing costs (for example, creating a website):</p>
+      <div class="longterm3">
+        <%= form.label :amount %>
+        <%= form.text_field 'long_term[][amount]' %>
+      </div>
+      <div class="longterm3">
+        <%= form.label :years %>
+        <%= form.text_field 'long_term[][years]' %>
+      </div>
+      <br>
+    </div>
+
+    <div>
+      <p>Other long-term expenses:</p>
+      <div class="longterm4">
+        <%= form.label :amount %>
+        <%= form.text_field 'long_term[][amount]' %>
+      </div>
+      <div class="longterm4">
+        <%= form.label :years %>
+        <%= form.text_field 'long_term[][years]' %>
+      </div>
+      <br>
+    </div>
+  <div>
+  <h2>Annual expenses</h2>
+    <p>For example: training, software with annual licenses, office supplies, professional memberships, Internet domains, marketing and advertising, business trips…</p>
+    <div class="annual">
+      <%= form.label :annual %>
+      <%= form.text_field 'annual' %>
+    </div>
   </div>
+  <br>
+  <h2>Monthly expenses</h2>
+    <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
+    <div class="monthly">
+      <%= form.label :monthly %>
+      <%= form.text_field 'monthly' %>
+    </div>
+  </div>
+  <br>
 
   <div class="actions">
-    <%= form.submit "Submit" %>
+    <%= form.submit "Calculate" %>
   </div>
 <% end %>

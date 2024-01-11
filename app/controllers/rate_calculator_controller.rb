@@ -4,13 +4,14 @@ class RateCalculatorController < ApplicationController
   end
 
   def create
-    col1 = params["col1"].to_i * 2
-    col2 = params["col2"].to_i * 2
-    col3 = params["col3"].to_i * 2
+    long_term = params["long_term"][0]["amount"]
+    annual = params["annual"]
+    monthly = params["monthly"]
+   
     @rate_calculator = RateCalculator.new
-    @rate_calculator.col1 = col1
-    @rate_calculator.col2 = col2
-    @rate_calculator.col3 = col3
+    @rate_calculator.col1 = long_term
+    @rate_calculator.col2 = annual
+    @rate_calculator.col3 = monthly
 
     @rate_calculator.save
     redirect_to show_rate_path(@rate_calculator)
