@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_09_094103) do
-  create_table "rate_calculators", force: :cascade do |t|
-    t.integer "col1"
-    t.integer "col2"
-    t.integer "col3"
+ActiveRecord::Schema[7.1].define(version: 2024_01_11_173622) do
+  create_table "rates", force: :cascade do |t|
+    t.float "rate"
+    t.float "annual_expenses"
+    t.float "hours_day"
+    t.float "hours_year"
+    t.float "billable_percent"
+    t.float "net_month"
+    t.float "tax_percent"
+    t.float "gross_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

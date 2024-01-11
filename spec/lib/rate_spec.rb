@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'rate'
+require 'rate_calculator'
 
 RSpec.describe Rate do
   describe 'calculates expenses' do

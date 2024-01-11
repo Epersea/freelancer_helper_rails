@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "/rate_calculator" => "rate_calculator#new"
-  post "/rate_calculator" => "rate_calculator#create"
-  get "/rate_calculator/:id" => "rate_calculator#show", as: :show_rate
+  get "/rate" => "rate#new"
+  post "/rate" => "rate#create"
+  get "/rate/:id" => "rate#show", as: :show_rate
 end

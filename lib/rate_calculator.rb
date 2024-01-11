@@ -1,4 +1,4 @@
-class Rate
+class RateCalculator
 
   def initialize(expenses)
     @expenses = expenses
@@ -15,8 +15,8 @@ class Rate
   end
 
   def edit_annual(id)
-    rate_calculator = RateCalculator.find(id)
-    rate_calculator.col2 = 1000000
-    rate_calculator.save
+    rate = Rate.find(id)
+    rate.rate = 1000000
+    rate.save
   end
 end

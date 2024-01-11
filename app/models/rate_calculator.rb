@@ -1,2 +1,0 @@
-class RateCalculator < ApplicationRecord
-end
