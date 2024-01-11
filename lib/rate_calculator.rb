@@ -23,9 +23,10 @@ class RateCalculator
     long_term_per_year
   end
 
-  def edit_annual(id)
-    rate = Rate.find(id)
-    rate.rate = 1000000
-    rate.save
+  def calculate_monthly
+    monthly_expenses = @user_info["expenses"]["monthly"]
+    monthly_per_year = monthly_expenses.to_i * 12
+
+    monthly_per_year
   end
 end

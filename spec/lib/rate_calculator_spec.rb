@@ -18,6 +18,14 @@ RSpec.describe RateCalculator do
 
       expect(long_term_expenses_per_year).to eq(650)
     end
+
+    it 'calculates impact of monthly expenses' do
+      rate_calculator = RateCalculator.new(user_info)
+
+      monthly_expenses_per_year = rate_calculator.calculate_monthly
+
+      expect(monthly_expenses_per_year).to eq(3600)
+    end
   end
 
 
