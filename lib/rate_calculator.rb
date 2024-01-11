@@ -1,13 +1,20 @@
 class RateCalculator
 
-  def initialize(expenses)
-    @expenses = expenses
+  def initialize(user_info)
+    @user_info = user_info
+  end
+
+  def do
+    rate = Rate.new
+    rate.save
+
+    rate.id
   end
 
   def calculate_long_term
-    total_expenses = 0
+    total_user_info = 0
     
-    @expenses.each do |expense|
+    @user_info.each do |expense|
       total_expenses += expense["amount"].to_i
     end
 
