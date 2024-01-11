@@ -66,11 +66,29 @@ RSpec.describe RateCalculator do
       end
 
       it 'calculates total billable hours and saves them in rate' do
-        
+
         id = rate_calculator.do
 
         rate = Rate.find(id)
         expect(rate.hours_year).to eq(1070.4)
+      end
+    end
+
+    describe 'Earnings' do
+      it 'saves net month in rate' do
+
+        id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.net_month).to eq(2500)
+      end
+
+      it 'saves tax percent in rate' do
+
+        id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.tax_percent).to eq(25)
       end
     end
   end

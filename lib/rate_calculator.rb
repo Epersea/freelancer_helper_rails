@@ -10,6 +10,8 @@ class RateCalculator
     rate.hours_day = hours_day
     rate.billable_percent = billable_percent
     rate.hours_year = hours_per_year
+    rate.net_month = net_month
+    rate.tax_percent = tax_percent
     rate.save
 
     rate.id
@@ -73,5 +75,13 @@ class RateCalculator
 
   def hours_per_year
     (days_per_year * net_hours_day).round(1)
+  end
+
+  def net_month
+    @user_info["net_monthly_salary"].to_i
+  end
+
+  def tax_percent
+    @user_info["tax_percent"].to_i
   end
 end
