@@ -18,7 +18,7 @@
 <p>When you are done, just click on "Calculate"!</p>
 
 <%= form_with(url: rate_calculator_path, method: :post) do |form| %>
-  <h2>Long term investments</h2>
+  <h2>Long term expenses</h2>
     <div>
       <p>Computer and other hardware:</p>
       <div class="longterm1">
@@ -79,6 +79,7 @@
     </div>
   </div>
   <br>
+  <div>
   <h2>Monthly expenses</h2>
     <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
     <div class="monthly">
@@ -87,6 +88,53 @@
     </div>
   </div>
   <br>
+
+  <div>
+  <h2>Working time</h2>
+    <p>So... how many hours do you want to work per day?…</p>
+    <div class="hoursday">
+      <%= form.text_field 'hours[hours_day]' %>
+    </div>
+    <br>
+    <p>What percentage of this time will be spent in non-billable tasks? For instance, replying to emails, accounting, looking for new clients… If you are not sure, we think 20% is a reasonable estimation in most cases. (Please do not write the % sign).</p>
+    <div class="nonbillable">
+      <%= form.text_field 'hours[non_billable]' %>
+    </div>
+    <br>
+    <p>How many days do you want to work per week?</p>
+    <div class="daysweek">
+      <%= form.text_field 'hours[days_week]' %>
+    </div>
+    <br>
+    <p>How many holidays are you taking a year?</p>
+    <div class="holidays">
+      <%= form.text_field 'hours[holidays]' %>
+    </div>
+    <br>
+    <p>How many days per year will you spend in training and conferences?</p>
+    <div class="training">
+      <%= form.text_field 'hours[training]' %>
+    </div>
+    <br>
+    <p>How many sick days are you planning to take a year?</p>
+    <div class="sick">
+      <%= form.text_field 'hours[sick]' %>
+    </div>
+    <br>
+  </div>
+
+  <div>
+  <h2>Earnings</h2>
+    <p>How much do you want to earn per month net?</p>
+    <div class="salary">
+      <%= form.text_field 'net_monthly_salary' %>
+    </div>
+    <br>
+    <p>What percentage of your earnings will be dedicated to taxes? This can vary a lot between countries and income brackets, so please do your research! (Please do not write the % sign.)</p>
+    <div class="taxes">
+      <%= form.text_field 'tax_percent' %>
+    </div>
+    <br>
 
   <div class="actions">
     <%= form.submit "Calculate" %>
