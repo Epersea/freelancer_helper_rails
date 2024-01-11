@@ -1,2 +1,22 @@
 <h1>Rate Calculator</h1>
 
+<%= form_with(url: "/rate_calculator", method: :post) do |form| %>
+  <div class="field1">
+    <%= form.label :col1 %>
+    <%= form.text_field :col1 %>
+  </div>
+
+  <div class="field1">
+    <%= form.label :col2 %>
+    <%= form.text_field :col2 %>
+  </div>
+
+  <div class="field1">
+    <%= form.label :col3 %>
+    <%= form.text_field :col3 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit" %>
+  </div>
+<% end %>
