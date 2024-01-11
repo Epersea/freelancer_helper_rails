@@ -6,7 +6,7 @@ class RateCalculator
 
   def do
     rate = Rate.new
-    rate.annual_expenses = calculate_total_annual_expenses
+    rate.annual_expenses = total_annual_expenses
     rate.hours_day = hours_day
     rate.billable_percent = billable_percent
     rate.save
@@ -14,16 +14,16 @@ class RateCalculator
     rate.id
   end
 
-  def calculate_total_annual_expenses
-    long_term_expenses = calculate_long_term
-    monthly_expenses = calculate_monthly
+  def total_annual_expenses
+    long_term_expenses = long_term_per_year
+    monthly_expenses = monthly_per_year
     annual_expenses = @user_info["expenses"]["annual"].to_i
     total_annual_expenses = long_term_expenses + monthly_expenses + annual_expenses
 
     total_annual_expenses
   end
 
-  def calculate_long_term
+  def long_term_per_year
     long_term_expenses = @user_info["expenses"]["long_term"]
     long_term_per_year = 0
     
@@ -35,7 +35,7 @@ class RateCalculator
     long_term_per_year
   end
 
-  def calculate_monthly
+  def monthly_per_year
     monthly_expenses = @user_info["expenses"]["monthly"]
     monthly_per_year = monthly_expenses.to_i * 12
 
@@ -53,7 +53,7 @@ class RateCalculator
     billable_percent
   end
 
-  def net_hours_per_day
+  def net_hours_day
     (hours_day * billable_percent) / 100
   end
 end

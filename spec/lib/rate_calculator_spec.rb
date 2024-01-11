@@ -14,14 +14,14 @@ RSpec.describe RateCalculator do
   describe 'Expenses' do
     it 'calculates impact of long-term expenses per year' do
 
-      long_term_expenses_per_year = rate_calculator.calculate_long_term
+      long_term_expenses_per_year = rate_calculator.long_term_per_year
 
       expect(long_term_expenses_per_year).to eq(650)
     end
 
     it 'calculates impact of monthly expenses' do
 
-      monthly_expenses_per_year = rate_calculator.calculate_monthly
+      monthly_expenses_per_year = rate_calculator.monthly_per_year
 
       expect(monthly_expenses_per_year).to eq(3600)
     end
@@ -53,9 +53,9 @@ RSpec.describe RateCalculator do
 
       it 'calculates net hours per day' do
 
-        hours_per_day = rate_calculator.net_hours_per_day
+        hours_per_day = rate_calculator.net_hours_day
 
-        expect(hours_per_day).to eq (4.8)
+        expect(hours_per_day).to eq(4.8)
       end
     end
   end
