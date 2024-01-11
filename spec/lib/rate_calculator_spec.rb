@@ -57,6 +57,21 @@ RSpec.describe RateCalculator do
 
         expect(hours_per_day).to eq(4.8)
       end
+
+      it 'calculates days worked per year' do
+
+        days_per_year = rate_calculator.days_per_year
+
+        expect(days_per_year).to eq(223)
+      end
+
+      it 'calculates total billable hours and saves them in rate' do
+        
+        id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.hours_year).to eq(1070.4)
+      end
     end
   end
 

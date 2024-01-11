@@ -9,6 +9,7 @@ class RateCalculator
     rate.annual_expenses = total_annual_expenses
     rate.hours_day = hours_day
     rate.billable_percent = billable_percent
+    rate.hours_year = hours_per_year
     rate.save
 
     rate.id
@@ -55,5 +56,22 @@ class RateCalculator
 
   def net_hours_day
     (hours_day * billable_percent) / 100
+  end
+
+  def days_per_year
+    days_week = @user_info["hours"]["days_week"].to_i
+    potential_working_days = days_week * 52
+
+    holidays = @user_info["hours"]["holidays"].to_i
+    training_days = @user_info["hours"]["training"].to_i
+    sick_days = @user_info["hours"]["sick"].to_i
+    days_off = holidays + training_days + sick_days
+
+    days_per_year = potential_working_days - days_off
+    days_per_year
+  end
+
+  def hours_per_year
+    (days_per_year * net_hours_day).round(1)
   end
 end
