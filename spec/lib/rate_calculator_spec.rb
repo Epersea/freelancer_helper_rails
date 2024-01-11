@@ -2,8 +2,9 @@ require 'rails_helper'
 require 'rate_calculator'
 
 RSpec.describe RateCalculator do
+  let(:rate_calculator) {RateCalculator.new(user_info)}
+
   it 'creates a new rate and returns its id' do
-    rate_calculator = RateCalculator.new(user_info)
 
     id = rate_calculator.do
     
@@ -12,7 +13,6 @@ RSpec.describe RateCalculator do
 
   describe 'Expenses' do
     it 'calculates impact of long-term expenses per year' do
-      rate_calculator = RateCalculator.new(user_info)
 
       long_term_expenses_per_year = rate_calculator.calculate_long_term
 
@@ -20,7 +20,6 @@ RSpec.describe RateCalculator do
     end
 
     it 'calculates impact of monthly expenses' do
-      rate_calculator = RateCalculator.new(user_info)
 
       monthly_expenses_per_year = rate_calculator.calculate_monthly
 
@@ -28,12 +27,17 @@ RSpec.describe RateCalculator do
     end
 
     it 'calculates total annual expenses and saves them in rate' do
-      rate_calculator = RateCalculator.new(user_info)
 
       id = rate_calculator.do
 
       rate = Rate.find(id)
       expect(rate.annual_expenses).to eq(5250)
+    end
+
+    describe 'Hours' do
+      it 'calculates net hours per day' do
+
+      end
     end
   end
 
