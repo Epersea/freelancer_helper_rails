@@ -6,9 +6,20 @@ class RateCalculator
 
   def do
     rate = Rate.new
+    rate.annual_expenses = calculate_total_annual_expenses
     rate.save
 
     rate.id
+  end
+
+  def calculate_total_annual_expenses
+    long_term_expenses = calculate_long_term
+    monthly_expenses = calculate_monthly
+    annual_expenses = @user_info["expenses"]["annual"].to_i
+    total_annual_expenses = long_term_expenses + monthly_expenses + annual_expenses
+
+    total_annual_expenses
+
   end
 
   def calculate_long_term

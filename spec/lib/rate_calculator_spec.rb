@@ -26,6 +26,15 @@ RSpec.describe RateCalculator do
 
       expect(monthly_expenses_per_year).to eq(3600)
     end
+
+    it 'calculates total annual expenses and saves them in rate' do
+      rate_calculator = RateCalculator.new(user_info)
+
+      id = rate_calculator.do
+
+      rate = Rate.find(id)
+      expect(rate.annual_expenses).to eq(5250)
+    end
   end
 
 
