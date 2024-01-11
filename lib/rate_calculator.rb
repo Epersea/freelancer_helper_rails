@@ -7,6 +7,8 @@ class RateCalculator
   def do
     rate = Rate.new
     rate.annual_expenses = calculate_total_annual_expenses
+    rate.hours_day = hours_day
+    rate.billable_percent = billable_percent
     rate.save
 
     rate.id
@@ -40,13 +42,18 @@ class RateCalculator
     monthly_per_year
   end
 
-  def net_hours_per_day
-    hours_day = @user_info["hours"]["hours_day"].to_f
+  def hours_day
+    @user_info["hours"]["hours_day"].to_f
+  end
+
+  def billable_percent
     percent_non_billable = @user_info["hours"]["non_billable"].to_f
     billable_percent = 100 - percent_non_billable
 
-    net_hours_per_day = (hours_day * billable_percent) / 100
+    billable_percent
+  end
 
-    net_hours_per_day
+  def net_hours_per_day
+    (hours_day * billable_percent) / 100
   end
 end

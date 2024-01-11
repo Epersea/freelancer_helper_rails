@@ -35,6 +35,22 @@ RSpec.describe RateCalculator do
     end
 
     describe 'Hours' do
+      it 'saves hours/day to rate' do
+        
+        id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.hours_day).to eq(6)
+      end
+
+      it 'saves billable percent to rate' do
+        
+        id = rate_calculator.do
+
+        rate = Rate.find(id)
+        expect(rate.billable_percent).to eq(80)
+      end
+
       it 'calculates net hours per day' do
 
         hours_per_day = rate_calculator.net_hours_per_day
