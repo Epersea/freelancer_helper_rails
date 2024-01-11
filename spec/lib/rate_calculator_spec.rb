@@ -37,6 +37,9 @@ RSpec.describe RateCalculator do
     describe 'Hours' do
       it 'calculates net hours per day' do
 
+        hours_per_day = rate_calculator.net_hours_per_day
+
+        expect(hours_per_day).to eq (4.8)
       end
     end
   end

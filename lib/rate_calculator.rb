@@ -19,7 +19,6 @@ class RateCalculator
     total_annual_expenses = long_term_expenses + monthly_expenses + annual_expenses
 
     total_annual_expenses
-
   end
 
   def calculate_long_term
@@ -39,5 +38,15 @@ class RateCalculator
     monthly_per_year = monthly_expenses.to_i * 12
 
     monthly_per_year
+  end
+
+  def net_hours_per_day
+    hours_day = @user_info["hours"]["hours_day"].to_f
+    percent_non_billable = @user_info["hours"]["non_billable"].to_f
+    billable_percent = 100 - percent_non_billable
+
+    net_hours_per_day = (hours_day * billable_percent) / 100
+
+    net_hours_per_day
   end
 end
