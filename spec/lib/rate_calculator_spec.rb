@@ -51,7 +51,7 @@ RSpec.describe RateCalculator do
       expect(days_per_year).to eq(expected_days_year)
     end
 
-    it 'calculates total billable hours' do
+    it 'calculates total billable hours per year' do
 
       hours_per_year = rate_calculator.hours_per_year
 
@@ -129,8 +129,10 @@ RSpec.describe RateCalculator do
           "training"=>"6",
           "sick"=>"6"
         },
-        "net_monthly_salary"=>"2500",
-        "tax_percent"=>"25"
+        "earnings"=> {
+          "net_monthly_salary"=>"2500",
+          "tax_percent"=>"25"
+        }
     }
   end
 end
