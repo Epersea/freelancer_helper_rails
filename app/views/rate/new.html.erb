@@ -1,3 +1,4 @@
+<br>
 <h1>Rate Calculator</h1>
 
 <h2>How to fill this form</h2>
@@ -18,16 +19,15 @@
 <p>When you are done, just click on "Calculate"!</p>
 
 <%= form_with(url: rate_path, method: :post) do |form| %>
-  <h2>Long term expenses</h2>
+  <h2>Expenses</h2>
+  <h3>Long-term expenses</h3>
     <div>
       <p>Computer and other hardware:</p>
       <div class="longterm1">
-        <%= form.label :amount %>
-        <%= form.text_field 'expenses[long_term][][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]', placeholder: "Amount" %>
       </div>
       <div class="longterm1">
-        <%= form.label :years %>
-        <%= form.text_field 'expenses[long_term][][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]', placeholder: "Years" %>
       </div>
       <br>
     </div>
@@ -35,12 +35,10 @@
     <div>
       <p>Office equipment:</p>
       <div class="longterm2">
-        <%= form.label :amount %>
-        <%= form.text_field 'expenses[long_term][][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]', placeholder: "Amount" %>
       </div>
       <div class="longterm2">
-        <%= form.label :years %>
-        <%= form.text_field 'expenses[long_term][][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]', placeholder: "Years" %>
       </div>
       <br>
     </div>
@@ -48,12 +46,10 @@
     <div>
       <p>Set-up marketing costs (for example, creating a website):</p>
       <div class="longterm3">
-        <%= form.label :amount %>
-        <%= form.text_field 'expenses[long_term][][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]', placeholder: "Amount" %>
       </div>
       <div class="longterm3">
-        <%= form.label :years %>
-        <%= form.text_field 'expenses[long_term][][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]', placeholder: "Years" %>
       </div>
       <br>
     </div>
@@ -61,28 +57,26 @@
     <div>
       <p>Other long-term expenses:</p>
       <div class="longterm4">
-        <%= form.label :amount %>
-        <%= form.text_field 'expenses[long_term][][amount]' %>
+        <%= form.text_field 'expenses[long_term][][amount]', placeholder: "Amount" %>
       </div>
       <div class="longterm4">
-        <%= form.label :years %>
-        <%= form.text_field 'expenses[long_term][][years]' %>
+        <%= form.text_field 'expenses[long_term][][years]', placeholder: "Years" %>
       </div>
       <br>
     </div>
   <div>
-  <h2>Annual expenses</h2>
+  <h3>Annual expenses</h3>
     <p>For example: training, software with annual licenses, office supplies, professional memberships, Internet domains, marketing and advertising, business trips…</p>
     <div class="annual">
-      <%= form.text_field 'expenses[annual]' %>
+      <%= form.text_field 'expenses[annual]', placeholder: "Amount" %>
     </div>
   </div>
   <br>
   <div>
-  <h2>Monthly expenses</h2>
+  <h3>Monthly expenses</h3>
     <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
     <div class="monthly">
-      <%= form.text_field 'expenses[monthly]' %>
+      <%= form.text_field 'expenses[monthly]', placeholder: "Amount" %>
     </div>
   </div>
   <br>
@@ -91,32 +85,32 @@
   <h2>Working time</h2>
     <p>So... how many hours do you want to work per day?</p>
     <div class="hoursday">
-      <%= form.text_field 'hours[hours_day]' %>
+      <%= form.text_field 'hours[hours_day]', placeholder: "Hours" %>
     </div>
     <br>
     <p>What percentage of this time will be spent in non-billable tasks? For instance, replying to emails, accounting, looking for new clients… If you are not sure, we think 20% is a reasonable estimation in most cases.</p>
     <div class="nonbillable">
-      <%= form.text_field 'hours[non_billable]' %>
+      <%= form.text_field 'hours[non_billable]', placeholder: "Percent" %>
     </div>
     <br>
     <p>How many days do you want to work per week?</p>
     <div class="daysweek">
-      <%= form.text_field 'hours[days_week]' %>
+      <%= form.text_field 'hours[days_week]', placeholder: "Days" %>
     </div>
     <br>
     <p>How many holidays are you taking a year?</p>
     <div class="holidays">
-      <%= form.text_field 'hours[holidays]' %>
+      <%= form.text_field 'hours[holidays]', placeholder: "Days" %>
     </div>
     <br>
     <p>How many days per year will you spend in training and conferences?</p>
     <div class="training">
-      <%= form.text_field 'hours[training]' %>
+      <%= form.text_field 'hours[training]', placeholder: "Days" %>
     </div>
     <br>
     <p>How many sick days do you estimate to take a year?</p>
     <div class="sick">
-      <%= form.text_field 'hours[sick]' %>
+      <%= form.text_field 'hours[sick]', placeholder: "Days" %>
     </div>
     <br>
   </div>
@@ -125,16 +119,18 @@
   <h2>Earnings</h2>
     <p>How much do you want to earn per month net?</p>
     <div class="salary">
-      <%= form.text_field 'earnings["net_monthly_salary"]' %>
+      <%= form.text_field 'earnings["net_monthly_salary"]', placeholder: "Amount" %>
     </div>
     <br>
     <p>What percentage of your earnings will be dedicated to taxes? This can vary a lot between countries and income brackets, so please do your research!</p>
     <div class="taxes">
-      <%= form.text_field 'earnings["tax_percent"]' %>
+      <%= form.text_field 'earnings["tax_percent"]', placeholder: "Percent" %>
     </div>
     <br>
 
-  <div class="actions">
+  <div class="actions bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded inline-block min-w-auto">
     <%= form.submit "Calculate" %>
   </div>
+  <br>
+  <br>
 <% end %>

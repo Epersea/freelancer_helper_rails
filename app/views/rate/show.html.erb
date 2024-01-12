@@ -1,11 +1,11 @@
-<h1>Your minimum rate per hour<h1>
+<br>
+<h1>Your minimum rate per hour</h1>
 <div>
-  <h5>Your minimum rate per hour should be <%= @rate.rate%></h5>
-  <br>
+  <h3>Your minimum rate per hour should be <%= @rate.rate%></h3>
   <p>Hoy did we arrive at that number? Let's do some math to find out!</p>
-  <p>You said you want to work <%= @rate.hours_day%> hours per day. Of those, <%= @rate.billable_percent%>% will be billable.</p>
-  <p>Taking weekend, vacation, training and sick time into account, this means you will charge your clients for <%= @rate.hours_year%> hours per year.</p>
-  <p>Your goal is to earn <%= @rate.net_month%> net per month. Since your tax rate is <%= @rate.tax_percent%>% and your estimated annual expenses are <%= @rate.annual_expenses%>, this adds up to <%= @rate.gross_year%> gross per year.</p>
-  <p><%= @rate.gross_year%> income / <%= @rate.hours_day%> hours = <%= @rate.rate%> per hour. Easy peasy!</p>
+  <p>You said you want to work <b><%= @rate.hours_day%> hours</b> per day. Of those, <b><%= @rate.billable_percent%>%</b> will be billable.</p>
+  <p>Taking weekend, vacation, training and sick time into account, this means you will charge your clients for <b><%= @rate.hours_year%> hours</b> per year.</p>
+  <p>Your goal is to earn <b><%= @rate.net_month%> net per month</b>. Since your taxes will take <b><%= @rate.tax_percent%>%</b> of your income and your estimated annual expenses are <b><%= @rate.annual_expenses%></b>, this adds up to <b><%= @rate.gross_year%></b> gross per year.</p>
+  <p><b><%= @rate.gross_year%> income / <%= @rate.hours_day%> hours = <%= @rate.rate%> per hour</b>. Easy peasy!</p>
   <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
 </div>
