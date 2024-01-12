@@ -1,3 +1,6 @@
+require_relative 'rate_calculator/hours'
+require_relative 'rate_calculator/expenses'
+
 class RateCalculator
   def initialize(user_info)
     @user_info = user_info

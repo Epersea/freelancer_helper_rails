@@ -17,7 +17,11 @@ class Expenses
     long_term_per_year = 0
     
     long_term_expenses.each do |expense|
-      annual_impact = expense["amount"].to_i / expense["years"].to_i
+      begin
+        annual_impact = expense["amount"].to_i / expense["years"].to_i
+      rescue ZeroDivisionError
+        annual_impact = 0
+      end
       long_term_per_year += annual_impact
     end
 

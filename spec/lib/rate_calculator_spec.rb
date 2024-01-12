@@ -17,6 +17,15 @@ RSpec.describe RateCalculator do
       expect(long_term_expenses_per_year).to eq(expected_long_term_expenses)
     end
 
+    it 'skips empty long-term expenses' do
+      rate_calculator_with_empty_expenses = RateCalculator.new(user_info_with_empty_expenses)
+
+      long_term_expenses_per_year = rate_calculator_with_empty_expenses.long_term_per_year
+
+      expected_long_term_expenses = 400
+      expect(long_term_expenses_per_year).to eq(expected_long_term_expenses)
+    end
+
     it 'calculates impact of monthly expenses' do
 
       monthly_expenses_per_year = rate_calculator.monthly_per_year
@@ -34,7 +43,6 @@ RSpec.describe RateCalculator do
   end
 
   describe 'Hours' do
-
     it 'calculates net hours per day' do
 
       hours_per_day = rate_calculator.net_hours_day
@@ -115,6 +123,37 @@ RSpec.describe RateCalculator do
               "years"=>"4"},
             {"amount"=>"300",
               "years"=>"6"},
+            {"amount"=>"1000",
+              "years"=>"10"}
+            ],
+          "annual"=>"1000",
+          "monthly"=>"300"
+        },
+        "hours"=>{
+          "hours_day"=>"6",
+          "non_billable"=>"20",
+          "days_week"=>"5",
+          "holidays"=>"25",
+          "training"=>"6",
+          "sick"=>"6"
+        },
+        "earnings"=> {
+          "net_monthly_salary"=>"2500",
+          "tax_percent"=>"25"
+        }
+    }
+  end
+
+  def user_info_with_empty_expenses
+    {
+      "expenses"=>{
+        "long_term"=>[
+            {"amount"=>"1500",
+              "years"=>"5"},
+            {"amount"=>"0",
+              "years"=>"0"},
+            {"amount"=>"0",
+              "years"=>"0"},
             {"amount"=>"1000",
               "years"=>"10"}
             ],
