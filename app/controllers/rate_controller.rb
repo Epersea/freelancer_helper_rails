@@ -6,6 +6,7 @@ class RateController < ApplicationController
   end
 
   def create
+    sanitized_data = sanitize_form_data(params)
     rate_calculator = RateCalculator.new(params)
     id = rate_calculator.do
 
@@ -16,5 +17,11 @@ class RateController < ApplicationController
 
   def show
     @rate = Rate.find(params[:id])
+  end
+
+  private
+
+  def sanitize_form_data(data)
+    data.transform_values { |value| ActionController::Base.helpers.strip_tags(value) }
   end
 end
