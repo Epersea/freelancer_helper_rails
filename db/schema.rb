@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_13_122344) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_16_151553) do
   create_table "rates", force: :cascade do |t|
     t.float "rate"
     t.integer "annual_expenses"
     t.integer "hours_day"
-    t.integer "hours_year"
+    t.float "hours_year"
     t.integer "billable_percent"
     t.integer "net_month"
     t.float "tax_percent"
