@@ -12,6 +12,8 @@ class Expenses
     total_annual_expenses
   end
 
+  private
+
   def long_term_per_year
     long_term_expenses = @expenses["long_term"]
     long_term_per_year = 0

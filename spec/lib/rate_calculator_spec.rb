@@ -9,56 +9,24 @@ RSpec.describe RateCalculator do
   let(:goal_rate) { 42.3 }
 
   describe 'Expenses' do
-    it 'calculates impact of long-term expenses per year' do
-
-      long_term_expenses_per_year = rate_calculator.long_term_per_year
-
-      expected_long_term_expenses = 650
-      expect(long_term_expenses_per_year).to eq(expected_long_term_expenses)
-    end
-
-    it 'skips empty long-term expenses' do
-      rate_calculator_with_empty_expenses = RateCalculator.new(user_info_with_empty_expenses, any_id)
-
-      long_term_expenses_per_year = rate_calculator_with_empty_expenses.long_term_per_year
-
-      expected_long_term_expenses = 400
-      expect(long_term_expenses_per_year).to eq(expected_long_term_expenses)
-    end
-
-    it 'calculates impact of monthly expenses' do
-
-      monthly_expenses_per_year = rate_calculator.monthly_per_year
-
-      expected_monthly_expenses = 3600
-      expect(monthly_expenses_per_year).to eq(expected_monthly_expenses)
-    end
-
     it 'calculates total annual expenses' do
 
       total_annual_expenses = rate_calculator.total_annual_expenses
 
       expect(total_annual_expenses).to eq(annual_expenses)
     end
+
+    it 'skips empty long-term expenses' do
+      rate_calculator_with_empty_expenses = RateCalculator.new(user_info_with_empty_expenses, any_id)
+
+      long_term_expenses_per_year = rate_calculator_with_empty_expenses.total_annual_expenses
+
+      expected_annual_expenses = 5000
+      expect(long_term_expenses_per_year).to eq(expected_annual_expenses)
+    end
   end
 
   describe 'Hours' do
-    it 'calculates net hours per day' do
-
-      hours_per_day = rate_calculator.net_hours_day
-
-      expected_hours_day = 4.8
-      expect(hours_per_day).to eq(expected_hours_day)
-    end
-
-    it 'calculates days worked per year' do
-
-      days_per_year = rate_calculator.days_per_year
-
-      expected_days_year = 223
-      expect(days_per_year).to eq(expected_days_year)
-    end
-
     it 'calculates total billable hours per year' do
 
       hours_per_year = rate_calculator.hours_per_year

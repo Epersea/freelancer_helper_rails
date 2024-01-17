@@ -18,22 +18,6 @@ class RateCalculator
     @expenses.total_annual_expenses
   end
 
-  def long_term_per_year
-    @expenses.long_term_per_year
-  end
-
-  def monthly_per_year
-    @expenses.monthly_per_year
-  end
-
-  def net_hours_day
-    @hours.net_hours_day
-  end
-
-  def days_per_year
-    @hours.days_per_year
-  end
-
   def hours_per_year
     @hours.hours_per_year
   end
