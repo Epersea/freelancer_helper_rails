@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "/rate" => "rate#new"
   post "/rate" => "rate#create"
   get "/rate/:id" => "rate#show", as: :show_rate
+  get "/rate/:id/edit" => "rate#edit"
+  patch "/rate/:id" => "rate#update", as: :update_rate
 end

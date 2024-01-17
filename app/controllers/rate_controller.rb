@@ -21,6 +21,22 @@ class RateController < ApplicationController
     @rate = Rate.find(params[:id])
   end
 
+  def edit
+    @rate = Rate.find(params[:id])
+  end
+
+  def update
+    #sanitized_data = sanitize_form_data(params)
+    
+    rate_id = params[:id]
+
+    rate_calculator = RateCalculator.new(params, rate_id)
+    rate_calculator.do
+
+    @rate = Rate.find(rate_id)
+    redirect_to show_rate_path(@rate)
+  end
+
   private
 
   def sanitize_form_data(data)
