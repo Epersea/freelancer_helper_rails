@@ -31,8 +31,16 @@ class RateController < ApplicationController
     rate_calculator.do
 
     @rate = Rate.find(rate_id)
-    
+
     redirect_to show_rate_path(@rate)
+  end
+
+  def destroy
+    rate_id = params[:id]
+    rate = Rate.find(rate_id)
+    rate.destroy
+
+    redirect_to root_path
   end
 
   private
