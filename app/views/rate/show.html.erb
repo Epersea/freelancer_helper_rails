@@ -8,4 +8,6 @@
   <p>Your goal is to earn <b><%= @rate.net_month%> net per month</b>. Since your taxes will take <b><%= @rate.tax_percent%>%</b> of your income and your estimated annual expenses are <b><%= @rate.annual_expenses%></b>, this adds up to <b><%= @rate.gross_year%></b> gross per year.</p>
   <p><b><%= @rate.gross_year%> income / <%= @rate.hours_year%> hours = <%= @rate.rate%> per hour</b>. Easy peasy!</p>
   <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
+  <br>
+  <p><b>Do you want to try different variables? You can edit your rate <%=link_to "here", edit_rate_path%></b></p>
 </div>
