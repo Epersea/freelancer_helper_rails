@@ -2,18 +2,11 @@ require_relative 'rate_calculator/hours'
 require_relative 'rate_calculator/expenses'
 
 class RateCalculator
-  
-  def initialize(user_info, id)
+
+  def initialize(user_info)
     @expenses = Expenses.new(user_info["expenses"])
     @hours = Hours.new(user_info["hours"])
     @earnings = user_info["earnings"]
-    @id = id
-  end
-
-  def update
-    rate = Rate.find(@id)
-
-    store_data(rate)
   end
 
   def do
@@ -51,18 +44,6 @@ class RateCalculator
   end
 
   private
-
-  def store_data(rate)
-    rate.annual_expenses = total_annual_expenses
-    rate.hours_day = hours_day
-    rate.billable_percent = billable_percent
-    rate.hours_year = hours_per_year
-    rate.net_month = net_month
-    rate.tax_percent = tax_percent
-    rate.gross_year = gross_year
-    rate.rate = hourly_rate
-    rate.save
-  end
 
   def hours_day
     @hours.hours_day

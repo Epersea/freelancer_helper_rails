@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'rate_calculator'
 
 RSpec.describe RateCalculator do
-  let(:rate_calculator) {RateCalculator.new(user_info, any_id)}
+  let(:rate_calculator) {RateCalculator.new(user_info)}
   let(:annual_expenses) { 5250 }
   let(:hours_year) { 1070.4 }
   let(:gross_year) { 45250 }
@@ -17,7 +17,7 @@ RSpec.describe RateCalculator do
     end
 
     it 'skips empty long-term expenses' do
-      rate_calculator_with_empty_expenses = RateCalculator.new(user_info_with_empty_expenses, any_id)
+      rate_calculator_with_empty_expenses = RateCalculator.new(user_info_with_empty_expenses)
 
       long_term_expenses_per_year = rate_calculator_with_empty_expenses.total_annual_expenses
 
@@ -122,10 +122,6 @@ RSpec.describe RateCalculator do
           "tax_percent"=>"25"
         }
     }
-  end
-
-  def any_id
-    100019
   end
 
   def rate_info 

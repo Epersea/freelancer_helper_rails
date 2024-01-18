@@ -8,14 +8,7 @@ class RateController < ApplicationController
   def create
     @rate = Rate.new
 
-    rate_calculator = RateCalculator.new(params, @rate.id)
-    rate_info = rate_calculator.do
-
-    rate_info.each do |key, value|
-      @rate.send("#{key}=", value) if @rate.respond_to?("#{key}=")
-    end
-
-    @rate.save
+    add_calculations_to_rate(@rate, params)
 
     redirect_to show_rate_path(@rate)
   end
@@ -30,11 +23,9 @@ class RateController < ApplicationController
 
   def update
     rate_id = params[:id]
-
-    rate_calculator = RateCalculator.new(params, rate_id)
-    rate_calculator.update
-
     @rate = Rate.find(rate_id)
+
+    add_calculations_to_rate(@rate, params)
 
     redirect_to show_rate_path(@rate)
   end
@@ -42,6 +33,7 @@ class RateController < ApplicationController
   def destroy
     rate_id = params[:id]
     rate = Rate.find(rate_id)
+    
     rate.destroy
 
     redirect_to root_path
@@ -49,10 +41,14 @@ class RateController < ApplicationController
 
   private
 
-  def get_rate_id
-    last_rate_id = Rate.last.id
-    current_rate_id = last_rate_id + 1
+  def add_calculations_to_rate(rate, user_info)
+    rate_calculator = RateCalculator.new(user_info)
+    results = rate_calculator.do
 
-    current_rate_id
+    results.each do |key, value|
+      rate.send("#{key}=", value) if rate.respond_to?("#{key}=")
+    end
+
+    rate.save
   end
 end
