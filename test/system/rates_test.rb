@@ -6,34 +6,38 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit rates_url
-    assert_selector "h1", text: "Rates"
+    visit root_path
+    assert_selector "h1", text: "Welcome to Freelancer Helper"
   end
 
   test "should create rate" do
-    visit rates_url
-    click_on "New rate"
+    visit "/rate"
+    
+    fill_in "hours[hours_day]", with: "8"
+    fill_in "hours[days_week]", with: "5"
+    fill_in "earnings[net_monthly_salary]", with: "2500"
 
-    click_on "Create Rate"
+    click_on "Calculate"
 
-    assert_text "Rate was successfully created"
-    click_on "Back"
+    assert_text "Your minimum rate per hour"
   end
 
   test "should update Rate" do
-    visit rate_url(@rate)
-    click_on "Edit this rate", match: :first
+    rate_id = Rate.last.id
+    visit "/rate/#{rate_id}"
 
-    click_on "Update Rate"
+    click_on "here"
 
-    assert_text "Rate was successfully updated"
-    click_on "Back"
+    assert_text "Edit your rate"
   end
 
   test "should destroy Rate" do
-    visit rate_url(@rate)
-    click_on "Destroy this rate", match: :first
+    rate_id = Rate.last.id
+    visit "/rate/#{rate_id}"
 
-    assert_text "Rate was successfully destroyed"
+    click_on "Delete"
+    page.accept_alert
+  
+    assert_text "Welcome to Freelancer Helper"
   end
 end
