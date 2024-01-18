@@ -1,9 +1,6 @@
 require "test_helper"
 
 class RatesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @rate = rates(:one)
-  end
 
   test "should get index" do
     get "/"
