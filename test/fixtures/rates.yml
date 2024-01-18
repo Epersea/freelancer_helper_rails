@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rate: 42.3
+  annual_expenses: 5250
+  hours_day: 6
+  hours_year: 1070.4
+  billable_percent: 80
+  net_month: 2500
+  tax_percent: 25.0
+  gross_year: 45250
+
+two:
+  rate: 79.6
+  annual_expenses: 642
+  hours_day: 4
+  hours_year: 798.0
+  billable_percent: 96
+  net_month: 5243
+  tax_percent: 0.0
+  gross_year: 63558
