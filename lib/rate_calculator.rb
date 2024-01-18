@@ -2,18 +2,12 @@ require_relative 'rate_calculator/hours'
 require_relative 'rate_calculator/expenses'
 
 class RateCalculator
+  
   def initialize(user_info, id)
     @expenses = Expenses.new(user_info["expenses"])
     @hours = Hours.new(user_info["hours"])
     @earnings = user_info["earnings"]
     @id = id
-  end
-
-  def create
-    rate = Rate.new
-    rate.id = @id
-   
-    store_data(rate)
   end
 
   def update

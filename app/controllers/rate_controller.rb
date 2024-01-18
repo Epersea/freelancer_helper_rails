@@ -6,12 +6,16 @@ class RateController < ApplicationController
   end
 
   def create
-    rate_id = get_rate_id
+    @rate = Rate.new
 
-    rate_calculator = RateCalculator.new(params, rate_id)
-    rate_calculator.create
+    rate_calculator = RateCalculator.new(params, @rate.id)
+    rate_info = rate_calculator.do
 
-    @rate = Rate.find(rate_id)
+    rate_info.each do |key, value|
+      @rate.send("#{key}=", value) if @rate.respond_to?("#{key}=")
+    end
+
+    @rate.save
 
     redirect_to show_rate_path(@rate)
   end
