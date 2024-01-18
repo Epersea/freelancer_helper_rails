@@ -53,6 +53,15 @@ RSpec.describe RateCalculator do
     end
   end
 
+  describe 'Aggregated info' do
+    it 'returns aggregated info in the correct format' do
+
+      aggregated_info = rate_calculator.do
+
+      expect(aggregated_info).to eq(rate_info)
+    end
+  end
+
   def user_info
     {
       "expenses"=>{
@@ -117,5 +126,18 @@ RSpec.describe RateCalculator do
 
   def any_id
     100019
+  end
+
+  def rate_info 
+    {
+      rate: goal_rate,
+      annual_expenses: annual_expenses,
+      hours_day: 6,
+      hours_year: hours_year,
+      billable_percent: 80,
+      net_month: 2500,
+      tax_percent: 25,
+      gross_year: gross_year
+    }
   end
 end
