@@ -53,27 +53,6 @@ RSpec.describe RateCalculator do
     end
   end
 
-  describe 'Rate model' do
-    it 'saves form inputs and calculations in Rate' do
-
-      rate_calculator.create
-
-      rate = Rate.find(any_id)
-      hours_day = 6
-      billable_percent = 80
-      net_month = 2500
-      tax_percent = 25
-      expect(rate.annual_expenses).to eq(annual_expenses)
-      expect(rate.hours_day).to eq(hours_day)
-      expect(rate.billable_percent).to eq(billable_percent)
-      expect(rate.hours_year).to eq(hours_year)
-      expect(rate.net_month).to eq(net_month)
-      expect(rate.tax_percent).to eq(tax_percent)
-      expect(rate.gross_year).to eq(gross_year)
-      expect(rate.rate).to eq(goal_rate)
-    end
-  end
-
   def user_info
     {
       "expenses"=>{

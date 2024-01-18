@@ -1,8 +1,9 @@
 require "test_helper"
 
 class RatesControllerTest < ActionDispatch::IntegrationTest
-
+  
   test "should get index" do
+
     get "/"
 
     assert_response :success
@@ -12,6 +13,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+
     get "/rate"
 
     assert_response :success
@@ -20,39 +22,49 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create rate" do
-    assert_difference("Rate.count") do
-      post "/rate", params: { 
-        "expenses"=>
-          {"long_term"=>[
+    previous_rate_count = Rate.count
+
+    post "/rate", params: {
+      "expenses"=>{
+        "long_term"=>[
+            {"amount"=>"1500",
+              "years"=>"5"},
+            {"amount"=>"800",
+              "years"=>"4"},
+            {"amount"=>"300",
+              "years"=>"6"},
             {"amount"=>"1000",
-            "years"=>"10"},
-            {"amount"=>"500",
-            "years"=>"5"},
-            {"amount"=>"555",
-            "years"=>"5"},
-            {"amount"=>"",
-            "years"=>""}
-          ],
+              "years"=>"10"}
+            ],
           "annual"=>"1000",
-          "monthly"=>"100"
-          },
+          "monthly"=>"300"
+        },
         "hours"=>{
-          "hours_day"=>"5",
+          "hours_day"=>"6",
           "non_billable"=>"20",
           "days_week"=>"5",
           "holidays"=>"25",
-          "training"=>"5",
-          "sick"=>"5"
+          "training"=>"6",
+          "sick"=>"6"
         },
-        "earnings"=>{
-          "net_monthly_salary"=>"2200",
-          "tax_percent"=>"20"
+        "earnings"=> {
+          "net_monthly_salary"=>"2500",
+          "tax_percent"=>"25"
         }
-      }
-    end
-
-    rate_id = Rate.last.id
-    assert_redirected_to "/rate/#{rate_id}"
+    }
+ 
+    expected_rate_count = previous_rate_count + 1
+    rate = Rate.last
+    assert_equal Rate.count, expected_rate_count
+    assert_redirected_to "/rate/#{rate.id}"
+    assert_equal rate.rate, 42.3
+    assert_equal rate.annual_expenses, 5250
+    assert_equal rate.hours_day, 6
+    assert_equal rate.hours_year, 1070.4
+    assert_equal rate.billable_percent, 80
+    assert_equal rate.net_month, 2500
+    assert_equal rate.tax_percent, 25
+    assert_equal rate.gross_year, 45250
   end
 
   test "should show rate" do
@@ -126,11 +138,12 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   test "should destroy rate" do
     rate = Rate.last
     rate_id = rate.id
+    previous_rate_count = Rate.count
 
-    assert_difference("Rate.count", -1) do
-      delete "/rate/#{rate_id}"
-    end
+    delete "/rate/#{rate_id}"
 
+    expected_rate_count = previous_rate_count - 1
+    assert_equal Rate.count, expected_rate_count
     assert_redirected_to root_path
   end
 end
