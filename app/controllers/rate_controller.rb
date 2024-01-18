@@ -9,12 +9,6 @@ class RateController < ApplicationController
     redirect_to show_rate_path(@rate)
   end
 
-  # def show
-  # end
-
-  # def edit
-  # end
-
   def update
     add_calculations_to_rate(@rate, params)
 
