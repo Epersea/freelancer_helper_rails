@@ -46,9 +46,9 @@ class RateController < ApplicationController
   private
 
   def get_rate_id
-    rate = Rate.new
-    rate.save
+    last_rate_id = Rate.last.id
+    current_rate_id = last_rate_id + 1
 
-    rate.id
+    current_rate_id
   end
 end

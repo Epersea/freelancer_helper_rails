@@ -10,7 +10,9 @@ class RateCalculator
   end
 
   def do
-    rate = Rate.find(@id)
+    rate = Rate.new
+    rate.id = @id
+   
     store_data(rate)
   end
 
