@@ -9,7 +9,7 @@ class RateController < ApplicationController
     rate_id = get_rate_id
 
     rate_calculator = RateCalculator.new(params, rate_id)
-    rate_calculator.do
+    rate_calculator.create
 
     @rate = Rate.find(rate_id)
 
@@ -28,7 +28,7 @@ class RateController < ApplicationController
     rate_id = params[:id]
 
     rate_calculator = RateCalculator.new(params, rate_id)
-    rate_calculator.do
+    rate_calculator.update
 
     @rate = Rate.find(rate_id)
 

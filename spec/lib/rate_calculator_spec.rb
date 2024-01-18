@@ -55,9 +55,8 @@ RSpec.describe RateCalculator do
 
   describe 'Rate model' do
     it 'saves form inputs and calculations in Rate' do
-      create_rate_with_any_id
 
-      rate_calculator.do
+      rate_calculator.create
 
       rate = Rate.find(any_id)
       hours_day = 6
@@ -139,11 +138,5 @@ RSpec.describe RateCalculator do
 
   def any_id
     100019
-  end
-
-  def create_rate_with_any_id
-    new_rate = Rate.new
-    new_rate.id = any_id
-    new_rate.save
   end
 end
