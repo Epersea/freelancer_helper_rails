@@ -28,28 +28,28 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
       "expenses"=>{
         "long_term"=>[
             {"amount"=>"1500",
-              "years"=>"5"},
-            {"amount"=>"800",
+              "years"=>"3"},
+            {"amount"=>"1600",
               "years"=>"4"},
-            {"amount"=>"300",
-              "years"=>"6"},
-            {"amount"=>"1000",
+            {"amount"=>"500",
+              "years"=>"3"},
+            {"amount"=>"2000",
               "years"=>"10"}
             ],
-          "annual"=>"1000",
-          "monthly"=>"300"
+          "annual"=>"1500",
+          "monthly"=>"500"
         },
         "hours"=>{
-          "hours_day"=>"6",
-          "non_billable"=>"20",
+          "hours_day"=>"8",
+          "non_billable"=>"22",
           "days_week"=>"5",
           "holidays"=>"25",
           "training"=>"6",
           "sick"=>"6"
         },
         "earnings"=> {
-          "net_monthly_salary"=>"2500",
-          "tax_percent"=>"25"
+          "net_monthly_salary"=>"5000",
+          "tax_percent"=>"20"
         }
     }
  
@@ -57,14 +57,14 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     rate = Rate.last
     assert_equal Rate.count, expected_rate_count
     assert_redirected_to "/rate/#{rate.id}"
-    assert_equal rate.rate, 42.3
-    assert_equal rate.annual_expenses, 5250
-    assert_equal rate.hours_day, 6
-    assert_equal rate.hours_year, 1070.4
-    assert_equal rate.billable_percent, 80
-    assert_equal rate.net_month, 2500
-    assert_equal rate.tax_percent, 25
-    assert_equal rate.gross_year, 45250
+    assert_equal rate.rate, 60.2
+    assert_equal rate.annual_expenses, 8766
+    assert_equal rate.hours_day, 8
+    assert_equal rate.hours_year, 1391.5
+    assert_equal rate.billable_percent, 78
+    assert_equal rate.net_month, 5000
+    assert_equal rate.tax_percent, 20
+    assert_equal rate.gross_year, 83766
   end
 
   test "should show rate" do
