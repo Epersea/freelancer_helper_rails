@@ -47,12 +47,11 @@ class RateController < ApplicationController
   end
 
   def get_user_info(params)
-    params.delete("controller")
-    params.delete("action")
-    params.delete("authenticity_token")
-    params.delete("_method")
-    params.delete("commit")
+    user_info = {}
+    user_info["expenses"] = params["expenses"]
+    user_info["hours"] = params["hours"]
+    user_info["earnings"] = params["earnings"]
 
-    params
+    user_info
   end
 end
