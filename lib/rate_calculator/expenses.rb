@@ -4,10 +4,8 @@ class Expenses
   end
 
   def total_annual_expenses
-    long_term_expenses = long_term_per_year
-    monthly_expenses = monthly_per_year
     annual_expenses = @expenses["annual"].to_i
-    total_annual_expenses = long_term_expenses + monthly_expenses + annual_expenses
+    total_annual_expenses = long_term_per_year + monthly_per_year + annual_expenses
 
     total_annual_expenses
   end
@@ -31,8 +29,8 @@ class Expenses
   end
 
   def monthly_per_year
-    monthly_expenses = @expenses["monthly"]
-    monthly_per_year = monthly_expenses.to_i * 12
+    monthly_expenses = @expenses["monthly"].to_i
+    monthly_per_year = monthly_expenses * 12
 
     monthly_per_year
   end

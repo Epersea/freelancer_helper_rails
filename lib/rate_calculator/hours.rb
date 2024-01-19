@@ -20,10 +20,6 @@ class Hours
 
   private
 
-  def net_hours_day
-    (hours_day * billable_percent) / 100
-  end
-
   def days_per_year
     working_days = calculate_working_days
     days_off = calculate_days_off
@@ -34,9 +30,9 @@ class Hours
 
   def calculate_working_days
     days_week = @hours["days_week"].to_i
-    potential_working_days = days_week * 52
+    working_days = days_week * 52
 
-    potential_working_days
+    working_days
   end
 
   def calculate_days_off
@@ -46,5 +42,9 @@ class Hours
     days_off = holidays + training_days + sick_days
 
     days_off
+  end
+
+  def net_hours_day
+    (hours_day * billable_percent) / 100
   end
 end
