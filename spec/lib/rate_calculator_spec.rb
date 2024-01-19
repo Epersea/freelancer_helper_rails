@@ -3,14 +3,6 @@ require 'rate_calculator'
 
 RSpec.describe RateCalculator do
   let(:rate_calculator) {RateCalculator.new(user_info)}
- 
-  it 'calculates final goal rate' do
-    
-    goal_rate = rate_calculator.goal_rate
-
-    expected_goal_rate = 42.3
-    expect(goal_rate).to eq(goal_rate)
-  end
 
   it 'returns aggregated info in the correct format' do
 

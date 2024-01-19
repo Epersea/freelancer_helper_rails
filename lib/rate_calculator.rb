@@ -23,10 +23,6 @@ class RateCalculator
   }
   end
 
-  def goal_rate
-    (gross_year / hours_per_year).round(1)
-  end
-
   private
 
   def earnings
@@ -59,5 +55,9 @@ class RateCalculator
 
   def gross_year
     earnings.gross_year
+  end
+
+  def goal_rate
+    (gross_year / hours_per_year).round(1)
   end
 end
