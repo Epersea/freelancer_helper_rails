@@ -13,22 +13,37 @@ class RatesTest < ApplicationSystemTestCase
   test "should create rate" do
     visit "/rate"
     
-    fill_in "hours[hours_day]", with: "8"
-    fill_in "hours[days_week]", with: "5"
+    fill_in "expenses[annual]", with: "1000"
+    fill_in "expenses[monthly]", with: "300"
+    fill_in "hours[hours_day]", with: "7"
+    fill_in "hours[non_billable]", with: "20"
+    fill_in "hours[days_week]", with: "4"
     fill_in "earnings[net_monthly_salary]", with: "2500"
+    fill_in "earnings[tax_percent]", with: "30"
 
     click_on "Calculate"
 
-    assert_text "Your minimum rate per hour"
+    assert_text "Your minimum rate per hour should be 40.7"
   end
 
-  test "should update Rate" do
+  test "should get edit" do
     rate_id = Rate.last.id
     visit "/rate/#{rate_id}"
 
     click_on "here"
 
     assert_text "Edit your rate"
+  end
+
+  test "should update rate" do
+    rate_id = Rate.last.id
+    visit "/rate/#{rate_id}/edit"
+
+    fill_in "earnings[net_monthly_salary]", with: "3000"
+
+    click_on "Calculate"
+
+    assert_text "Your minimum rate per hour should be 49.7"
   end
 
   test "should destroy Rate" do
