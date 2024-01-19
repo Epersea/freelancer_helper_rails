@@ -8,16 +8,6 @@ RSpec.describe RateCalculator do
   let(:gross_year) { 45250 }
   let(:goal_rate) { 42.3 }
 
-
-  describe 'Hours' do
-    it 'calculates total billable hours per year' do
-
-      hours_per_year = rate_calculator.hours_per_year
-
-      expect(hours_per_year).to eq(hours_year)
-    end
-  end
-
   describe 'Earnings' do
     it 'calculates gross earnings per year' do
 

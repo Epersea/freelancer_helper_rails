@@ -22,14 +22,6 @@ class RateCalculator
   }
   end
 
-  def total_annual_expenses
-    @expenses.total_annual_expenses
-  end
-
-  def hours_per_year
-    @hours.hours_per_year
-  end
-
   def gross_year
     net_year = net_month * 12
     net_percent = 100 - tax_percent
@@ -45,12 +37,20 @@ class RateCalculator
 
   private
 
+  def total_annual_expenses
+    @expenses.total_annual_expenses
+  end
+
   def hours_day
     @hours.hours_day
   end
 
   def billable_percent
     @hours.billable_percent
+  end
+
+  def hours_per_year
+    @hours.hours_per_year
   end
 
   def net_month
