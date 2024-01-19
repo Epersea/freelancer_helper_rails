@@ -34,18 +34,25 @@ class RateController < ApplicationController
   end
 
   def add_calculations_to_rate(rate, params)
-    rate_calculator = RateCalculator.new(params)
+    user_info = get_user_info(params)
+    rate_calculator = RateCalculator.new(user_info)
     results = rate_calculator.do
 
     results.each do |key, value|
       rate.send("#{key}=", value) if rate.respond_to?("#{key}=")
     end
 
+    rate.user_info = user_info
+    rate.save
+  end
+
+  def get_user_info(params)
     params.delete("controller")
     params.delete("action")
-    @rate.user_info = params
-    @rate.save
+    params.delete("authenticity_token")
+    params.delete("_method")
+    params.delete("commit")
 
-    rate.save
+    params
   end
 end
