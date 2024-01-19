@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_16_151553) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_153057) do
   create_table "rates", force: :cascade do |t|
     t.float "rate"
     t.integer "annual_expenses"
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_151553) do
     t.integer "gross_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "user_info", default: {}
   end
 
 end

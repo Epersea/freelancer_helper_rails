@@ -9,6 +9,10 @@ class RateController < ApplicationController
     redirect_to show_rate_path(@rate)
   end
 
+  def edit
+    @user_info = @rate.user_info
+  end
+
   def update
     add_calculations_to_rate(@rate, params)
 
@@ -29,13 +33,18 @@ class RateController < ApplicationController
       redirect_to root_path
   end
 
-  def add_calculations_to_rate(rate, user_info)
-    rate_calculator = RateCalculator.new(user_info)
+  def add_calculations_to_rate(rate, params)
+    rate_calculator = RateCalculator.new(params)
     results = rate_calculator.do
 
     results.each do |key, value|
       rate.send("#{key}=", value) if rate.respond_to?("#{key}=")
     end
+
+    params.delete("controller")
+    params.delete("action")
+    @rate.user_info = params
+    @rate.save
 
     rate.save
   end
