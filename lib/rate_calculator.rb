@@ -7,7 +7,7 @@ class RateCalculator
   def initialize(user_info)
     @expenses = Expenses.new(user_info["expenses"])
     @hours = Hours.new(user_info["hours"])
-    @earnings = user_info["earnings"]
+    @earnings_info = user_info["earnings"]
   end
 
   def do
@@ -30,7 +30,7 @@ class RateCalculator
   private
 
   def earnings
-    Earnings.new(@earnings, total_annual_expenses)
+    Earnings.new(@earnings_info, total_annual_expenses)
   end
 
   def total_annual_expenses
@@ -50,11 +50,11 @@ class RateCalculator
   end
 
   def net_month
-    @earnings["net_monthly_salary"].to_i
+    earnings.net_month
   end
 
   def tax_percent
-    @earnings["tax_percent"].to_i
+    earnings.tax_percent
   end
 
   def gross_year
