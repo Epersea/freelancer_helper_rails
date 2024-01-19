@@ -1,5 +1,6 @@
 require_relative 'rate_calculator/hours'
 require_relative 'rate_calculator/expenses'
+require_relative 'rate_calculator/earnings'
 
 class RateCalculator
 
@@ -18,24 +19,19 @@ class RateCalculator
     net_month: net_month,
     tax_percent: tax_percent,
     gross_year: gross_year,
-    rate: hourly_rate
+    rate: goal_rate
   }
   end
 
-  def gross_year
-    net_year = net_month * 12
-    net_percent = 100 - tax_percent
-    gross_minus_expenses = (net_year * 100) / net_percent
-    gross_with_expenses = gross_minus_expenses + total_annual_expenses
-
-    gross_with_expenses
-  end
-
-  def hourly_rate
+  def goal_rate
     (gross_year / hours_per_year).round(1)
   end
 
   private
+
+  def earnings
+    Earnings.new(@earnings, total_annual_expenses)
+  end
 
   def total_annual_expenses
     @expenses.total_annual_expenses
@@ -59,5 +55,9 @@ class RateCalculator
 
   def tax_percent
     @earnings["tax_percent"].to_i
+  end
+
+  def gross_year
+    earnings.gross_year
   end
 end

@@ -3,38 +3,22 @@ require 'rate_calculator'
 
 RSpec.describe RateCalculator do
   let(:rate_calculator) {RateCalculator.new(user_info)}
-  let(:annual_expenses) { 5250 }
-  let(:hours_year) { 1070.4 }
-  let(:gross_year) { 45250 }
-  let(:goal_rate) { 42.3 }
+ 
+  it 'calculates final goal rate' do
+    
+    goal_rate = rate_calculator.goal_rate
 
-  describe 'Earnings' do
-    it 'calculates gross earnings per year' do
-
-      gross_earnings_year = rate_calculator.gross_year
-
-      expect(gross_earnings_year).to eq(gross_year)
-    end
+    expected_goal_rate = 42.3
+    expect(goal_rate).to eq(goal_rate)
   end
 
-  describe 'Goal rate' do
-    it 'calculates final goal rate' do
-      
-      hourly_rate = rate_calculator.hourly_rate
+  it 'returns aggregated info in the correct format' do
 
-      expect(hourly_rate).to eq(goal_rate)
-    end
+    aggregated_info = rate_calculator.do
+
+    expect(aggregated_info).to eq(expected_rate_info)
   end
-
-  describe 'Aggregated info' do
-    it 'returns aggregated info in the correct format' do
-
-      aggregated_info = rate_calculator.do
-
-      expect(aggregated_info).to eq(rate_info)
-    end
-  end
-
+ 
   def user_info
     {
       "expenses"=>{
@@ -66,16 +50,16 @@ RSpec.describe RateCalculator do
     }
   end
 
-  def rate_info 
+  def expected_rate_info 
     {
-      rate: goal_rate,
-      annual_expenses: annual_expenses,
+      rate: 42.3,
+      annual_expenses: 5250,
       hours_day: 6,
-      hours_year: hours_year,
+      hours_year: 1070.4,
       billable_percent: 80,
       net_month: 2500,
       tax_percent: 25,
-      gross_year: gross_year
+      gross_year: 45250
     }
   end
 end
