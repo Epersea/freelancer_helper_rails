@@ -25,3 +25,4 @@ Visit http://localhost:3000 to access the app. If needed, you can change the def
 
 ### UPDATES
 - 13-Jan-23: first working version of Rate Calculator completed.
+- 19-Jan-23: Rate Calculator update and delete routes completed + validations and testing.
