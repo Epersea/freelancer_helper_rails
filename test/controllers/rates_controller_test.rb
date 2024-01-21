@@ -1,7 +1,6 @@
 require "test_helper"
 
 class RatesControllerTest < ActionDispatch::IntegrationTest
-  
   test "should get index" do
 
     get "/"
@@ -54,9 +53,8 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     }
  
     expected_rate_count = previous_rate_count + 1
-    rate = Rate.last
     assert_equal Rate.count, expected_rate_count
-    assert_redirected_to "/rate/#{rate.id}"
+    rate = Rate.last
     assert_equal rate.rate, 60.2
     assert_equal rate.annual_expenses, 8766
     assert_equal rate.hours_day, 8
@@ -65,6 +63,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal rate.net_month, 5000
     assert_equal rate.tax_percent, 20
     assert_equal rate.gross_year, 83766
+    assert_redirected_to "/rate/#{rate.id}"
   end
 
   test "should show rate" do

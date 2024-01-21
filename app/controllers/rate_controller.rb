@@ -35,6 +35,8 @@ class RateController < ApplicationController
 
   def add_calculations_to_rate(rate, params)
     user_info = get_user_info(params)
+    rate.user_info = user_info
+    
     rate_calculator = RateCalculator.new(user_info)
     results = rate_calculator.do
 
@@ -42,7 +44,6 @@ class RateController < ApplicationController
       rate.send("#{key}=", value) if rate.respond_to?("#{key}=")
     end
 
-    rate.user_info = user_info
     rate.save
   end
 
