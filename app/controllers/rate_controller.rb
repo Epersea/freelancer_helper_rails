@@ -1,12 +1,21 @@
 class RateController < ApplicationController
   before_action :find_rate, except: [:create, :index, :new]
 
+  def index
+  end
+
+  def new
+  end
+
   def create
     @rate = Rate.new
 
     add_calculations_to_rate(@rate, params)
 
     redirect_to show_rate_path(@rate)
+  end
+
+  def show
   end
 
   def edit
