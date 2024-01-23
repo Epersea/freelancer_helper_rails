@@ -1,5 +1,5 @@
 class RateController < ApplicationController
-  before_action :find_rate, except: [:create, :index, :new]
+  before_action :set_rate, except: [:create, :index, :new]
 
   def index
   end
@@ -19,7 +19,7 @@ class RateController < ApplicationController
   end
 
   def edit
-    @user_info = @rate.user_info
+    @rate_input = @rate.user_info
   end
 
   def update
@@ -36,17 +36,15 @@ class RateController < ApplicationController
 
   private
 
-  def find_rate
+  def set_rate
     @rate = Rate.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to root_path
   end
 
   def add_calculations_to_rate(rate, params)
-    user_info = get_user_info(params)
-    rate.user_info = user_info
+    rate_input = get_rate_input(params)
+    rate.user_info = rate_input
     
-    rate_calculator = RateCalculator.new(user_info)
+    rate_calculator = RateCalculator.new(rate_input)
     results = rate_calculator.do
 
     results.each do |key, value|
@@ -56,12 +54,12 @@ class RateController < ApplicationController
     rate.save
   end
 
-  def get_user_info(params)
-    user_info = {}
-    user_info["expenses"] = params["expenses"]
-    user_info["hours"] = params["hours"]
-    user_info["earnings"] = params["earnings"]
+  def get_rate_input(params)
+    rate_input = {}
+    rate_input["expenses"] = params["expenses"]
+    rate_input["hours"] = params["hours"]
+    rate_input["earnings"] = params["earnings"]
 
-    user_info
+    rate_input
   end
 end
