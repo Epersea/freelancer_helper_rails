@@ -21,7 +21,7 @@ class RateController < ApplicationController
   end
 
   def update
-    add_calculations_to_rate(@rate)
+    @rate.update_input(rate_input)
 
     redirect_to show_rate_path(@rate)
   end
