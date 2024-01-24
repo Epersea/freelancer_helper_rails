@@ -10,7 +10,7 @@ class RateController < ApplicationController
   def create
     @rate = Rate.new
 
-    add_calculations_to_rate(@rate, params)
+    add_calculations_to_rate(@rate)
 
     redirect_to show_rate_path(@rate)
   end
@@ -23,7 +23,7 @@ class RateController < ApplicationController
   end
 
   def update
-    add_calculations_to_rate(@rate, params)
+    add_calculations_to_rate(@rate)
 
     redirect_to show_rate_path(@rate)
   end
@@ -40,8 +40,8 @@ class RateController < ApplicationController
     @rate = Rate.find(params[:id])
   end
 
-  def add_calculations_to_rate(rate, params)
-    rate_input = get_rate_input(params)
+  def add_calculations_to_rate(rate)
+    rate_input = get_rate_input
     rate.user_info = rate_input
     
     rate_calculator = RateCalculator.new(rate_input)
@@ -54,12 +54,24 @@ class RateController < ApplicationController
     rate.save
   end
 
-  def get_rate_input(params)
+  def get_rate_input
     rate_input = {}
-    rate_input["expenses"] = params["expenses"]
-    rate_input["hours"] = params["hours"]
-    rate_input["earnings"] = params["earnings"]
+    rate_input["expenses"] = expenses_params
+    rate_input["hours"] = hours_params
+    rate_input["earnings"] = earnings_params
 
     rate_input
+  end
+
+  def expenses_params
+    params.require(:expenses).permit(:annual, :monthly, long_term: [:amount, :years])
+  end
+
+  def hours_params
+    params.require(:hours).permit(:hours_day, :non_billable, :days_week, :holidays, :training, :sick)
+  end
+
+  def earnings_params
+    params.require(:earnings).permit(:net_monthly_salary, :tax_percent)
   end
 end
