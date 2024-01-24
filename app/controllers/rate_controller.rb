@@ -56,6 +56,6 @@ class RateController < ApplicationController
   end
 
   def earnings_params
-    params.require(:earnings).permit(:net_monthly_salary, :tax_percent)
+    params.require(:earnings).permit(:net_month, :tax_percent)
   end
 end

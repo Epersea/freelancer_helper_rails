@@ -44,7 +44,7 @@ RSpec.describe RateCalculator do
           "sick"=>"6"
         },
         "earnings"=> {
-          "net_monthly_salary"=>"2500",
+          "net_month"=>"2500",
           "tax_percent"=>"25"
         }
     }

@@ -14,7 +14,7 @@ describe 'Earnings' do
 
   def earnings_info
     {
-      "net_monthly_salary"=>"2500",
+      "net_month"=>"2500",
       "tax_percent"=>"25"
     }
   end

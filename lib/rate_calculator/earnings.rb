@@ -1,6 +1,6 @@
 class Earnings
   def initialize(earnings, annual_expenses)
-    @net_month = earnings["net_monthly_salary"].to_i
+    @net_month = earnings["net_month"].to_i
     @tax_percent = earnings["tax_percent"].to_i
     @annual_expenses = annual_expenses
   end

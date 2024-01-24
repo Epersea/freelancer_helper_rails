@@ -47,7 +47,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
           "sick"=>"6"
         },
         "earnings"=> {
-          "net_monthly_salary"=>"5000",
+          "net_month"=>"5000",
           "tax_percent"=>"20"
         }
     }
@@ -124,7 +124,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
           "sick"=>"0"
         },
         "earnings"=> {
-          "net_monthly_salary"=>"3000",
+          "net_month"=>"3000",
           "tax_percent"=>"0"
         }
     }
