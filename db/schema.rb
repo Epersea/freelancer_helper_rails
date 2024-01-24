@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_19_153057) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_24_152332) do
+  create_table "rate_inputs", force: :cascade do |t|
+    t.integer "rate_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "expenses"
+    t.json "hours"
+    t.json "earnings"
+    t.index ["rate_id"], name: "index_rate_inputs_on_rate_id"
+  end
+
   create_table "rates", force: :cascade do |t|
     t.float "rate"
     t.integer "annual_expenses"
@@ -25,4 +35,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_153057) do
     t.json "user_info", default: {}
   end
 
+  add_foreign_key "rate_inputs", "rates"
 end

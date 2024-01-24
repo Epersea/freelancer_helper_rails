@@ -10,18 +10,29 @@ class RateCalculator
     @earnings_info = user_info["earnings"]
   end
 
-  def do
-  {
-    annual_expenses: total_annual_expenses,
-    hours_day: hours_day,
-    billable_percent: billable_percent,
-    hours_year: hours_per_year,
-    net_month: net_month,
-    tax_percent: tax_percent,
-    gross_year: gross_year,
-    rate: goal_rate
-  }
+  def apply_to(rate)
+    rate.annual_expenses = total_annual_expenses
+    rate.hours_day = hours_day
+    rate.billable_percent = billable_percent
+    rate.hours_year = hours_per_year
+    rate.net_month = net_month
+    rate.tax_percent = tax_percent
+    rate.gross_year = gross_year
+    rate.rate = goal_rate
   end
+
+  # def do
+  # {
+  #   annual_expenses: total_annual_expenses,
+  #   hours_day: hours_day,
+  #   billable_percent: billable_percent,
+  #   hours_year: hours_per_year,
+  #   net_month: net_month,
+  #   tax_percent: tax_percent,
+  #   gross_year: gross_year,
+  #   rate: goal_rate
+  # }
+  # end
 
   private
 

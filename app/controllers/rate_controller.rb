@@ -8,9 +8,7 @@ class RateController < ApplicationController
   end
 
   def create
-    @rate = Rate.new
-
-    add_calculations_to_rate(@rate)
+    @rate = Rate.create_for(rate_input)
 
     redirect_to show_rate_path(@rate)
   end
@@ -41,10 +39,10 @@ class RateController < ApplicationController
   end
 
   def add_calculations_to_rate(rate)
-    rate_input = get_rate_input
-    rate.user_info = rate_input
+    input = rate_input
+    rate.user_info = input
     
-    rate_calculator = RateCalculator.new(rate_input)
+    rate_calculator = RateCalculator.new(input)
     results = rate_calculator.do
 
     results.each do |key, value|
@@ -54,7 +52,7 @@ class RateController < ApplicationController
     rate.save
   end
 
-  def get_rate_input
+  def rate_input
     rate_input = {}
     rate_input["expenses"] = expenses_params
     rate_input["hours"] = hours_params

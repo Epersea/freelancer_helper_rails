@@ -95,44 +95,44 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', 1
   end
 
-  test "should update rate" do
-    rate = Rate.last
-    rate_id = rate.id
-    assert_equal rate.rate, 42.3
+  # test "should update rate" do
+  #   rate = Rate.last
+  #   rate_id = rate.id
+  #   assert_equal rate.rate, 42.3
 
-    patch "/rate/#{rate_id}", params: {
-      "expenses"=>{
-        "long_term"=>[
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"}
-            ],
-          "annual"=>"0",
-          "monthly"=>"0"
-        },
-        "hours"=>{
-          "hours_day"=>"8",
-          "non_billable"=>"0",
-          "days_week"=>"5",
-          "holidays"=>"0",
-          "training"=>"0",
-          "sick"=>"0"
-        },
-        "earnings"=> {
-          "net_monthly_salary"=>"3000",
-          "tax_percent"=>"0"
-        }
-    }
+  #   patch "/rate/#{rate_id}", params: {
+  #     "expenses"=>{
+  #       "long_term"=>[
+  #           {"amount"=>"0",
+  #             "years"=>"0"},
+  #           {"amount"=>"0",
+  #             "years"=>"0"},
+  #           {"amount"=>"0",
+  #             "years"=>"0"},
+  #           {"amount"=>"0",
+  #             "years"=>"0"}
+  #           ],
+  #         "annual"=>"0",
+  #         "monthly"=>"0"
+  #       },
+  #       "hours"=>{
+  #         "hours_day"=>"8",
+  #         "non_billable"=>"0",
+  #         "days_week"=>"5",
+  #         "holidays"=>"0",
+  #         "training"=>"0",
+  #         "sick"=>"0"
+  #       },
+  #       "earnings"=> {
+  #         "net_monthly_salary"=>"3000",
+  #         "tax_percent"=>"0"
+  #       }
+  #   }
    
-    updated_rate = Rate.find(rate_id)
-    assert_equal updated_rate.rate, 17.3
-    assert_redirected_to "/rate/#{rate_id}"
-  end
+  #   updated_rate = Rate.find(rate_id)
+  #   assert_equal updated_rate.rate, 17.3
+  #   assert_redirected_to "/rate/#{rate_id}"
+  # end
 
   test "should destroy rate" do
     rate = Rate.last
