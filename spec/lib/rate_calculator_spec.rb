@@ -5,10 +5,18 @@ RSpec.describe RateCalculator do
   let(:rate_calculator) {RateCalculator.new(user_info)}
 
   it 'returns aggregated info in the correct format' do
+    rate = Rate.new
 
-    aggregated_info = rate_calculator.do
+    aggregated_info = rate_calculator.apply_to(rate)
 
-    expect(aggregated_info).to eq(expected_rate_info)
+    expect(rate.rate).to eq(expected_rate_info[:rate])
+    expect(rate.annual_expenses).to eq(expected_rate_info[:annual_expenses])
+    expect(rate.hours_day).to eq(expected_rate_info[:hours_day])
+    expect(rate.hours_year).to eq(expected_rate_info[:hours_year])
+    expect(rate.billable_percent).to eq(expected_rate_info[:billable_percent])
+    expect(rate.net_month).to eq(expected_rate_info[:net_month])
+    expect(rate.tax_percent).to eq(expected_rate_info[:tax_percent])
+    expect(rate.gross_year).to eq(expected_rate_info[:gross_year])
   end
  
   def user_info
