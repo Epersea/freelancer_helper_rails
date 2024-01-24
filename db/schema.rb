@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_152332) do
     t.integer "gross_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "user_info", default: {}
+    t.json "user_info"
   end
 
   add_foreign_key "rate_inputs", "rates"

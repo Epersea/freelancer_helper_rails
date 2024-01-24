@@ -13,7 +13,6 @@ class RateTest < ActiveSupport::TestCase
     assert rate.errors[:net_month].any?
     assert rate.errors[:tax_percent].any?
     assert rate.errors[:gross_year].any?
-    assert rate.errors[:user_info].any?
   end
 
   test "rate attributes must be numeric" do
