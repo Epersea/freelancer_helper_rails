@@ -77,7 +77,6 @@ class RateTest < ActiveSupport::TestCase
     rate.net_month = 2500
     rate.tax_percent = 25
     rate.gross_year = 45250
-    rate.user_info = {"expenses":{"long_term":[{"amount":"1500","years":"5"},{"amount":"800","years":"4"},{"amount":"300","years":"6"},{"amount":"1000","years":"10"}],"annual":"1000","monthly":"300"},"hours":{"hours_day":"6","non_billable":"20","days_week":"5","holidays":"25","training":"6","sick":"6"},"earnings":{"net_month":"2500","tax_percent":"25"},"commit":"Calculate"}
 
     assert rate.valid?
   end
