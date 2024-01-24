@@ -21,20 +21,6 @@ class Rate < ApplicationRecord
     save!
   end
 
-  store :data, accessors: [
-    "expenses.long_term",
-    "expenses.annual",
-    "expenses.monthly",
-    "hours.hours_day",
-    "hours.non_billable",
-    "hours.days_week",
-    "hours.holidays",
-    "hours.training",
-    "hours.sick",
-    "earnings.net_monthly_salary",
-    "earnings.tax_percent"
-  ]
-
   def refresh
     rate_calculator = RateCalculator.new(input)
     rate_calculator.apply_to(self)

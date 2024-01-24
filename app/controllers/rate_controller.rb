@@ -17,7 +17,7 @@ class RateController < ApplicationController
   end
 
   def edit
-    @rate_input = @rate.user_info
+    @rate_input = @rate.input
   end
 
   def update
@@ -36,20 +36,6 @@ class RateController < ApplicationController
 
   def set_rate
     @rate = Rate.find(params[:id])
-  end
-
-  def add_calculations_to_rate(rate)
-    input = rate_input
-    rate.user_info = input
-    
-    rate_calculator = RateCalculator.new(input)
-    results = rate_calculator.do
-
-    results.each do |key, value|
-      rate.send("#{key}=", value) if rate.respond_to?("#{key}=")
-    end
-
-    rate.save
   end
 
   def rate_input
