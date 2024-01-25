@@ -10,3 +10,13 @@ one:
   tax_percent: 25.0
   gross_year: 45250
 
+two:
+  rate: 60.2
+  annual_expenses: 8766
+  hours_day: 8
+  hours_year: 1391.5
+  billable_percent: 78
+  net_month: 5000
+  tax_percent: 20.0
+  gross_year: 83766
+
