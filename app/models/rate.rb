@@ -19,14 +19,14 @@ class Rate < ApplicationRecord
     end
   end
 
-  def update_input(user_input_attributes)
+  def update(user_input_attributes)
     transaction do
       input.update(user_input_attributes)
       refresh
       save!
     end
   end
-
+  
   def refresh
     rate_calculator = RateCalculator.new(input)
     rate_calculator.apply_to(self)
