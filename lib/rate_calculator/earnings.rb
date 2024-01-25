@@ -17,6 +17,8 @@ class Earnings
     gross_minus_expenses + @annual_expenses
   end
 
+  private
+
   def gross_minus_expenses
     (net_year * 100) / net_percent
   end

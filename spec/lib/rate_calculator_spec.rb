@@ -4,7 +4,7 @@ require 'rate_calculator'
 RSpec.describe RateCalculator do
   let(:rate_calculator) {RateCalculator.new(user_info)}
 
-  it 'returns aggregated info in the correct format' do
+  it 'assigns goal rate and partial calculations to a rate' do
     rate = Rate.new
 
     aggregated_info = rate_calculator.apply_to(rate)
