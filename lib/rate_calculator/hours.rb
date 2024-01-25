@@ -13,9 +13,7 @@ class Hours
   end
 
   def billable_percent
-    billable_percent = 100 - @non_billable
-
-    billable_percent
+    100 - @non_billable
   end
 
   def hours_per_year
@@ -25,11 +23,15 @@ class Hours
   private
 
   def days_per_year
-    working_days = @days_week * 52
-    days_off = @holidays + @training_days + @sick_days
-    days_per_year = working_days - days_off
+    working_days - days_off
+  end
 
-    days_per_year
+  def working_days
+    @days_week * 52
+  end
+
+  def days_off
+    @holidays + @training_days + @sick_days
   end
 
   def net_hours_day

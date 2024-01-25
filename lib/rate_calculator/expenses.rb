@@ -6,9 +6,7 @@ class Expenses
   end
 
   def total_annual_expenses
-    total_annual_expenses = long_term_per_year + monthly_per_year + @annual_expenses
-
-    total_annual_expenses
+    long_term_per_year + monthly_per_year + @annual_expenses
   end
 
   private
@@ -17,20 +15,22 @@ class Expenses
     long_term_per_year = 0
     
     @long_term_expenses.each do |expense|
-      begin
-        annual_impact = expense["amount"].to_i / expense["years"].to_i
-      rescue ZeroDivisionError
-        annual_impact = 0
-      end
+      annual_impact = calculate_annual_impact(expense)
       long_term_per_year += annual_impact
     end
 
     long_term_per_year
   end
 
-  def monthly_per_year
-    monthly_per_year = @monthly_expenses * 12
+  def calculate_annual_impact(expense)
+    begin
+      annual_impact = expense["amount"].to_i / expense["years"].to_i
+    rescue ZeroDivisionError
+      annual_impact = 0
+    end
+  end
 
-    monthly_per_year
+  def monthly_per_year
+    @monthly_expenses * 12
   end
 end

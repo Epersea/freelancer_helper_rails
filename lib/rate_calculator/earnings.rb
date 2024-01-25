@@ -14,11 +14,18 @@ class Earnings
   end
 
   def gross_year
-    net_year = @net_month * 12
-    net_percent = 100 - @tax_percent
-    gross_minus_expenses = (net_year * 100) / net_percent
-    gross_with_expenses = gross_minus_expenses + @annual_expenses
+    gross_minus_expenses + @annual_expenses
+  end
 
-    gross_with_expenses
+  def gross_minus_expenses
+    (net_year * 100) / net_percent
+  end
+
+  def net_year
+    @net_month * 12
+  end
+
+  def net_percent
+    100 - @tax_percent
   end
 end
