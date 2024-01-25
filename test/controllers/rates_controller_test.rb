@@ -1,6 +1,10 @@
 require "test_helper"
 
 class RatesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @input_two = rate_inputs(:two)
+  end
+
   test "should get index" do
 
     get "/"
@@ -24,45 +28,22 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     previous_rate_count = Rate.count
 
     post "/rate", params: {
-      "expenses"=>{
-        "long_term"=>[
-            {"amount"=>"1500",
-              "years"=>"3"},
-            {"amount"=>"1600",
-              "years"=>"4"},
-            {"amount"=>"500",
-              "years"=>"3"},
-            {"amount"=>"2000",
-              "years"=>"10"}
-            ],
-          "annual"=>"1500",
-          "monthly"=>"500"
-        },
-        "hours"=>{
-          "hours_day"=>"8",
-          "non_billable"=>"22",
-          "days_week"=>"5",
-          "holidays"=>"25",
-          "training"=>"6",
-          "sick"=>"6"
-        },
-        "earnings"=> {
-          "net_month"=>"5000",
-          "tax_percent"=>"20"
-        }
+      expenses: @input_two["expenses"],
+      hours: @input_two["hours"],
+      earnings: @input_two["earnings"],
     }
  
     expected_rate_count = previous_rate_count + 1
     assert_equal Rate.count, expected_rate_count
     rate = Rate.last
-    assert_equal rate.rate, 60.2
-    assert_equal rate.annual_expenses, 8766
+    assert_equal rate.rate, 60.1
+    assert_equal rate.annual_expenses, 8666
     assert_equal rate.hours_day, 8
     assert_equal rate.hours_year, 1391.5
     assert_equal rate.billable_percent, 78
     assert_equal rate.net_month, 5000
     assert_equal rate.tax_percent, 20
-    assert_equal rate.gross_year, 83766
+    assert_equal rate.gross_year, 83666
     assert_redirected_to "/rate/#{rate.id}"
   end
 
@@ -101,36 +82,13 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal rate.rate, 42.3
 
     patch "/rate/#{rate_id}", params: {
-      "expenses"=>{
-        "long_term"=>[
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"},
-            {"amount"=>"0",
-              "years"=>"0"}
-            ],
-          "annual"=>"0",
-          "monthly"=>"0"
-        },
-        "hours"=>{
-          "hours_day"=>"8",
-          "non_billable"=>"0",
-          "days_week"=>"5",
-          "holidays"=>"0",
-          "training"=>"0",
-          "sick"=>"0"
-        },
-        "earnings"=> {
-          "net_month"=>"3000",
-          "tax_percent"=>"0"
-        }
+      expenses: @input_two["expenses"],
+      hours: @input_two["hours"],
+      earnings: @input_two["earnings"],
     }
    
     updated_rate = Rate.find(rate_id)
-    assert_equal updated_rate.rate, 17.3
+    assert_equal updated_rate.rate, 60.1
     assert_redirected_to "/rate/#{rate_id}"
   end
 
