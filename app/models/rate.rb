@@ -17,6 +17,7 @@ class Rate < ApplicationRecord
 
   def update_input(user_input_attributes)
     input.assign_attributes(user_input_attributes)
+    input.save!
     refresh
     save!
   end
