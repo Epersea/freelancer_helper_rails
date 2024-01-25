@@ -21,19 +21,6 @@ class RateCalculator
     rate.rate = goal_rate
   end
 
-  # def do
-  # {
-  #   annual_expenses: total_annual_expenses,
-  #   hours_day: hours_day,
-  #   billable_percent: billable_percent,
-  #   hours_year: hours_per_year,
-  #   net_month: net_month,
-  #   tax_percent: tax_percent,
-  #   gross_year: gross_year,
-  #   rate: goal_rate
-  # }
-  # end
-
   private
 
   def earnings

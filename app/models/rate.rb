@@ -8,18 +8,23 @@ class Rate < ApplicationRecord
   class << self
     def create_for(user_input_attributes)
       rate = new
-      rate.build_input user_input_attributes
-      rate.refresh
-      rate.save!
+
+      rate.transaction do
+        rate.build_input user_input_attributes
+        rate.refresh
+        rate.save!
+      end
+      
       rate
     end
   end
 
   def update_input(user_input_attributes)
-    input.assign_attributes(user_input_attributes)
-    input.save!
-    refresh
-    save!
+    transaction do
+      input.update(user_input_attributes)
+      refresh
+      save!
+    end
   end
 
   def refresh
