@@ -1,6 +1,12 @@
 require "test_helper"
 
 class RateTest < ActiveSupport::TestCase
+
+  setup do
+    @basic_input = rate_inputs(:basic_rate_input)
+    @improved_input∫ = rate_inputs(:improved_rate_input)
+  end
+
   test "rate attributes must not be empty" do
     rate = Rate.new
 
@@ -79,5 +85,45 @@ class RateTest < ActiveSupport::TestCase
     rate.gross_year = 45250
 
     assert rate.valid?
+  end
+
+  test "an input is created when a rate is created" do
+
+    rate = Rate.create_for(basic_input_data)
+
+    input = Rate::Input.find_by(rate_id: rate.id)
+    assert input.valid?
+    assert_equal input.expenses, @basic_input["expenses"]
+    assert_equal input.hours, @basic_input["hours"]
+    assert_equal input.earnings, @basic_input["earnings"]
+  end
+
+  test "an input is updated when a rate is updated" do
+    rate = Rate.last
+
+    rate.update(improved_input_data)
+
+    updated_input = Rate::Input.find_by(rate_id: rate.id)
+    assert_equal updated_input.expenses, @improved_input∫["expenses"]
+    assert_equal updated_input.hours, @improved_input∫["hours"]
+    assert_equal updated_input.earnings, @improved_input∫["earnings"]
+  end
+
+  private
+
+  def basic_input_data
+    {
+      expenses: @basic_input["expenses"],
+      hours: @basic_input["hours"],
+      earnings: @basic_input["earnings"],
+    }
+  end
+
+  def improved_input_data
+    {
+      expenses: @improved_input∫["expenses"],
+      hours: @improved_input∫["hours"],
+      earnings: @improved_input∫["earnings"],
+    }
   end
 end

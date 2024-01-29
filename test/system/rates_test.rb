@@ -1,6 +1,11 @@
 require "application_system_test_case"
 
 class RatesTest < ApplicationSystemTestCase
+
+  setup do
+    @basic_rate = rates(:basic_rate)
+  end
+
   test "visiting the index" do
     visit root_path
     assert_selector "h1", text: "Welcome to Freelancer Helper"
@@ -23,7 +28,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should get edit" do
-    rate_id = Rate.last.id
+    rate_id = @basic_rate.id
     visit "/rate/#{rate_id}"
 
     click_on "here"
@@ -32,7 +37,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should update rate" do
-    rate_id = Rate.last.id
+    rate_id = @basic_rate.id
     visit "/rate/#{rate_id}/edit"
 
     fill_in "earnings[net_month]", with: "3000"
@@ -43,7 +48,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Rate" do
-    rate_id = Rate.last.id
+    rate_id = @basic_rate.id
     visit "/rate/#{rate_id}"
 
     click_on "Delete"

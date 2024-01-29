@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+basic_rate:
   rate: 42.3
   annual_expenses: 5250
   hours_day: 6
@@ -10,7 +10,7 @@ one:
   tax_percent: 25.0
   gross_year: 45250
 
-two:
+improved_rate:
   rate: 60.2
   annual_expenses: 8766
   hours_day: 8

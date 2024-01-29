@@ -2,7 +2,8 @@ require "test_helper"
 
 class RatesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @input_two = rate_inputs(:two)
+    @basic_rate = rates(:basic_rate)
+    @improved_input = rate_inputs(:improved_rate_input)
   end
 
   test "should get index" do
@@ -28,9 +29,9 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     previous_rate_count = Rate.count
 
     post "/rate", params: {
-      expenses: @input_two["expenses"],
-      hours: @input_two["hours"],
-      earnings: @input_two["earnings"],
+      expenses: @improved_input["expenses"],
+      hours: @improved_input["hours"],
+      earnings: @improved_input["earnings"],
     }
  
     expected_rate_count = previous_rate_count + 1
@@ -48,7 +49,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show rate" do
-    rate = Rate.last
+    rate = @basic_rate
     rate_id = rate.id
 
     get "/rate/#{rate_id}"
@@ -66,7 +67,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    rate = Rate.last
+    rate = @basic_rate
     rate_id = rate.id
 
     get "/rate/#{rate_id}/edit"
@@ -77,14 +78,14 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update rate" do
-    rate = Rate.last
-    rate_id = rate.id
+    rate_id = @basic_rate.id
+    rate = Rate.find(rate_id)
     assert_equal rate.rate, 42.3
 
     patch "/rate/#{rate_id}", params: {
-      expenses: @input_two["expenses"],
-      hours: @input_two["hours"],
-      earnings: @input_two["earnings"],
+      expenses: @improved_input["expenses"],
+      hours: @improved_input["hours"],
+      earnings: @improved_input["earnings"],
     }
    
     updated_rate = Rate.find(rate_id)
@@ -93,7 +94,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy rate" do
-    rate = Rate.last
+    rate = @basic_rate
     rate_id = rate.id
     previous_rate_count = Rate.count
 
