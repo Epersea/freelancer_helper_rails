@@ -1,13 +1,15 @@
 require 'rails_helper'
 require 'rate_calculator'
+require_relative '../../app/models/rate/input'
 
 RSpec.describe RateCalculator do
-  let(:rate_calculator) {RateCalculator.new(user_info)}
-
   it 'assigns goal rate and partial calculations to a rate' do
-    rate = Rate.new
-
-    aggregated_info = rate_calculator.apply_to(rate)
+    rate = Rate.new.tap do | r |
+      r.build_input user_info
+      rate_calculator = RateCalculator.new(r.input)
+      rate_calculator.apply_to(r)
+      r.save!
+    end
 
     expect(rate.rate).to eq(expected_rate_info[:rate])
     expect(rate.annual_expenses).to eq(expected_rate_info[:annual_expenses])

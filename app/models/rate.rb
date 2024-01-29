@@ -9,6 +9,7 @@ class Rate < ApplicationRecord
     def create_for(user_input_attributes)
       new.tap do | rate |
         rate.build_input user_input_attributes
+        p rate.input
         rate.refresh
         rate.save!
       end

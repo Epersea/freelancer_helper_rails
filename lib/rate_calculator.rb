@@ -4,10 +4,10 @@ require_relative 'rate_calculator/earnings'
 
 class RateCalculator
 
-  def initialize(user_info)
-    @expenses = Expenses.new(user_info["expenses"])
-    @hours = Hours.new(user_info["hours"])
-    @earnings_info = user_info["earnings"]
+  def initialize(rate_input)
+    @expenses = Expenses.new(rate_input.expenses)
+    @hours = Hours.new(rate_input.hours)
+    @earnings_info = rate_input.earnings
   end
 
   def apply_to(rate)
