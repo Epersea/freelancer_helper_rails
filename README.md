@@ -33,7 +33,7 @@ This functionality relies on two models:
   - Hours: data related to the time the user plans to work, taking into account factors like the number of hours per day / days per week, holidays and training.
   - Earnings: data related to the user's earning goals (expected net monthly earnings and taxes).
 
-Tests for the Rate model focus on ensuring that validations work correctly, while tests for Rate::Input focus on the creation and updating processes.
+Tests for the Rate model focus on ensuring that validations work correctly, and that the association with Rate::Input perfoms as expected (rate inputs and rates are created and updated in tandem).
 
 ### Controllers, routers and views
 At this point in the development process, the #index route just displays general information about the project and a link to the Rate Calculator.
