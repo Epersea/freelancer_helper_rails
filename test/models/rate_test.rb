@@ -101,7 +101,7 @@ class RateTest < ActiveSupport::TestCase
   test "an input is updated when a rate is updated" do
     rate = Rate.last
 
-    rate.update(expenses: @improved_input∫["expenses"], hours: @improved_input∫["hours"], earnings: @improved_input∫["earnings"])
+    rate.update_for(expenses: @improved_input∫["expenses"], hours: @improved_input∫["hours"], earnings: @improved_input∫["earnings"])
 
     updated_input = Rate::Input.find_by(rate_id: rate.id)
     assert_equal updated_input.expenses, @improved_input∫["expenses"]

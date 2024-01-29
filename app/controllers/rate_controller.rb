@@ -21,7 +21,7 @@ class RateController < ApplicationController
   end
 
   def update
-    @rate.update(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
+    @rate.update_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
     redirect_to show_rate_path(@rate)
   end

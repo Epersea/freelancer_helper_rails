@@ -9,22 +9,25 @@ class Rate < ApplicationRecord
     def create_for(**user_input_attributes)
       new.tap do | rate |
         rate.build_input user_input_attributes
-        rate.refresh
-        rate.save!
+        rate.refresh!
       end
     end
   end
 
-  def update(**user_input_attributes)
+  def update_for(**user_input_attributes)
     transaction do
       input.update(user_input_attributes)
-      refresh
-      save!
+      refresh!
     end
   end
   
   def refresh
     rate_calculator = RateCalculator.new(input)
     rate_calculator.apply_to(self)
+  end
+
+  def refresh!
+    refresh
+    save!
   end
 end
