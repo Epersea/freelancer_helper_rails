@@ -8,7 +8,7 @@ class RateController < ApplicationController
   end
 
   def create
-    @rate = Rate.create_for(rate_input)
+    @rate = Rate.create_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
     redirect_to show_rate_path(@rate)
   end
@@ -21,7 +21,7 @@ class RateController < ApplicationController
   end
 
   def update
-    @rate.update(rate_input)
+    @rate.update(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
     redirect_to show_rate_path(@rate)
   end
@@ -36,15 +36,6 @@ class RateController < ApplicationController
 
   def set_rate
     @rate = Rate.find(params[:id])
-  end
-
-  def rate_input
-    rate_input = {}
-    rate_input["expenses"] = expenses_params
-    rate_input["hours"] = hours_params
-    rate_input["earnings"] = earnings_params
-
-    rate_input
   end
 
   def expenses_params

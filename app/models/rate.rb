@@ -6,17 +6,16 @@ class Rate < ApplicationRecord
   has_one :input, dependent: :destroy
 
   class << self
-    def create_for(user_input_attributes)
+    def create_for(**user_input_attributes)
       new.tap do | rate |
         rate.build_input user_input_attributes
-        p rate.input
         rate.refresh
         rate.save!
       end
     end
   end
 
-  def update(user_input_attributes)
+  def update(**user_input_attributes)
     transaction do
       input.update(user_input_attributes)
       refresh
