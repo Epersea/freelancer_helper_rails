@@ -7,15 +7,11 @@ class Rate < ApplicationRecord
 
   class << self
     def create_for(user_input_attributes)
-      rate = new
-
-      rate.transaction do
+      new.tap do | rate |
         rate.build_input user_input_attributes
         rate.refresh
         rate.save!
       end
-      
-      rate
     end
   end
 
