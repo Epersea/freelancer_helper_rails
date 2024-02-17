@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,4 +14,12 @@ Rails.application.routes.draw do
   get "/rate/:id/edit" => "rate#edit", as: :edit_rate
   patch "/rate/:id" => "rate#update", as: :update_rate
   delete "/rate/:id" => "rate#destroy", as: :delete_rate
+
+  resources :users
+
+  controller :users do
+    get 'register' => :new
+    post 'register' => :create 
+    get 'my_summary/:id' => :show
+  end
 end
