@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @name = @user.name
   end
 
   # GET /users/new
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy!
 
-    redirect_to root_path, notice: "User #{@user.name} was successfully destroyed." 
+    redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
 
   private
