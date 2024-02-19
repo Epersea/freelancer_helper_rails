@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -20,6 +23,13 @@ Rails.application.routes.draw do
   controller :users do
     get 'register' => :new
     post 'register' => :create 
-    get 'my_summary/:id' => :show
   end
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create 
+    delete 'logout' => :destroy
+  end
+
+  get 'my_summary' => "my_summary#index"
 end
