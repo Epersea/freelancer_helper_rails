@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if session[:user_id]
+      redirect_to root_path, notice: "You are already logged in"
+    end
   end
 
   def create
@@ -14,6 +17,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Logged out"
   end
 end
 
