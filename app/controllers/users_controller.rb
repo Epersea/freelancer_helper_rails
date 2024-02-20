@@ -41,7 +41,14 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
+    assigned_rate = Rate.find_by(user_id: @user.id)
+
+    if assigned_rate != nil
+        assigned_rate.destroy!
+        @user.destroy!
+    else
+      @user.destroy!
+    end
 
     redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
