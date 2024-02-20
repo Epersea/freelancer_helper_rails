@@ -21,6 +21,9 @@ class RateController < ApplicationController
   end
 
   def edit
+    if session[:user_id] != nil
+      @rate = Rate.find_by(user_id: session[:user_id])
+    end
     @rate_input = @rate.input
   end
 

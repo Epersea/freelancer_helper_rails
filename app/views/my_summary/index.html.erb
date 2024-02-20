@@ -1,11 +1,31 @@
-<div class="mx-auto md:w-2/3 w-full flex">
+<div class="mx-auto w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <h1>Freelancer Summary</h1>
+    <% if @rate%>
+      <h1><%= @username%>, this is your Freelancer Summary</h1>
+      <h2>Your minimum rate per hour</h2>
+      <div>
+        <h3>Your minimum rate per hour should be <%= @rate.rate%></h3>
+        <p>How did we arrive at that number? Let's do some math to find out!</p>
+        <p>You said you want to work <b><%= @rate.hours_day%> hours</b> per day. Of those, <b><%= @rate.billable_percent%>%</b> will be billable.</p>
+        <p>Taking weekend, vacation, training and sick time into account, this means you will charge your clients for <b><%= @rate.hours_year%> hours</b> per year.</p>
+        <p>Your goal is to earn <b><%= @rate.net_month%> net per month</b>. Since your taxes will take <b><%= @rate.tax_percent%>%</b> of your income and your estimated annual expenses are <b><%= @rate.annual_expenses%></b>, this adds up to <b><%= @rate.gross_year%></b> gross per year.</p>
+        <p><b><%= @rate.gross_year%> income / <%= @rate.hours_year%> hours = <%= @rate.rate%> per hour</b>. Easy peasy!</p>
+        <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
+        <br>
+        <p><b>Do you want to try different variables? You can edit your rate <%=link_to "here", edit_rate_path(@user_id)%></b></p>
 
-    <%= button_to "Log out", logout_path, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+        <p>You can also delete this rate:</p>
+        <%= button_to "Delete", delete_rate_path(@user_id), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "actions bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded inline-block min-w-auto" %>
+        <%= button_to "Log out", logout_path, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
+    <% else%>
+      <h1>Freelancer Summary</h1>
+      <p> Please <%= link_to "Log In", login_path %> to see your information here.</p>
+    <% end%>
+
   </div>
 </div>
