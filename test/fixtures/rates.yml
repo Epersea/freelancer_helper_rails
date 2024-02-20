@@ -9,6 +9,7 @@ basic_rate:
   net_month: 2500
   tax_percent: 25.0
   gross_year: 45250
+  user_id: 459622999
 
 improved_rate:
   rate: 60.2
