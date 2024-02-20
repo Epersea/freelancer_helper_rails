@@ -2,6 +2,7 @@ class Rate < ApplicationRecord
   validates :rate, :annual_expenses, :hours_day, :hours_year, :billable_percent, :net_month, :tax_percent, :gross_year, presence: true
   validates :rate, :annual_expenses, :hours_day, :billable_percent, :tax_percent, :gross_year, numericality: true
   validates :hours_year, :net_month, numericality: { greater_than_or_equal_to: 1 }
+  validates :user_id, numericality: { allow_nil: true }
 
   has_one :input, dependent: :destroy
 
@@ -12,6 +13,11 @@ class Rate < ApplicationRecord
         rate.refresh!
       end
     end
+  end
+
+  def assign_user_id(user_id)
+    self.user_id = user_id
+    self.save!
   end
 
   def update_for(**user_input_attributes)

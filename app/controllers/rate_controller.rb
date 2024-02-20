@@ -10,6 +10,10 @@ class RateController < ApplicationController
   def create
     @rate = Rate.create_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
+    if session[:user_id] != nil  
+      @rate.assign_user_id(session[:user_id])
+    end
+
     redirect_to show_rate_path(@rate)
   end
 

@@ -108,4 +108,14 @@ class RateTest < ActiveSupport::TestCase
     assert_equal updated_input.hours, @improved_input["hours"]
     assert_equal updated_input.earnings, @improved_input["earnings"]
   end
+
+  test "user id must be numeric" do
+    rate = Rate.last
+    rate.user_id = 1
+    assert rate.valid?
+
+    rate.user_id = 'abc'
+    assert rate.invalid?
+    assert rate.errors[:user_id].any?
+  end
 end
