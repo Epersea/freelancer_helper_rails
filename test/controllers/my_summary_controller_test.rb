@@ -23,7 +23,8 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     
     get "/my_summary"
 
-    assert_select 'h1', "Freelancer Summary"
-    assert_select 'p', "Please Log In to see your information here."
+    assert_redirected_to login_path
+    follow_redirect!
+    assert_select 'p', "Please log in to use this feature"
   end
 end
