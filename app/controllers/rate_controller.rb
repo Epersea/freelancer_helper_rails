@@ -6,12 +6,7 @@ class RateController < ApplicationController
   end
 
   def new
-    if @user_id != nil
-      rate = Rate.find_by(user_id: @user_id)
-      if rate.user_id != nil
-        redirect_to edit_rate_path(rate.id)
-      end
-    end
+    
   end
 
   def create
