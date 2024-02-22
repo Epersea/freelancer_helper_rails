@@ -18,5 +18,9 @@
     @apply py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block
   }
 
+  #error_explanation {
+    @apply bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3
+  }
+
 }
 

@@ -11,7 +11,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     get "/login"
 
     assert_response :success
-    assert_select 'h2', 'Please Log In'
+    assert_select 'h1', 'Please Log In'
     assert_select 'form', 1
   end
 
