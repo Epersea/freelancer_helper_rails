@@ -4,6 +4,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @basic_rate = rates(:basic_rate)
     @improved_input = rate_inputs(:improved_rate_input)
+    @user = users(:elliot)
   end
 
   test "should get index" do
@@ -103,5 +104,21 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     expected_rate_count = previous_rate_count - 1
     assert_equal Rate.count, expected_rate_count
     assert_redirected_to root_path
+  end
+
+  test "should add user id to rate when user is logged in" do
+    post "/login", params: {
+      name: @user.name,
+      password: 'secret'
+    }
+
+    post "/rate", params: {
+      expenses: @improved_input["expenses"],
+      hours: @improved_input["hours"],
+      earnings: @improved_input["earnings"],
+    }
+
+    rate = Rate.last
+    assert_equal rate.user_id, @user.id
   end
 end

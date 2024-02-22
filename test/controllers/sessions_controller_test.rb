@@ -18,7 +18,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should not show login page to logged in user" do
 
     post "/login", params: {
-      name: 'Darlene',
+      name: @user.name,
       password: 'secret'
     }
 
@@ -32,7 +32,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should login an existing user" do
 
     post "/login", params: {
-      name: 'Darlene',
+      name: @user.name,
       password: 'secret'
     }
 
@@ -43,7 +43,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "user should not be logged in if password is wrong" do
 
     post "/login", params: {
-      name: 'Darlene',
+      name: @user.name,
       password: 'wrong'
     }
 
@@ -52,7 +52,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should log user out and delete session id" do
     post "/login", params: {
-      name: 'Darlene',
+      name: @user.name,
       password: 'secret'
     }
 
