@@ -6,13 +6,15 @@ class RateController < ApplicationController
   end
 
   def new
-    
+    if @user_id && Rate.find_by(user_id: @user_id)
+      redirect_to my_summary_path, notice: "Looks like you have already created a rate. You can edit it at the link below."
+    end
   end
 
   def create
     @rate = Rate.create_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
-    if @user_id != nil  
+    if @user_id  
       @rate.assign_user_id(@user_id)
     end
 
@@ -23,7 +25,7 @@ class RateController < ApplicationController
   end
 
   def edit
-    if @user_id != nil
+    if @user_id
       @rate = Rate.find_by(user_id: @user_id)
     end
     @rate_input = @rate.input
