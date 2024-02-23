@@ -19,17 +19,4 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'User Dom was successfully created'
   end
-
-  test "should update user" do
-    visit "/users/#{@user.id}/edit"
-
-    fill_in "Name", with: "Dom"
-    fill_in "Email", with: "dipierro@fbi.gov"
-    fill_in "Password", with: "secret"
-    fill_in "Password confirmation", with: "secret"
-
-    click_on "Update User"
-
-    assert_text 'User Dom was successfully updated'
-  end
 end

@@ -38,6 +38,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
 
+    post "/login", params: {
+      name: @user.name,
+      password: 'secret'
+    }
+
     get "/users/#{@user.id}/edit"
 
     assert_response :success

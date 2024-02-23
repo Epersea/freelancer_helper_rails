@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
+  before_action :authorize, only: %i[ edit ]
 
   def new
     @user = User.new
   end
 
   def edit
+    if session[:user_id] != params[:id].to_i
+      redirect_to root_path, notice: "You can only edit your own account"
+    end
   end
 
   def create
