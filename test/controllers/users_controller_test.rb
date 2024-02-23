@@ -78,4 +78,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select 'p', 'User Darlene was successfully deleted'
   end
+
+  test "destroying a user destroys its associated rate" do
+    previous_user_count = User.count
+    previous_rate_count = Rate.count
+
+    delete "/users/#{@user.id}"
+
+    expected_user_count = previous_user_count - 1
+    expected_rate_count = previous_rate_count - 1
+    assert_equal User.count, expected_user_count
+    assert_equal Rate.count, expected_rate_count
+  end
 end
