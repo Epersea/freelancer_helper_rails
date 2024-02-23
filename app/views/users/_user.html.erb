@@ -10,8 +10,7 @@
   </div>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this user", user %>
-    <%= link_to "Edit this user", edit_user_path(user) %>
-    <hr class="mt-6">
+    <%= link_to "Show this user", user, class: "link" %>
+    <%= link_to "Edit this user", edit_user_path(user), class: "link" %>
   <% end %>
 </div>

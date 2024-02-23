@@ -1,14 +1,14 @@
 <div class="w-full">
   <div class="mx-auto">
     <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      <p id="notice"><%= notice %></p>
     <% end %>
 
     <h1><%= @user.name%></h1>
 
-    <%= link_to "Edit this user", edit_user_path(@user) %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this user", user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "actions bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded inline-block min-w-auto" %>
+    <%= link_to "Edit this user", edit_user_path(@user), class: "link" %>
+    <div>
+      <%= button_to "Destroy this user", user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" %>
     </div>
   </div>
 </div>
