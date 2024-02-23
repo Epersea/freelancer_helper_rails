@@ -2,6 +2,10 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
 
+  setup do
+    @user = users(:darlene)
+  end
+
   test "user attributes must not be empty" do
     empty_user = User.new
     
@@ -12,7 +16,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user name must be unique" do
-    repeated_name_user = User.new(name: 'Darlene', email: 'darlene@gmail.com', password: 'secret')
+    repeated_name_user = User.new(name: @user.name, email: @user.email, password: 'secret')
 
     assert repeated_name_user.invalid?
     assert_equal ["has already been taken"], repeated_name_user.errors[:name]

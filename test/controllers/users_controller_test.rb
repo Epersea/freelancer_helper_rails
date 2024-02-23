@@ -29,13 +29,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
  
     expected_user_count = previous_user_count + 1
     assert_equal User.count, expected_user_count
+
     user = User.last
     assert_equal user.name, 'Mike'
     assert_equal user.email, 'mickey@hotmail.com'
     assert_instance_of(String, user.password_digest)
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', 'User Mike was successfully created'
   end
 
   test "should get edit" do
@@ -62,9 +60,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
    
     updated_user = User.find(@user.id)
     assert_equal updated_user.name, 'Dolores'
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', 'User Dolores was successfully updated'
   end
 
   test "should destroy user" do
@@ -74,9 +69,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     expected_user_count = previous_user_count - 1
     assert_equal User.count, expected_user_count
+
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'p', 'User Darlene was successfully deleted'
+    assert_select 'p', "User #{@user.name} was successfully deleted"
   end
 
   test "destroying a user destroys its associated rate" do

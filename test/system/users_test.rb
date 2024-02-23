@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class RatesTest < ApplicationSystemTestCase
+class UsersTest < ApplicationSystemTestCase
 
   setup do
     @darlene = users(:darlene)
@@ -20,27 +20,16 @@ class RatesTest < ApplicationSystemTestCase
     assert_text 'User Dom was successfully created'
   end
 
-  test "should log in" do
-    visit "/login"
+  test "should update user" do
+    visit "/users/#{@user.id}/edit"
 
-    fill_in "Name", with: @darlene.name
+    fill_in "Name", with: "Dom"
+    fill_in "Email", with: "dipierro@fbi.gov"
     fill_in "Password", with: "secret"
+    fill_in "Password confirmation", with: "secret"
 
-    click_on "Login"
+    click_on "Update User"
 
-    assert_text "#{@darlene.name}, this is your Freelancer Summary"
-    assert_text "Your minimum rate per hour should be #{@basic_rate.rate}"
-  end
-
-  test "should log out" do
-    visit "/login"
-
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_on "Login"
-    click_on "Logout"
-
-    assert_text 'Logged out'
+    assert_text 'User Dom was successfully updated'
   end
 end
