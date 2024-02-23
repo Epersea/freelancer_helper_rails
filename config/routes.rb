@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   controller :users do
     get 'register' => :new
-    post 'register' => :create 
+    post 'register' => :create
   end
 
   controller :sessions do

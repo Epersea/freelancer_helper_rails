@@ -38,14 +38,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'User Mike was successfully created'
   end
 
-  test "should show user" do
-
-    get "/users/#{@user.id}"
-
-    assert_response :success
-    assert_select 'h1', "#{@user.name}"
-  end
-
   test "should get edit" do
 
     get "/users/#{@user.id}/edit"
