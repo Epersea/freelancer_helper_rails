@@ -27,20 +27,12 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    assigned_rate = Rate.find_by(user_id: @user.id)
-
-    if assigned_rate != nil
-        assigned_rate.destroy!
-        @user.destroy!
-    else
-      @user.destroy!
-    end
+    @user.destroy!
 
     redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       begin
         @user = User.find(params[:id])
@@ -49,7 +41,6 @@ class UsersController < ApplicationController
       end
     end
 
-    # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end

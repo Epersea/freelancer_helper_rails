@@ -5,6 +5,7 @@ class Rate < ApplicationRecord
   validates :user_id, numericality: { allow_nil: true }
 
   has_one :input, dependent: :destroy
+  belongs_to :user, optional: true
 
   class << self
     def create_for(**user_input_attributes)
