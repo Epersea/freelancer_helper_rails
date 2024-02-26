@@ -16,15 +16,16 @@
         <p><b><%= @rate.gross_year%> income / <%= @rate.hours_year%> hours = <%= @rate.rate%> per hour</b>. Easy peasy!</p>
         <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
         <br>
-        <p><b>Do you want to try different variables? You can edit your rate <%=link_to "here", edit_rate_path(@user_id)%></b></p>
+        <p><b>Do you want to try different variables? You can edit your rate <%=link_to "here", edit_rate_path(@user_id), class: "hover"%></b></p>
 
         <p>You can also delete this rate:</p>
+        
         <%= button_to "Delete", delete_rate_path(@user_id), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" %>
-        <%= button_to "Logout", logout_path, method: :delete, class: "btn" %>
+        <br>
       </div>
     <% else%>
       <h1>Freelancer Summary</h1>
-      <p> Looks like you haven't provided any data about your freelancer journey. Our <%= link_to "Rate Calculator", rate_path %> is a great place to start!</p>
+      <p> Looks like you haven't provided any data about your freelancer journey. Our <%= link_to "Rate Calculator", rate_path, class: "hover" %> is a great place to start!</p>
     <% end%>
 
   </div>

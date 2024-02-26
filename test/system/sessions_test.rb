@@ -14,7 +14,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Name", with: @darlene.name
     fill_in "Password", with: "secret"
 
-    click_on "Login"
+    click_button "Login"
 
     assert_text "#{@darlene.name}, this is your Freelancer Summary"
     assert_text "Your minimum rate per hour should be #{@basic_rate.rate}"
@@ -26,8 +26,8 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Name", with: @darlene.name
     fill_in "Password", with: "secret"
 
-    click_on "Login"
-    click_on "Logout"
+    click_button "Login"
+    click_button('Logout', match: :first)
 
     assert_text 'Logged out'
   end
