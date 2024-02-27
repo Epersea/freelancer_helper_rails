@@ -21,7 +21,7 @@ A rough blueprint of the functionalities can be found [in this document](https:/
 ### RATE CALCULATOR
 The rate calculator is the core functionality of the application. The user visits a form and fills it with information regarding several aspects of their business, such as their planned expenses, how many hours a day and days a week they want to work and their desired earnings.
 
-After clicking on "Calculate", the user is redirected to a page where they can see what is the minimum rate per hour they should be charging in order to achieve their goals, as well as an explanation of the calculations. They can easily edit their input information to play with the variables, for example, what would happen if they decide to work 4 days a week instead of 4.
+After clicking on "Calculate", the user is redirected to a page where they can see what is the minimum rate per hour they should be charging in order to achieve their goals, as well as an explanation of the calculations. They can easily edit their input information to play with the variables, for example, what would happen if they decide to work 4 days a week instead of 5.
 
 ![](/app/assets/images/rate_calculator_show.png)
 
@@ -57,6 +57,34 @@ The RateCalculator class, which resides in /lib, is responsible for performing t
 
 To do this, it relies on three secondary objects which deal with expenses, hours and earnings. I focused on creating clean, [fractal](https://dev.37signals.com/fractal-journeys/) code with clear names, with unit testing for public methods (both at the rate calculator and secondary object levels). These tests can be executed locally with the command `bundle exec rspec`.
 
+### USER MANAGEMENT
+I understand most professional web apps would use a library for this. However, since this is a practice project, I decided to try to implement user management functions myself, using the tutorial in Agile Development with Rails 7 as a base.
+
+This "slice" includes the following functionalities:
+- Registering new user accounts
+- Login into and our of an account
+- When a logged in user uses the Rate Calculator, their rate information will be stored for later retrieval
+- A logged in user can see a summary of their information
+
+To achieve this, I first focused on the User scaffolding. I added a foreign key called `user_id` to the Rates table, and defined the following relationship between models:
+```
+User has_one :rate, dependent: :destroy
+Rate belongs_to :user, optional: true
+```
+The user controller has the standard methods to create, update and delete Users. I renamed the #new route as "register".
+
+I also created a Session controller to manage the login and logout functionalities. When a user is logged in, its `user_id` is added to the `session` object. This provides an easy-to-check property so other controllers/methods can easily see if an user is logged in and identify them correctly. In this context, "logging out" just means that the `user_id` property of the `session` object is set to `nil`.
+
+To manage the display of information to logged in users, I create a controller MySummary with just an index method. This index displays the rate calculator information associated with the user. If the user is logged out, it redirects them to the login page. If the user is logged in but hasn't provided any Rate information, it prompts them to do so.
+
+To limit access to logged in users, I have defined a protected `authorize` method in `application_controller.rb`, so it can be imported by other controllers to limit access to certain views.
+
+I have also edited the Rate controller to display/edit the associated rate to logged in users and prevent users from creating multiple rates. I make use of notices to display useful information to the user, for example, informing them they are attempting a forbbiden action or confirming a successful login/logout.
+
+To provide easier access to the new functionalities, I have created a sidebar that displays the main application links, Register and Login (for logged out users) and Logout (for logged in users).
+
+Finally, I have created tests for the User model and the User, Session and MySummary controllers, as well as system tests covering the users and sessions functionality.
+
 
 ## HOW TO RUN THE APPLICATION
 
@@ -80,6 +108,7 @@ To execute the application, run the development server with ```bin/dev```
 Visit http://localhost:3000 to access the app. If needed, you can change the default port in the bin/dev file.
 
 ## UPDATES
-- 13-Jan-23: first working version of Rate Calculator completed.
-- 19-Jan-23: Rate Calculator update and delete routes completed + validations and testing.
-- 25-Jan-23: Rate Calculator model update and final refactor.
+- 13-Jan-24: first working version of Rate Calculator completed.
+- 19-Jan-24: Rate Calculator update and delete routes completed + validations and testing.
+- 25-Jan-24: Rate Calculator model update and final refactor.
+- 26-Feb-24: User management functionalities completed.
