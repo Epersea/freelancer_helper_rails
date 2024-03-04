@@ -79,7 +79,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy user" do
     previous_user_count = User.count
-
+    
+    login_as(@user)
     delete "/users/#{@user.id}"
 
     expected_user_count = previous_user_count - 1
@@ -94,6 +95,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_user_count = User.count
     previous_rate_count = Rate.count
 
+    login_as(@user)
     delete "/users/#{@user.id}"
 
     expected_user_count = previous_user_count - 1

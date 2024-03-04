@@ -1,4 +1,5 @@
 class RateController < ApplicationController
+  skip_before_action :authorize
   before_action :set_rate, except: [:create, :index, :new]
   before_action :set_user, except: [:index, :show, :update, :destroy]
 

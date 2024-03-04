@@ -1,5 +1,4 @@
 class MySummaryController < ApplicationController
-  before_action :authorize
 
   def index
     @user_id = session[:user_id]

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authorize, except: [:destroy]
+  
   def new
     if session[:user_id]
       redirect_to root_path, notice: "You are already logged in"
