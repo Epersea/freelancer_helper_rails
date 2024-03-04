@@ -101,4 +101,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal User.count, expected_user_count
     assert_equal Rate.count, expected_rate_count
   end
+
+  test "destroying a user ends its associated session" do
+
+    login_as(@user)
+
+    assert_equal session[:user_id], @user.id
+
+    delete "/users/#{@user.id}"
+
+    assert_nil session[:user_id]
+
+  end
 end

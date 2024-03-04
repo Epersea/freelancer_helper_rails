@@ -34,7 +34,13 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    @user.destroy!
+    ActiveRecord::Base.transaction do
+      if session[:user_id] = @user.id
+        session[:user_id] = nil
+      end
+
+      @user.destroy!
+    end
 
     redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
