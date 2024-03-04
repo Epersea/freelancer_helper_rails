@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   patch "/rate/:id" => "rate#update", as: :update_rate
   delete "/rate/:id" => "rate#destroy", as: :delete_rate
 
-  resources :users
+  resources :users, except: :index
 
   controller :users do
     get 'register' => :new
