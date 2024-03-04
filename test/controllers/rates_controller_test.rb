@@ -107,10 +107,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should add user id to rate when user is logged in" do
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    login_as(@user)
 
     post "/rate", params: {
       expenses: @improved_input["expenses"],

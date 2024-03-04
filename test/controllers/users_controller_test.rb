@@ -1,4 +1,5 @@
 require "test_helper"
+include AuthenticationHelper
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
@@ -17,10 +18,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show user" do
 
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    login_as(@user)
 
     get "/users/#{@user.id}"
 
@@ -53,10 +51,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
 
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    login_as(@user)
 
     get "/users/#{@user.id}/edit"
 

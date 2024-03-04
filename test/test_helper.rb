@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require_relative 'helpers/authentication_helper'
+include AuthenticationHelper
 
 module ActiveSupport
   class TestCase

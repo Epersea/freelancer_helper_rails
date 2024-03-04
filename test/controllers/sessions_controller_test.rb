@@ -17,10 +17,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show login page to logged in user" do
 
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    login_as(@user)
 
     get "/login"
 
@@ -31,10 +28,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should login an existing user" do
 
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    login_as(@user)
 
     assert_equal session[:user_id], @user.id
     assert_redirected_to my_summary_path
@@ -51,10 +45,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should log user out and delete session id" do
-    post "/login", params: {
-      name: @user.name,
-      password: 'secret'
-    }
+    
+    login_as(@user)
 
     assert_equal session[:user_id], @user.id
 

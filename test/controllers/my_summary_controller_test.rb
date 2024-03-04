@@ -9,10 +9,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
   test "should show Rate to a logged in user with a rate" do
 
-    post "/login", params: {
-      name: @user_with_rate.name,
-      password: 'secret'
-    }
+    login_as(@user_with_rate)
 
     get "/my_summary"
 
@@ -22,10 +19,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
   test "should show invitation to fill rate to a logged in user without a rate" do
 
-    post "/login", params: {
-      name: @user_without_rate.name,
-      password: 'secret'
-    }
+    login_as(@user_without_rate)
 
     get "/my_summary"
 
