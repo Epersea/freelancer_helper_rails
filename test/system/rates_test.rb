@@ -31,7 +31,7 @@ class RatesTest < ApplicationSystemTestCase
     rate_id = @basic_rate.id
     visit "/rate/#{rate_id}"
 
-    click_on "here"
+    click_on "Edit"
 
     assert_text "Edit your rate"
   end
