@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ edit update destroy ]
-  before_action :authorize, only: %i[ edit ]
+  before_action :set_user, only: %i[ edit show update destroy ]
+  before_action :authorize, only: %i[ edit show ]
 
   def new
     @user = User.new
+  end
+
+  def show
   end
 
   def edit

@@ -1,16 +1,16 @@
 <div id="<%= dom_id user %>">
   <div>
-    <strong class="block font-medium mb-1">Name:</strong>
+    <strong>Name:</strong>
     <%= user.name %>
   </div>
 
   <div>
-    <strong class="block font-medium mb-1">Email:</strong>
+    <strong>Email:</strong>
     <%= user.email %>
   </div>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this user", user, class: "link" %>
+  <br>
+  <div>
     <%= link_to "Edit this user", edit_user_path(user), class: "link" %>
-  <% end %>
+    <%= link_to "Delete user", user_path(user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "link" %>
+  </div>
 </div>
