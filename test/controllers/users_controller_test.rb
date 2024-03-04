@@ -15,6 +15,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', 1
   end
 
+  test "should show user" do
+
+    post "/login", params: {
+      name: @user.name,
+      password: 'secret'
+    }
+
+    get "/users/#{@user.id}"
+
+    assert_response :success
+    assert_select 'h1', 'My account'
+    assert_select 'p', 'Darlene'
+    assert_select 'p', 'darlene@fsociety.com'
+  end
+
   test "should create user" do
     previous_user_count = User.count
 
