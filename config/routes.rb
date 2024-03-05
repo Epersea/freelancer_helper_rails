@@ -29,4 +29,6 @@ Rails.application.routes.draw do
   end
 
   get 'my_summary' => "my_summary#index"
+
+  resources :clients
 end
