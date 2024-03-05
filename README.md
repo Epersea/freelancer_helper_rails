@@ -62,7 +62,7 @@ I understand most professional web apps would use a library for this. However, s
 
 This "slice" includes the following functionalities:
 - Registering new user accounts
-- Login into and our of an account
+- Login into and out of an account
 - When a logged in user uses the Rate Calculator, their rate information will be stored for later retrieval
 - A logged in user can see a summary of their information
 
@@ -77,11 +77,11 @@ I also created a Session controller to manage the login and logout functionaliti
 
 To manage the display of information to logged in users, I create a controller MySummary with just an index method. This index displays the rate calculator information associated with the user. If the user is logged out, it redirects them to the login page. If the user is logged in but hasn't provided any Rate information, it prompts them to do so.
 
-To limit access to logged in users, I have defined a protected `authorize` method in `application_controller.rb`, so it can be imported by other controllers to limit access to certain views.
+To limit access to logged in users, I have defined a protected `authorize` method in `application_controller.rb` as a before_action. Some controllers/actions skip this method to allow access to non-logged users.
 
 I have also edited the Rate controller to display/edit the associated rate to logged in users and prevent users from creating multiple rates. I make use of notices to display useful information to the user, for example, informing them they are attempting a forbbiden action or confirming a successful login/logout.
 
-To provide easier access to the new functionalities, I have created a sidebar that displays the main application links, Register and Login (for logged out users) and Logout (for logged in users).
+To provide easier access to the new functionalities, I have created a sidebar that displays the main application links, Register and Login (for logged out users) and My Account and Logout (for logged in users).
 
 Finally, I have created tests for the User model and the User, Session and MySummary controllers, as well as system tests covering the users and sessions functionality.
 
