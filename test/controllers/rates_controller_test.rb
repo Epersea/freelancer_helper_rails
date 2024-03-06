@@ -14,7 +14,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'Welcome to Freelancer Helper'
     assert_select 'h2', 'Get organized, work less, and earn more'
-    assert_select 'p', minimum: 4
+    assert_select 'p', 4
   end
 
   test "should get new" do

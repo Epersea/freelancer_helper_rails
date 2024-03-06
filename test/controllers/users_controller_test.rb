@@ -57,7 +57,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select 'h1', 'Editing user'
-    assert_select 'form', :minimum => 1
+    assert_select 'label', "Name"
+    assert_select 'label', "Email"
+    assert_select 'label', "Name"
+    assert_select 'label', "Password confirmation"
   end
 
   test "should update user" do
