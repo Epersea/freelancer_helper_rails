@@ -21,12 +21,14 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create client" do
     previous_client_count = Client.count
+    session[:user_id] = @user.id
 
-    post "/client", params: {
-      name: "New Client",
-      hours_worked: 5,
-      amount_billed: 300,
-      user_id: @user.id
+    post "/clients", params: {
+      client: {
+        name: "New Client",
+        hours_worked: 5,
+        amount_billed: 300
+      }
     }
 
     expected_client_count = previous_client_count + 1
@@ -38,7 +40,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal client.user_id, @user.id
     assert_equal client.rate, 60
 
-    assert_redirected_to "/client/#{client.id}"
+    assert_redirected_to "/clients/#{client.id}"
   end
 
 end
