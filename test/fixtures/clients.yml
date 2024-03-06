@@ -1,0 +1,6 @@
+ecorp:
+  name: E-Corp
+  hours_worked: 10
+  amount_billed: 1000
+  rate: 100
+  user_id: 459622999
