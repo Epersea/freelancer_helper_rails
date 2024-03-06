@@ -10,7 +10,7 @@ class Client < ApplicationRecord
         client.hours_worked = params[:hours_worked]
         client.amount_billed = params[:amount_billed]
         client.user_id = user_id
-        client.rate = client.amount_billed / client.hours_worked
+        client.rate = (client.amount_billed / client.hours_worked).round(2)
         client.save!
       end
     end
