@@ -2,4 +2,6 @@
   <h1>Edit client</h1>
 
   <%= render "form", client: @client %>
+
+  <%= button_to "Delete client", client_path(@client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
 </div>

@@ -20,7 +20,7 @@
         <%=link_to "Edit", edit_rate_path(@rate), class: "link"%></b></p>
 
         <p>You can also delete this rate:</p>
-        <%= button_to "Delete", delete_rate_path(@rate), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" %>
+        <%= button_to "Delete", delete_rate_path(@rate), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
         <br>
       </div>
     <% else%>
