@@ -18,6 +18,12 @@ class ClientsController < ApplicationController
   def edit
   end
 
+  def update
+    @client.update_for(client_params)
+
+    redirect_to client_path(@client)
+  end
+
   private
     def set_user
       @user_id = session[:user_id]

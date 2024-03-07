@@ -66,4 +66,23 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Amount billed"
   end
 
+  test "should update client" do
+
+    patch "/clients/#{@client.id}", params: {
+      client: {
+        name: "Updated client",
+        hours_worked: 12,
+        amount_billed: 2400
+      }
+    }
+
+    updated_client = Client.find(@client.id)
+    assert_equal updated_client.name, "Updated client"
+    assert_equal updated_client.hours_worked, 12
+    assert_equal updated_client.amount_billed, 2400
+    assert_equal updated_client.rate, 200
+
+    assert_redirected_to "/clients/#{@client.id}"
+  end
+
 end

@@ -16,4 +16,12 @@ class Client < ApplicationRecord
     end
   end
 
+  def update_for(params)
+    self.name = params[:name]
+    self.hours_worked = params[:hours_worked]
+    self.amount_billed = params[:amount_billed]
+    self.rate = (self.amount_billed / self.hours_worked).round(2)
+    self.save!
+  end
+
 end
