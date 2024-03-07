@@ -6,7 +6,8 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:darlene)
     login_as(@user)
-    @client = clients(:ecorp)
+    @e_corp = clients(:ecorp)
+    @f_corp = clients(:fcorp)
   end
 
   test "should get new" do
@@ -46,18 +47,18 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show client" do
 
-    get "/clients/#{@client.id}"
+    get "/clients/#{@e_corp.id}"
 
     assert_response :success
-    assert_select 'h1', "#{@client.name}"
-    assert_includes response.body, "#{@client.hours_worked}"
-    assert_includes response.body, "#{@client.amount_billed}"
-    assert_includes response.body, "#{@client.rate}"
+    assert_select 'h3', "#{@e_corp.name}"
+    assert_includes response.body, "#{@e_corp.hours_worked}"
+    assert_includes response.body, "#{@e_corp.amount_billed}"
+    assert_includes response.body, "#{@e_corp.rate}"
   end
 
   test "should get edit" do 
 
-    get "/clients/#{@client.id}/edit"
+    get "/clients/#{@e_corp.id}/edit"
 
     assert_response :success
     assert_select 'h1', 'Edit client'
@@ -68,7 +69,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update client" do
 
-    patch "/clients/#{@client.id}", params: {
+    patch "/clients/#{@e_corp.id}", params: {
       client: {
         name: "Updated client",
         hours_worked: 12,
@@ -76,26 +77,43 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    updated_client = Client.find(@client.id)
+    updated_client = Client.find(@e_corp.id)
     assert_equal updated_client.name, "Updated client"
     assert_equal updated_client.hours_worked, 12
     assert_equal updated_client.amount_billed, 2400
     assert_equal updated_client.rate, 200
 
-    assert_redirected_to "/clients/#{@client.id}"
+    assert_redirected_to "/clients/#{@e_corp.id}"
   end
 
   test "should destroy client" do
     previous_client_count = Client.count
 
-    delete "/clients/#{@client.id}"
+    delete "/clients/#{@e_corp.id}"
 
     expected_client_count = previous_client_count - 1
     assert_equal Client.count, expected_client_count
 
-    assert_redirected_to root_path
+    assert_redirected_to clients_path
     follow_redirect!
-    assert_select 'p', "Client #{@client.name} was successfully deleted"
+    assert_select 'p', "Client #{@e_corp.name} was successfully deleted"
+  end
+
+  test "should get index" do
+
+    get "/clients"
+
+    assert_response :success
+    assert_select 'h1', "#{@user.name}'s clients"
+    assert_select 'h3', "#{@e_corp.name}"
+    assert_includes response.body, "#{@e_corp.hours_worked}"
+    assert_includes response.body, "#{@e_corp.amount_billed}"
+    assert_includes response.body, "#{@e_corp.rate}"
+    assert_select 'h3', "#{@f_corp.name}"
+    assert_includes response.body, "#{@f_corp.hours_worked}"
+    assert_includes response.body, "#{@f_corp.amount_billed}"
+    assert_includes response.body, "#{@f_corp.rate}"
+    assert_select 'p', 'If you want to see more information about your rates and clients, please visit'
   end
 
 end

@@ -1,6 +1,11 @@
 class ClientsController < ApplicationController
   before_action :set_user
-  before_action :set_client, except: [:new, :create]
+  before_action :set_client, except: [:new, :create, :index]
+
+  def index
+    @user = User.find(@user_id)
+    @clients = Client.where(user_id: @user_id)
+  end
 
   def new
     @client = Client.new
@@ -27,7 +32,7 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
 
-    redirect_to root_path, notice: "Client #{@client.name} was successfully deleted" 
+    redirect_to clients_path, notice: "Client #{@client.name} was successfully deleted" 
   end
 
   private
