@@ -94,6 +94,8 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal Client.count, expected_client_count
 
     assert_redirected_to root_path
+    follow_redirect!
+    assert_select 'p', "Client #{@client.name} was successfully deleted"
   end
 
 end

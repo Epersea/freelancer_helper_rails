@@ -27,12 +27,16 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
 
-    redirect_to root_path
+    redirect_to root_path, notice: "Client #{@client.name} was successfully deleted" 
   end
 
   private
     def set_user
-      @user_id = session[:user_id]
+      begin
+        @user_id = session[:user_id]
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path, notice: "User not found"
+      end
     end
 
     def set_client
