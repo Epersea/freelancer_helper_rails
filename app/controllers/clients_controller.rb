@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_user
+  before_action :set_client, except: [:new, :create]
 
   def new
     @client = Client.new
@@ -12,12 +13,18 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @client = Client.find(params[:id])
+  end
+
+  def edit
   end
 
   private
     def set_user
       @user_id = session[:user_id]
+    end
+
+    def set_client
+      @client = Client.find(params[:id])
     end
 
     def client_params

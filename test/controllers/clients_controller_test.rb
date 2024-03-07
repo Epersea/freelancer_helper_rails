@@ -55,4 +55,15 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "#{@client.rate}"
   end
 
+  test "should get edit" do 
+
+    get "/clients/#{@client.id}/edit"
+
+    assert_response :success
+    assert_select 'h1', 'Edit client'
+    assert_select 'label', "Name"
+    assert_select 'label', "Hours worked"
+    assert_select 'label', "Amount billed"
+  end
+
 end
