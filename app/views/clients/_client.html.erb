@@ -1,0 +1,22 @@
+<div id="<%= dom_id client %>">
+  <h1><%= client.name %></h1>
+  <div>
+    <strong>Hours worked:</strong>
+    <p><%= client.hours_worked %></p>
+  </div>
+
+  <div>
+    <strong>Amount_billed:</strong>
+    <p><%= client.amount_billed %></p>
+  </div>
+
+  <div>
+    <strong>Rate per hour:</strong>
+    <p><%= client.rate %></p>
+  </div>
+  <br>
+  <div>
+    <%= link_to "Edit this client", edit_client_path(client), class: "link" %>
+    <%= button_to "Delete client", client_path(client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" %>
+  </div>
+</div>

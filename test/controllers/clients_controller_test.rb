@@ -50,9 +50,9 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select 'h1', "#{@client.name}"
-    assert_includes response.body, "#{client.hours_worked}"
-    assert_includes response.body, "#{client.amount_billed}"
-    assert_includes response.body, "#{client.rate}"
+    assert_includes response.body, "#{@client.hours_worked}"
+    assert_includes response.body, "#{@client.amount_billed}"
+    assert_includes response.body, "#{@client.rate}"
   end
 
 end
