@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_user
+  before_action :set_user, only: [:index, :create, :destroy]
   before_action :set_client, except: [:new, :create, :index]
 
   def index
