@@ -12,9 +12,14 @@ class ClientsController < ApplicationController
   end
  
   def create
-    @client = Client.create_for(client_params, @user_id)
+    existing_client = Client.find_by(name: client_params[:name], user_id: @user_id)
 
-    redirect_to client_path(@client)
+    if existing_client
+      redirect_to edit_client_path(existing_client), notice: "Looks like you have created this client already. Try editing it here!"
+    else
+      @client = Client.create_for(client_params, @user_id)
+      redirect_to client_path(@client)
+    end
   end
 
   def show

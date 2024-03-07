@@ -1,4 +1,7 @@
 <div>
+  <% if notice.present? %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
   <h1>Edit client</h1>
 
   <%= render "form", client: @client %>

@@ -4,8 +4,9 @@ include AuthenticationHelper
 class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = users(:darlene)
-    login_as(@user)
+    @darlene = users(:darlene)
+    @elliot = users(:elliot)
+    login_as(@darlene)
     @e_corp = clients(:ecorp)
     @f_corp = clients(:fcorp)
   end
@@ -23,7 +24,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create client" do
     previous_client_count = Client.count
-    session[:user_id] = @user.id
 
     post "/clients", params: {
       client: {
@@ -39,10 +39,46 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal client.name, "New Client"
     assert_equal client.hours_worked, 5
     assert_equal client.amount_billed, 300
-    assert_equal client.user_id, @user.id
+    assert_equal client.user_id, @darlene.id
     assert_equal client.rate, 60
 
     assert_redirected_to "/clients/#{client.id}"
+  end
+
+  test "should not let the user create a client with the same name" do
+    post "/clients", params: {
+      client: {
+        name: "#{@e_corp.name}",
+        hours_worked: 5,
+        amount_billed: 300
+      }
+    }
+
+    assert_redirected_to "/clients/#{@e_corp.id}/edit"
+    follow_redirect!
+    assert_select 'p', "Looks like you have created this client already. Try editing it here!"
+  end
+
+  test "should let the user create a client with the same name as another users client" do
+    login_as(@elliot)
+    previous_client_count = Client.count
+
+    post "/clients", params: {
+      client: {
+        name: "#{@e_corp.name}",
+        hours_worked: 5,
+        amount_billed: 300
+      }
+    }
+
+    expected_client_count = previous_client_count + 1
+    assert_equal Client.count, expected_client_count
+    client = Client.last
+    assert_equal client.name, "#{@e_corp.name}"
+    assert_equal client.hours_worked, 5
+    assert_equal client.amount_billed, 300
+    assert_equal client.user_id, @elliot.id
+    assert_equal client.rate, 60
   end
 
   test "should show client" do
@@ -104,7 +140,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     get "/clients"
 
     assert_response :success
-    assert_select 'h1', "#{@user.name}'s clients"
+    assert_select 'h1', "#{@darlene.name}'s clients"
     assert_select 'h3', "#{@e_corp.name}"
     assert_includes response.body, "#{@e_corp.hours_worked}"
     assert_includes response.body, "#{@e_corp.amount_billed}"
