@@ -85,4 +85,15 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/clients/#{@client.id}"
   end
 
+  test "should destroy client" do
+    previous_client_count = Client.count
+
+    delete "/clients/#{@client.id}"
+
+    expected_client_count = previous_client_count - 1
+    assert_equal Client.count, expected_client_count
+
+    assert_redirected_to root_path
+  end
+
 end

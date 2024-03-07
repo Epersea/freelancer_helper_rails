@@ -24,6 +24,12 @@ class ClientsController < ApplicationController
     redirect_to client_path(@client)
   end
 
+  def destroy
+    @client.destroy
+
+    redirect_to root_path
+  end
+
   private
     def set_user
       @user_id = session[:user_id]
