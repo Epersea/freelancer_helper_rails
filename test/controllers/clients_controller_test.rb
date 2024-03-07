@@ -6,6 +6,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:darlene)
     login_as(@user)
+    @client = clients(:ecorp)
   end
 
   test "should get new" do
@@ -41,6 +42,17 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal client.rate, 60
 
     assert_redirected_to "/clients/#{client.id}"
+  end
+
+  test "should show client" do
+
+    get "/clients/#{@client.id}"
+
+    assert_response :success
+    assert_select 'h1', "#{@client.name}"
+    assert_includes response.body, "#{client.hours_worked}"
+    assert_includes response.body, "#{client.amount_billed}"
+    assert_includes response.body, "#{client.rate}"
   end
 
 end
