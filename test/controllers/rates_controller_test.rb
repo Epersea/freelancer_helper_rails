@@ -56,7 +56,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     get "/rate/#{rate_id}"
 
     assert_response :success
-    assert_select 'h1', 'Your minimum rate per hour'
+    assert_select 'h2', 'Your minimum rate per hour'
     assert_select 'h3', "Your minimum rate per hour should be #{rate.rate}"
     assert_includes response.body, "#{rate.annual_expenses}"
     assert_includes response.body, "#{rate.hours_day}"
