@@ -7,8 +7,8 @@ class RateController < ApplicationController
   end
 
   def new
-    if @user_id && Rate.find_by(user_id: @user_id)
-      redirect_to my_summary_path, notice: "Looks like you have already created a rate. You can edit it at the link below."
+    if @user_id && rate_for_user
+      redirect_to edit_rate_path(rate_for_user), notice: "Looks like you have already created a rate. You can edit it here."
     end
   end
 
@@ -48,6 +48,10 @@ class RateController < ApplicationController
 
   def set_rate
     @rate = Rate.find(params[:id])
+  end
+
+  def rate_for_user
+    Rate.find_by(user_id: @user_id)
   end
 
   def expenses_params

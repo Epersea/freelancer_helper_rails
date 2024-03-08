@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize, except: [:destroy]
+  skip_before_action :authorize
   
   def new
     if session[:user_id]
