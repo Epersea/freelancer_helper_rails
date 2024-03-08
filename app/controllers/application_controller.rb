@@ -7,4 +7,12 @@ protected
       redirect_to login_url, notice: "Please log in to use this feature"
     end
   end
+
+  def set_logged_user
+    begin
+      @user_id = session[:user_id]
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice: "User not found"
+    end
+  end
 end

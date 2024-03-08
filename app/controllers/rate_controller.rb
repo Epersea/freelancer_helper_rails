@@ -1,7 +1,7 @@
 class RateController < ApplicationController
   skip_before_action :authorize
   before_action :set_rate, except: [:create, :index, :new]
-  before_action :set_user, except: [:index, :show, :update, :destroy]
+  before_action :set_logged_user, except: [:index, :show, :update, :destroy]
 
   def index
   end
@@ -48,10 +48,6 @@ class RateController < ApplicationController
 
   def set_rate
     @rate = Rate.find(params[:id])
-  end
-
-  def set_user
-    @user_id = session[:user_id]
   end
 
   def expenses_params

@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_user, only: [:index, :create, :destroy]
+  before_action :set_logged_user, only: [:index, :create, :destroy]
   before_action :set_client, except: [:new, :create, :index]
 
   def index
@@ -41,14 +41,6 @@ class ClientsController < ApplicationController
   end
 
   private
-    def set_user
-      begin
-        @user_id = session[:user_id]
-      rescue ActiveRecord::RecordNotFound
-        redirect_to root_path, notice: "User not found"
-      end
-    end
-
     def set_client
       @client = Client.find(params[:id])
     end
