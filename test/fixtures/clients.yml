@@ -11,3 +11,31 @@ fcorp:
   amount_billed: 1650.0
   rate: 150.0
   user_id: 459622999
+
+client_with_10_rate:
+  name: Ten
+  hours_worked: 10.0
+  amount_billed: 100.0
+  rate: 10.0
+  user_id: 196367642
+
+client_with_15_rate:
+  name: Fifteen
+  hours_worked: 10.0
+  amount_billed: 150.0
+  rate: 15.0
+  user_id: 482588578
+
+client_with_20_rate:
+  name: Twenty
+  hours_worked: 10.0
+  amount_billed: 200.0
+  rate: 20.0
+  user_id: 196367642
+
+client_with_25_rate:
+  name: Twenty-five
+  hours_worked: 10.0
+  amount_billed: 250.0
+  rate: 25.0
+  user_id: 482588578

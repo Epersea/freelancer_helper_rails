@@ -8,6 +8,8 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     @f_corp = clients(:fcorp)
 
     @user_without_info = users(:elliot)
+    @user_with_low_rates = users(:user_with_low_rates)
+    @user_with_mixed_rates = users(:user_with_mixed_rates)
   end
 
   test "should show login prompt to a logged out user" do
@@ -64,4 +66,26 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', "Looks like you haven't provided any data about your clients."
     assert_select 'a', "Add client"
   end  
+
+  test "should display message for user with client rates above goal rates" do
+    get "/my_summary"
+
+    assert_select 'p', "All your clients are above your goal rate. Good job! Why not being a bit more ambitious?"
+  end
+
+  test "should display message for user with client rates above and below goal rates" do
+    login_as(users(:user_with_mixed_rates))
+
+    get "/my_summary"
+
+    assert_select 'p', "Some of your clients are below your goal rate. Maybe you need to brush up your negotiation skills a bit?"
+  end
+
+  test "should display message for user with client rates below goal rates" do
+    login_as(users(:user_with_low_rates))
+
+    get "/my_summary"
+
+    assert_select 'p', "All your clients are below your goal rate. It's time to give yourself a raise!"
+  end
 end
