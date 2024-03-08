@@ -50,28 +50,24 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show rate" do
-    rate = @basic_rate
-    rate_id = rate.id
 
-    get "/rate/#{rate_id}"
+    get "/rate/#{@basic_rate.id}"
 
     assert_response :success
-    assert_select 'h1', 'Your minimum rate per hour'
-    assert_select 'h3', "Your minimum rate per hour should be #{rate.rate}"
-    assert_includes response.body, "#{rate.annual_expenses}"
-    assert_includes response.body, "#{rate.hours_day}"
-    assert_includes response.body, "#{rate.hours_year}"
-    assert_includes response.body, "#{rate.billable_percent}"
-    assert_includes response.body, "#{rate.net_month}"
-    assert_includes response.body, "#{rate.tax_percent}"
-    assert_includes response.body, "#{rate.gross_year}"
+    assert_select 'h2', 'Your minimum rate per hour'
+    assert_select 'h3', "Your minimum rate per hour should be #{@basic_rate.rate}"
+    assert_includes response.body, "#{@basic_rate.annual_expenses}"
+    assert_includes response.body, "#{@basic_rate.hours_day}"
+    assert_includes response.body, "#{@basic_rate.hours_year}"
+    assert_includes response.body, "#{@basic_rate.billable_percent}"
+    assert_includes response.body, "#{@basic_rate.net_month}"
+    assert_includes response.body, "#{@basic_rate.tax_percent}"
+    assert_includes response.body, "#{@basic_rate.gross_year}"
   end
 
   test "should get edit" do
-    rate = @basic_rate
-    rate_id = rate.id
 
-    get "/rate/#{rate_id}/edit"
+    get "/rate/#{@basic_rate.id}/edit"
 
     assert_response :success
     assert_select 'h1', 'Edit your rate'
@@ -79,27 +75,23 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update rate" do
-    rate_id = @basic_rate.id
-    rate = Rate.find(rate_id)
-    assert_equal rate.rate, 42.3
+    assert_equal @basic_rate.rate, 42.3
 
-    patch "/rate/#{rate_id}", params: {
+    patch "/rate/#{@basic_rate.id}", params: {
       expenses: @improved_input["expenses"],
       hours: @improved_input["hours"],
       earnings: @improved_input["earnings"],
     }
    
-    updated_rate = Rate.find(rate_id)
+    updated_rate = Rate.find(@basic_rate.id)
     assert_equal updated_rate.rate, 60.1
-    assert_redirected_to "/rate/#{rate_id}"
+    assert_redirected_to "/rate/#{@basic_rate.id}"
   end
 
   test "should destroy rate" do
-    rate = @basic_rate
-    rate_id = rate.id
     previous_rate_count = Rate.count
 
-    delete "/rate/#{rate_id}"
+    delete "/rate/#{@basic_rate.id}"
 
     expected_rate_count = previous_rate_count - 1
     assert_equal Rate.count, expected_rate_count
