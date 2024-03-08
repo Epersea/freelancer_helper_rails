@@ -5,5 +5,6 @@ class MySummaryController < ApplicationController
     @rate = Rate.find_by(user_id: @user_id)
     user = User.find_by(id: @user_id)
     @username = user.name
+    @clients = Client.where(user_id: @user_id)
   end
 end
