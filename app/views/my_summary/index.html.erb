@@ -13,6 +13,7 @@
       <%= link_to "Go to Rate Calculator", rate_path, class: "btn", style: "text-decoration: none"%>
     <% end%>
     <h2>Client info</h2>
+    <p><%= @message%></p>
     <% if @clients.size > 0%>
       <% @clients.each do |client|%>
         <%= render "clients/client", client: client%> 

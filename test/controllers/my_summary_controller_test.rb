@@ -68,6 +68,8 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
   end  
 
   test "should display message for user with client rates above goal rates" do
+    login_as(@user_with_info)
+    
     get "/my_summary"
 
     assert_select 'p', "All your clients are above your goal rate. Good job! Why not being a bit more ambitious?"

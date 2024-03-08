@@ -5,6 +5,7 @@ class RateTest < ActiveSupport::TestCase
   setup do
     @basic_input = rate_inputs(:basic_rate_input)
     @improved_input = rate_inputs(:improved_rate_input)
+    @basic_rate = rates(:basic_rate)
   end
 
   test "rate attributes must not be empty" do
@@ -99,11 +100,10 @@ class RateTest < ActiveSupport::TestCase
   end
 
   test "an input is updated when a rate is updated" do
-    rate = Rate.last
 
-    rate.update_for(expenses: @improved_input["expenses"], hours: @improved_input["hours"], earnings: @improved_input["earnings"])
+    @basic_rate.update_for(expenses: @improved_input["expenses"], hours: @improved_input["hours"], earnings: @improved_input["earnings"])
 
-    updated_input = Rate::Input.find_by(rate_id: rate.id)
+    updated_input = Rate::Input.find_by(rate_id: @basic_rate.id)
     assert_equal updated_input.expenses, @improved_input["expenses"]
     assert_equal updated_input.hours, @improved_input["hours"]
     assert_equal updated_input.earnings, @improved_input["earnings"]
