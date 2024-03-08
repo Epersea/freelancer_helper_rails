@@ -6,9 +6,10 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @darlene = users(:darlene)
     @elliot = users(:elliot)
-    login_as(@darlene)
     @e_corp = clients(:ecorp)
     @f_corp = clients(:fcorp)
+    
+    login_as(@darlene)
   end
 
   test "should get new" do
