@@ -9,9 +9,9 @@
     <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
     <br>
     <p><b>Do you want to try different variables? Edit your rate to see how it works out:
-    <%=link_to "Edit", edit_rate_path(rate), class: "link"%></b></p>
+    <%=link_to "Edit", edit_rate_path(rate), class: "btn", style: "text-decoration: none;"%></b></p>
 
     <p>You can also delete this rate:</p>
-    <%= button_to "Delete", delete_rate_path(rate), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" %>
+    <%= button_to "Delete", delete_rate_path(rate), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
     <br>
   </div>
