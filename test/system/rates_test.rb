@@ -28,8 +28,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should get edit" do
-    rate_id = @basic_rate.id
-    visit "/rate/#{rate_id}"
+    visit "/rate/#{@basic_rate.id}"
 
     click_on "Edit"
 
@@ -37,8 +36,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should update rate" do
-    rate_id = @basic_rate.id
-    visit "/rate/#{rate_id}/edit"
+    visit "/rate/#{@basic_rate.id}/edit"
 
     fill_in "earnings[net_month]", with: "3000"
 
@@ -48,8 +46,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Rate" do
-    rate_id = @basic_rate.id
-    visit "/rate/#{rate_id}"
+    visit "/rate/#{@basic_rate.id}"
 
     click_on "Delete"
     page.accept_alert
