@@ -2,11 +2,6 @@ require "application_system_test_case"
 
 class UsersTest < ApplicationSystemTestCase
 
-  setup do
-    @darlene = users(:darlene)
-    @basic_rate = rates(:basic_rate)
-  end
-
   test "should register a new user" do
     visit "/register"
     
