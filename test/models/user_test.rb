@@ -15,10 +15,11 @@ class UserTest < ActiveSupport::TestCase
     assert empty_user.errors[:password_digest].any?
   end
 
-  test "user name must be unique" do
+  test "user name and email must be unique" do
     repeated_name_user = User.new(name: @user.name, email: @user.email, password: 'secret')
 
     assert repeated_name_user.invalid?
     assert_equal ["has already been taken"], repeated_name_user.errors[:name]
+    assert_equal ["has already been taken"], repeated_name_user.errors[:email]
   end
 end
