@@ -6,36 +6,31 @@ class MySummaryController < ApplicationController
     user = User.find_by(id: @user_id)
     @username = user.name
     @clients = Client.where(user_id: @user_id)
-    @message = client_rate_message(@rate, @clients)
+    @message = client_rate_message
   end
 
   private
 
-    def client_rate_message(rate, clients)
-      if clients.empty? || !rate
-        return ""
-      end
-
-      rate_evaluation = evaluate_rates(rate, clients)
-
-      if rate_evaluation == "poor" 
-        return below_goal_message
-      elsif rate_evaluation == "intermediate"
-        return above_and_below_goal_message
-      elsif rate_evaluation == "good"
-        return above_goal_message
+    def client_rate_message
+      if @clients.empty? || !@rate
+        return nil
+      else
+        return evaluate_rates
       end
     end
 
-    def evaluate_rates(rate, clients)
-      client_rates = clients.map(&:rate).sort
+    def evaluate_rates
+      client_rates = @clients.map(&:rate).sort
+      
+      lowest_rate = client_rates.first
+      highest_rate = client_rates.last
 
-      if client_rates.first > rate.rate
-        return "good"
-      elsif client_rates.last < rate.rate
-        return "poor"
+      if lowest_rate > @rate.rate
+        return above_goal_message
+      elsif highest_rate < @rate.rate
+        return below_goal_message
       else
-        return "intermediate"
+        return above_and_below_goal_message
       end
     end
 
