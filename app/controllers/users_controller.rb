@@ -17,13 +17,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !user_authorized
+    if !user_authorized?
       redirect_to root_path, notice: "You can only see your own account"
     end
   end
 
   def edit
-    if !user_authorized
+    if !user_authorized?
       redirect_to root_path, notice: "You can only edit your own account"
     end
   end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    if !user_authorized
+    if !user_authorized?
       redirect_to root_path, notice: "You can only delete your own account"
     else
       ActiveRecord::Base.transaction do
@@ -59,5 +59,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def user_authorized?
+      session[:user_id] == params[:id].to_i
     end
 end

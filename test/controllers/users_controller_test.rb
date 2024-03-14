@@ -28,7 +28,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'darlene@fsociety.com'
   end
 
-  test "should not show user if user is not logged in" do
+  test "should not show user to another user" do
     login_as(@elliot)
 
     get "/users/#{@darlene.id}"
@@ -52,7 +52,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Password confirmation"
   end
 
-  test "should not get edit if user is not logged in" do
+  test "should not get edit for a different user" do
 
     login_as(@elliot)
 
@@ -94,7 +94,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', "User #{@darlene.name} was successfully deleted"
   end
 
-  test "should not destroy user if user is not logged in" do
+  test "should not destroy user for another user" do
 
     login_as(@elliot)
 

@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_logged_user, only: [:index, :create, :destroy]
+  before_action :set_logged_user, except: [:new, :update]
   before_action :set_client, except: [:new, :create, :index]
 
   def index
@@ -9,6 +9,12 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+  end
+
+  def show
+    if !client_belongs_to_user?
+      redirect_to root_path, notice: "You can only see your own clients"
+    end
   end
  
   def create
@@ -22,10 +28,10 @@ class ClientsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
+    if !client_belongs_to_user?
+      redirect_to root_path, notice: "You can only edit your own clients"
+    end
   end
 
   def update
@@ -35,14 +41,21 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    @client.destroy
-
-    redirect_to clients_path, notice: "Client #{@client.name} was successfully deleted" 
+    if !client_belongs_to_user?
+      redirect_to root_path, notice: "You can only delete your own clients"
+    else
+      @client.destroy
+      redirect_to clients_path, notice: "Client #{@client.name} was successfully deleted" 
+    end
   end
 
   private
     def set_client
       @client = Client.find(params[:id])
+    end
+
+    def client_belongs_to_user?
+      @client.user_id == @user_id
     end
 
     def client_params
