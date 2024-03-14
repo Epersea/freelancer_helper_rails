@@ -59,7 +59,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', "Looks like you have created this client already. Try editing it here!"
   end
 
-  test "should let the user create a client with the same name as another users client" do
+  test "should let the user create a client with the same name as another user's client" do
     login_as(@elliot)
     previous_client_count = Client.count
 

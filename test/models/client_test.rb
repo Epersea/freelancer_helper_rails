@@ -2,11 +2,6 @@ require "test_helper"
 
 class ClientTest < ActiveSupport::TestCase
 
-  # setup do
-  #   @basic_input = rate_inputs(:basic_rate_input)
-  #   @improved_input = rate_inputs(:improved_rate_input)
-  # end
-
   test "client attributes must not be empty" do
     client = Client.new
 
