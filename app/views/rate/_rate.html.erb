@@ -1,6 +1,5 @@
-<h2>Your minimum rate per hour</h2>
+<h2>Your minimum rate per hour should be <%= rate.rate%></h2>
   <div>
-    <h3>Your minimum rate per hour should be <%= rate.rate%></h3>
     <p>How did we arrive at that number? Let's do some math to find out!</p>
     <p>You said you want to work <b><%= rate.hours_day%> hours</b> per day. Of those, <b><%= rate.billable_percent%>%</b> will be billable.</p>
     <p>Taking weekend, vacation, training and sick time into account, this means you will charge your clients for <b><%= rate.hours_year%> hours</b> per year.</p>

@@ -28,7 +28,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     get "/my_summary"
 
     assert_select 'h1', "#{@user_with_info.name}, this is your Freelancer Summary"
-    assert_select 'h3', "Your minimum rate per hour should be #{@rate.rate}"
+    assert_select 'h2', "Your minimum rate per hour should be #{@rate.rate}"
   end
 
   test "should show invitation to fill rate to a logged in user without a rate" do
