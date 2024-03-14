@@ -8,12 +8,7 @@ class ClientsTest < ApplicationSystemTestCase
   end
 
   test "should add, edit and delete a client" do
-    visit "/login"
-
-    fill_in "Name", with: @elliot.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
+    login_as(@elliot)
 
     click_on "Add client"
 
@@ -49,11 +44,7 @@ class ClientsTest < ApplicationSystemTestCase
 
   test "should display index of clients" do
 
-    visit "/login"
-
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-    click_button "Login"
+    login_as(@darlene)
 
     click_on "My clients"
 

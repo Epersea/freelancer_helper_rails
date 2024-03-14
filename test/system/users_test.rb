@@ -20,12 +20,8 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "should show/edit user" do
-    visit "/login"
+    login_as(@darlene)
 
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
     click_on "My account"
 
     assert_text "My account"
@@ -45,12 +41,8 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "should delete user" do
-    visit "/login"
-
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
+    login_as(@darlene)
+    
     click_on "My account"
 
     click_on "Delete user"

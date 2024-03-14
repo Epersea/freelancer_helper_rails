@@ -1,5 +1,4 @@
 require "test_helper"
-include AuthenticationHelper
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
 

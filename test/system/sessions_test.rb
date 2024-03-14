@@ -9,24 +9,15 @@ class UsersTest < ApplicationSystemTestCase
 
 
   test "should log in" do
-    visit "/login"
-
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
+    login_as(@darlene)
 
     assert_text "#{@darlene.name}, this is your Freelancer Summary"
     assert_text "Your minimum rate per hour should be #{@basic_rate.rate}"
   end
 
   test "should log out" do
-    visit "/login"
+    login_as(@darlene)
 
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
     click_button('Logout', match: :first)
 
     assert_text 'Logged out'

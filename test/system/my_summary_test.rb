@@ -10,12 +10,7 @@ class MySummaryTest < ApplicationSystemTestCase
   end
 
   test "should display user information (rates and clients)" do
-    visit "/login"
-
-    fill_in "Name", with: @darlene.name
-    fill_in "Password", with: "secret"
-
-    click_button "Login"
+    login_as(@darlene)
 
     assert_text "Darlene, this is your Freelancer Summary"
     assert_text "Rate info"
