@@ -10,7 +10,7 @@ class ClientsTest < ApplicationSystemTestCase
   test "should add, edit and delete a client" do
     login_as(@elliot)
 
-    click_on "Add client"
+    click_on "Add Client"
 
     assert_text "New client"
 
@@ -36,7 +36,7 @@ class ClientsTest < ApplicationSystemTestCase
     assert_text "Rate per hour: 20.0"
 
     click_on "Edit this client"
-    click_on "Delete client"
+    click_on "Delete Client"
     page.accept_alert
 
     assert_text "Client A was successfully deleted"
@@ -46,7 +46,7 @@ class ClientsTest < ApplicationSystemTestCase
 
     login_as(@darlene)
 
-    click_on "My clients"
+    click_on "My Clients"
 
     assert_text "Darlene's clients"
     assert_text "E-Corp"

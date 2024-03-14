@@ -22,7 +22,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get "/users/#{@user.id}"
 
     assert_response :success
-    assert_select 'h1', 'My account'
+    assert_select 'h1', 'My Account'
     assert_select 'p', 'Darlene'
     assert_select 'p', 'darlene@fsociety.com'
   end

@@ -64,7 +64,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     get "/my_summary"
 
     assert_select 'p', "Looks like you haven't provided any data about your clients."
-    assert_select 'a', "Add client"
+    assert_select 'a', "Add Client"
   end  
 
   test "should display message for user with client rates above goal rates" do

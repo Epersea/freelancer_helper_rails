@@ -22,9 +22,9 @@ class UsersTest < ApplicationSystemTestCase
   test "should show/edit user" do
     login_as(@darlene)
 
-    click_on "My account"
+    click_on "My Account"
 
-    assert_text "My account"
+    assert_text "My Account"
     assert_text "#{@darlene.name}"
     assert_text "#{@darlene.email}"
 
@@ -43,9 +43,9 @@ class UsersTest < ApplicationSystemTestCase
   test "should delete user" do
     login_as(@darlene)
     
-    click_on "My account"
+    click_on "My Account"
 
-    click_on "Delete user"
+    click_on "Delete User"
     page.accept_alert
 
     assert_text "User Darlene was successfully deleted"
