@@ -3,7 +3,8 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = users(:darlene)
+    @darlene = users(:darlene)
+    @elliot = users(:elliot)
   end
 
   test "should get new" do
@@ -17,9 +18,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show user" do
 
-    login_as(@user)
+    login_as(@darlene)
 
-    get "/users/#{@user.id}"
+    get "/users/#{@darlene.id}"
 
     assert_response :success
     assert_select 'h1', 'My Account'
@@ -27,32 +28,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'darlene@fsociety.com'
   end
 
-  test "should create user" do
-    previous_user_count = User.count
+  test "should not show user if user is not logged in" do
+    login_as(@elliot)
 
-    post "/register", params: {
-      user: {
-        name: 'Mike',
-        email: 'mickey@hotmail.com',
-        password: 'sssshhhh',
-        password_confirmation: 'sssshhhh'
-      }
-    }
- 
-    expected_user_count = previous_user_count + 1
-    assert_equal User.count, expected_user_count
+    get "/users/#{@darlene.id}"
 
-    user = User.last
-    assert_equal user.name, 'Mike'
-    assert_equal user.email, 'mickey@hotmail.com'
-    assert_instance_of(String, user.password_digest)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select 'p', "You can only see your own account"
   end
 
   test "should get edit" do
 
-    login_as(@user)
+    login_as(@darlene)
 
-    get "/users/#{@user.id}/edit"
+    get "/users/#{@darlene.id}/edit"
 
     assert_response :success
     assert_select 'h1', 'Editing user'
@@ -62,11 +52,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Password confirmation"
   end
 
+  test "should not get edit if user is not logged in" do
+
+    login_as(@elliot)
+
+    get "/users/#{@darlene.id}/edit"
+
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select 'p', "You can only edit your own account"
+  end
+
   test "should update user" do
-    user = User.find(@user.id)
+    user = User.find(@darlene.id)
     assert_equal user.name, 'Darlene'
 
-    patch "/users/#{@user.id}", params: {
+    patch "/users/#{@darlene.id}", params: {
       user: {
         name: 'Dolores',
         email: 'darlene@fsociety.com',
@@ -75,30 +76,43 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     }
    
-    updated_user = User.find(@user.id)
+    updated_user = User.find(@darlene.id)
     assert_equal updated_user.name, 'Dolores'
   end
 
   test "should destroy user" do
     previous_user_count = User.count
     
-    login_as(@user)
-    delete "/users/#{@user.id}"
+    login_as(@darlene)
+    delete "/users/#{@darlene.id}"
 
     expected_user_count = previous_user_count - 1
     assert_equal User.count, expected_user_count
 
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'p', "User #{@user.name} was successfully deleted"
+    assert_select 'p', "User #{@darlene.name} was successfully deleted"
+  end
+
+  test "should not destroy user if user is not logged in" do
+
+    login_as(@elliot)
+
+    assert_difference -> {User.count}, 0 do
+      delete "/users/#{@darlene.id}"
+    end
+    
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select 'p', "You can only delete your own account"
   end
 
   test "destroying a user destroys its associated rate" do
     previous_user_count = User.count
     previous_rate_count = Rate.count
 
-    login_as(@user)
-    delete "/users/#{@user.id}"
+    login_as(@darlene)
+    delete "/users/#{@darlene.id}"
 
     expected_user_count = previous_user_count - 1
     expected_rate_count = previous_rate_count - 1
@@ -108,13 +122,25 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "destroying a user ends its associated session" do
 
-    login_as(@user)
+    login_as(@darlene)
 
-    assert_equal session[:user_id], @user.id
+    assert_equal session[:user_id], @darlene.id
 
-    delete "/users/#{@user.id}"
+    delete "/users/#{@darlene.id}"
 
     assert_nil session[:user_id]
+  end
 
+  test "destroying a user destroys its associated clients" do
+    previous_user_count = User.count
+    previous_client_count = Client.count
+
+    login_as(@darlene)
+    delete "/users/#{@darlene.id}"
+
+    expected_user_count = previous_user_count - 1
+    expected_client_count = previous_client_count - 2
+    assert_equal User.count, expected_user_count
+    assert_equal Client.count, expected_client_count
   end
 end

@@ -17,6 +17,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    if !user_authorized
+      redirect_to root_path, notice: "You can only see your own account"
+    end
   end
 
   def edit
@@ -36,14 +39,13 @@ class UsersController < ApplicationController
   def destroy
     if !user_authorized
       redirect_to root_path, notice: "You can only delete your own account"
+    else
+      ActiveRecord::Base.transaction do
+        session[:user_id] = nil
+        @user.destroy!
+      end
+      redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
     end
-
-    ActiveRecord::Base.transaction do
-      session[:user_id] = nil
-      @user.destroy!
-    end
-
-    redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
 
   private
