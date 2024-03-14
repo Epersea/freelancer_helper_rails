@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if session[:user_id] != params[:id].to_i
+    if !user_authorized
       redirect_to root_path, notice: "You can only edit your own account"
     end
   end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    if session[:user_id] != params[:id].to_i
+    if !user_authorized
       redirect_to root_path, notice: "You can only delete your own account"
     end
 

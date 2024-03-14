@@ -16,4 +16,8 @@ protected
       redirect_to root_path, notice: "User not found"
     end
   end
+
+  def user_authorized
+    session[:user_id] == params[:id].to_i
+  end
 end
