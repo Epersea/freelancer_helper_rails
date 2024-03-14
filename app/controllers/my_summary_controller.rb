@@ -12,23 +12,30 @@ class MySummaryController < ApplicationController
   private
 
     def client_rate_message(rate, clients)
-      client_rates = []
       if clients.empty? || !rate
         return ""
-      else
-        clients.each do |client|
-          client_rates.push(client.rate)
-        end
       end
 
-      client_rates.sort!
+      rate_evaluation = evaluate_rates(rate, clients)
+
+      if rate_evaluation == "poor" 
+        return below_goal_message
+      elsif rate_evaluation == "intermediate"
+        return above_and_below_goal_message
+      elsif rate_evaluation == "good"
+        return above_goal_message
+      end
+    end
+
+    def evaluate_rates(rate, clients)
+      client_rates = clients.map(&:rate).sort
 
       if client_rates.first > rate.rate
-        return above_goal_message
+        return "good"
       elsif client_rates.last < rate.rate
-        return below_goal_message
+        return "poor"
       else
-        return above_and_below_goal_message
+        return "intermediate"
       end
     end
 
