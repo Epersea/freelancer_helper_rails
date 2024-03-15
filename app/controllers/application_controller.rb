@@ -10,10 +10,6 @@ protected
   end
 
   def set_logged_user
-    begin
-      @user_id = session[:user_id]
-    rescue ActiveRecord::RecordNotFound
-      redirect_to root_path, notice: "User not found"
-    end
+    @user_id = session[:user_id]
   end
 end
