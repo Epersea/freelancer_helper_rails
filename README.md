@@ -5,8 +5,9 @@ Currently, this a work in progress. Please check [this presentation](https://doc
 ## THE WHY AND THE HOW
 
 ### TOO LONG, DIDN'T READ
-This is a practice project for learning Ruby on Rails. These are the main functionalities I have used:
-- **Model** creation and validation, including **associations** (`Rate` and `Rate::Input`), `has_one, has_many` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects. I have also implemented **transactions** to ensure database integrity.
+This is a **practice project for learning Ruby on Rails**. These are the main functionalities I have used:
+- **Model** creation and validation, including **associations** (`Rate` and `Rate::Input`), `has_one, has_many` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** to ensure database integrity.
+- Use of **migrations** to create and update database tables.
 - **Controller** creation and routing. Some of my controllers implement the full range of Rails `:resources`, while others only implement a few selected actions depending on functionality requirements. I have defined **methods and callbacks at the application and controller levels**, for instance, to restrict functionalities to authorized and logged in users. Controllers also make use of **strong params** for input sanitization.
 - **View** creation, including use of ERB logic and refactorization with **partials**. Many views include a notice div at the top to display useful information to users. I also modified the application layout to display a sidebar, with different links displayed depending on login status.
 - Implementation of **custom code** (RateCalculator class and subclasses), which can be found in `/lib`.
@@ -30,7 +31,7 @@ To organize the work, I divided the project into **4 main functionalities or "sl
 
 A rough blueprint of the functionalities can be found [in this document](https://docs.google.com/document/d/1wpJ2rE1mnw8bWZ_sl8J0sQqP_ie4fbU_BSkfsvhLAso/edit).
 
-### RATE CALCULATOR
+### 1. RATE CALCULATOR
 The rate calculator is the **core functionality of the application**. The user visits a form and fills it with information regarding several aspects of their business, such as their planned expenses, how many hours a day and days a week they want to work and their desired earnings.
 
 After clicking on "Calculate", the user is redirected to a page where they can see what is the minimum rate per hour they should be charging in order to achieve their goals, as well as an explanation of the calculations. They can easily edit their input information to play with the variables, for example, what would happen if they decide to work 4 days a week instead of 5.
@@ -63,7 +64,7 @@ The RateCalculator class, which resides in /lib, is responsible for **performing
 
 To do this, it relies on three secondary objects which deal with expenses, hours and earnings. I focused on creating clean, [fractal](https://dev.37signals.com/fractal-journeys/) code with clear names, with unit testing for public methods (both at the rate calculator and secondary object levels) using Rspec. These tests can be executed locally with the command `bundle exec rspec`.
 
-### USER MANAGEMENT
+### 2. USER MANAGEMENT
 I understand most professional web apps would use a library for this. However, since this is a practice project, I decided to try to implement user management functions myself, using the tutorial in Agile Development with Rails 7 as a base.
 
 This "slice" includes the following functionalities:
@@ -90,6 +91,24 @@ I have also edited the Rate controller to display/edit the associated rate to lo
 To provide easier access to the new functionalities, I have created a **sidebar** that displays the main application links, Register and Login (for logged out users) and My Account and Logout (for logged in users).
 
 Finally, I have created **tests** for the User model and the User, Session and MySummary controllers, as well as system tests covering the users and sessions functionality.
+
+### 3. CLIENTS
+The third slice of the app covers **client functionality**. A user can add information about a client (name, hours worked and amount billed) and the app will calculate the rate per hour for that particular client. Clients are stored in the database and the user can check them individually or see a summary of all their clients. 
+
+Client information is also displayed at **My Summary** page. If the user has provided information about rates, they will also see a brief message depending on their client rates being above or below their goal rate. 
+
+Some areas of note about this functionality:
+- I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. As in the case of Rate models, we have to perform a rate calculation and assing a user to the client, so I have defined the custom model methods `create_for` and `update_for`.
+- The **Client controller** handles the standard actions. To ensure that users can only see/edit/delete their own clients, I have implemented the `client_belongs_to_user?` method. I have also included some logic to prevent a user from creating a client with the same name twice.
+- I have also created the corresponding **Client views**, with partials for `_client` and `_form`.
+- In order to display client information, I have edited **My Summary controller and view**. Now, the controller fetches the client info to display and determines the message to display based on a rate evaluation.
+- I have also created **tests** for Client model validations, Client controller routes (including authorization) and system tests for the client functionality, as well as updating My Summary tests.
+
+At this point in the development process, I also spend some time **refactoring the app**, including:
+- Defining a `set_logged_user` method in the application controller to keep things DRY-er.
+- Unifying redirections between different controllers so the app behaves in a consistent way.
+- Creating authorization methods for the Users controller via the `user_authorized?` method.
+- Creating an AuthenticationHelper for tests.
 
 
 ## HOW TO RUN THE APPLICATION
