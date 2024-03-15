@@ -1,10 +1,8 @@
-Freelancer Helper is a web app with utilities to help freelancers get organized, earn more and work less. This is version 2.0 using Ruby on Rails, with a major code refactor and new functionalities. You can check the first version in [this repo](https://github.com/Epersea/freelancerhelperLEGACY).
+Freelancer Helper is a web app with utilities to help freelancers get organized, earn more and work less. This is version 2.0 using Ruby on Rails, with a major code refactor and new functionalities. You can check the first version (using Python and Flask) in [this repo](https://github.com/Epersea/freelancerhelperLEGACY).
 
 Currently, this a work in progress. Please check [this presentation](https://docs.google.com/presentation/d/1JbWWOwOo35lFC8JhxrZ8EUhQx-9nscmbsC73P5WCXT0) for more details about the scope of the project and planned improvements over the legacy version.
 
-## THE WHY AND THE HOW
-
-### TOO LONG, DIDN'T READ
+## KEY POINTS: WHAT I LEARNED
 This is a **practice project for learning Ruby on Rails**. These are the main functionalities I have used:
 - **Model** creation and validation, including **associations** (`Rate` and `Rate::Input`), `has_one, has_many` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** to ensure database integrity.
 - Use of **migrations** to create and update database tables.
@@ -14,8 +12,8 @@ This is a **practice project for learning Ruby on Rails**. These are the main fu
 - **Unit testing** with Rspec
 - **Model, controller and system testing** with fixtures using Minitest and Capybara. I also defined **helpers** for authorization methods to be shared among tests
 
+## THE WHY AND THE HOW
 
-### WHY THIS PROJECT?
 In December 2023, I started studying Ruby on Rails, using mostly the following resources:
 - [Rails official guides](https://guides.rubyonrails.org/)
 - [Go Rails courses](https://gorails.com/)
