@@ -40,10 +40,9 @@ class UsersController < ApplicationController
     if !user_authorized?
       redirect_to root_path, notice: "You can only delete your own account"
     else
-      ActiveRecord::Base.transaction do
-        session[:user_id] = nil
-        @user.destroy!
-      end
+      session[:user_id] = nil
+      @user.destroy!
+  
       redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
     end
   end
