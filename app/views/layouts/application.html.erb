@@ -22,7 +22,7 @@
                     <a href="/rate" class="block py-2">Rate Calculator</a>
                   <% end %>
                   <a href="/my_summary" class="block py-2">My Summary</a>
-                  <%= link_to "My Account", "/users/#{session[:user_id]}", class: "block py-2" %>
+                  <%= link_to "My Account", "/user", class: "block py-2" %>
                   <%= link_to "My Clients", "/clients", class: "block py-2" %>
                   <%= button_to 'Logout', logout_path, method: :delete, class: "block py-2" %>
               <% else %>

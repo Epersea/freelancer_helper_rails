@@ -7,7 +7,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "should register a new user" do
-    visit "/register"
+    visit "/user/new"
     
     fill_in "Name", with: "Dom"
     fill_in "Email", with: "dipierro@fbi.gov"
