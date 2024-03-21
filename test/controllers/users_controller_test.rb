@@ -9,7 +9,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
 
-    get "/register"
+    get "/user/new"
 
     assert_response :success
     assert_select 'h1', 'New user'
@@ -20,7 +20,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@darlene)
 
-    get "/users/#{@darlene.id}"
+    get "/user"
 
     assert_response :success
     assert_select 'h1', 'My Account'
@@ -28,21 +28,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'darlene@fsociety.com'
   end
 
-  test "should not show user to another user" do
-    login_as(@elliot)
+  # test "should not show user to another user" do
+  #   login_as(@elliot)
 
-    get "/users/#{@darlene.id}"
+  #   get "/users/#{@darlene.id}"
 
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "You can only see your own account"
-  end
+  #   assert_redirected_to root_path
+  #   follow_redirect!
+  #   assert_select 'p', "You can only see your own account"
+  # end
 
   test "should get edit" do
 
     login_as(@darlene)
 
-    get "/users/#{@darlene.id}/edit"
+    get "/user/edit"
 
     assert_response :success
     assert_select 'h1', 'Editing user'
@@ -52,22 +52,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Password confirmation"
   end
 
-  test "should not get edit for a different user" do
+  # test "should not get edit for a different user" do
 
-    login_as(@elliot)
+  #   login_as(@elliot)
 
-    get "/users/#{@darlene.id}/edit"
+  #   get "/users/#{@darlene.id}/edit"
 
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "You can only edit your own account"
-  end
+  #   assert_redirected_to root_path
+  #   follow_redirect!
+  #   assert_select 'p', "You can only edit your own account"
+  # end
 
   test "should update user" do
     user = User.find(@darlene.id)
     assert_equal user.name, 'Darlene'
+    
+    login_as(user)
 
-    patch "/users/#{@darlene.id}", params: {
+    patch "/user", params: {
       user: {
         name: 'Dolores',
         email: 'darlene@fsociety.com',
@@ -84,7 +86,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_user_count = User.count
     
     login_as(@darlene)
-    delete "/users/#{@darlene.id}"
+    delete "/user"
 
     expected_user_count = previous_user_count - 1
     assert_equal User.count, expected_user_count
@@ -94,25 +96,25 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', "User #{@darlene.name} was successfully deleted"
   end
 
-  test "should not destroy user for another user" do
+  # test "should not destroy user for another user" do
 
-    login_as(@elliot)
+  #   login_as(@elliot)
 
-    assert_difference -> {User.count}, 0 do
-      delete "/users/#{@darlene.id}"
-    end
+  #   assert_difference -> {User.count}, 0 do
+  #     delete "/users/#{@darlene.id}"
+  #   end
     
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "You can only delete your own account"
-  end
+  #   assert_redirected_to root_path
+  #   follow_redirect!
+  #   assert_select 'p', "You can only delete your own account"
+  # end
 
   test "destroying a user destroys its associated rate" do
     previous_user_count = User.count
     previous_rate_count = Rate.count
 
     login_as(@darlene)
-    delete "/users/#{@darlene.id}"
+    delete "/user"
 
     expected_user_count = previous_user_count - 1
     expected_rate_count = previous_rate_count - 1
@@ -126,7 +128,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal session[:user_id], @darlene.id
 
-    delete "/users/#{@darlene.id}"
+    delete "/user"
 
     assert_nil session[:user_id]
   end
@@ -136,7 +138,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_client_count = Client.count
 
     login_as(@darlene)
-    delete "/users/#{@darlene.id}"
+    delete "/user"
 
     expected_user_count = previous_user_count - 1
     expected_client_count = previous_client_count - 2

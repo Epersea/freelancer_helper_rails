@@ -15,12 +15,15 @@ Rails.application.routes.draw do
   patch "/rate/:id" => "rate#update", as: :update_rate
   delete "/rate/:id" => "rate#destroy", as: :delete_rate
 
-  resources :users, except: :index
+  resource :user
+  resolve('User') { [:user] }
 
-  controller :users do
-    get 'register' => :new
-    post 'register' => :create
-  end
+  # resources :users, except: :index
+
+  # controller :users do
+  #   get 'register' => :new
+  #   post 'register' => :create
+  # end
 
   controller :sessions do
     get 'login' => :new
