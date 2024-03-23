@@ -18,11 +18,7 @@ Rails.application.routes.draw do
   resource :user
   resolve('User') { [:user] }
 
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create 
-    delete 'logout' => :destroy
-  end
+  resource :session, only: [:new, :create, :destroy]
 
   get 'my_summary' => "my_summary#index"
 

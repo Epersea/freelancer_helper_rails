@@ -16,7 +16,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     
     get "/my_summary"
 
-    assert_redirected_to login_path
+    assert_redirected_to new_session_path
     follow_redirect!
     assert_select 'p', "Please log in to use this feature"
   end

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to my_summary_url
     else
-      redirect_to login_url, notice: "Invalid user/password combination"
+      redirect_to new_session_path, notice: "Invalid user/password combination"
     end
   end
 
