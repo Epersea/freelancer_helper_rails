@@ -15,6 +15,23 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', 1
   end
 
+  test "should create user" do
+    assert_difference -> {User.count}, 1 do
+      post "/user", params: {
+        user: {
+          name: 'Gideon',
+          email: 'gideon@allsafe.com',
+          password: 'secret',
+          password_confirmation: 'secret'
+        }
+      }
+    end
+
+    user = User.last
+    assert_equal user.name, 'Gideon'
+    assert_equal user.email, 'gideon@allsafe.com'
+  end
+
   test "should show user" do
 
     login_as(@darlene)
