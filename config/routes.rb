@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
-  get 'my_summary' => "my_summary#index"
+  resources :my_summary, only: [:index]
+  #get 'my_summary' => "my_summary#index"
 
   resources :clients
 end

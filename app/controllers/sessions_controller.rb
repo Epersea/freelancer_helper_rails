@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to my_summary_url
+      redirect_to my_summary_index_path
     else
       redirect_to new_session_path, notice: "Invalid user/password combination"
     end

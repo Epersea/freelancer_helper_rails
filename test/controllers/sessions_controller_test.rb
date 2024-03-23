@@ -31,7 +31,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     login_as(@user)
 
     assert_equal session[:user_id], @user.id
-    assert_redirected_to my_summary_path
+    assert_redirected_to my_summary_index_path
   end
 
   test "user should not be logged in if password is wrong" do
