@@ -18,13 +18,6 @@ Rails.application.routes.draw do
   resource :user
   resolve('User') { [:user] }
 
-  # resources :users, except: :index
-
-  # controller :users do
-  #   get 'register' => :new
-  #   post 'register' => :create
-  # end
-
   controller :sessions do
     get 'login' => :new
     post 'login' => :create 

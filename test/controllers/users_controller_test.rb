@@ -4,7 +4,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @darlene = users(:darlene)
-    @elliot = users(:elliot)
   end
 
   test "should get new" do
@@ -28,16 +27,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'darlene@fsociety.com'
   end
 
-  # test "should not show user to another user" do
-  #   login_as(@elliot)
-
-  #   get "/users/#{@darlene.id}"
-
-  #   assert_redirected_to root_path
-  #   follow_redirect!
-  #   assert_select 'p', "You can only see your own account"
-  # end
-
   test "should get edit" do
 
     login_as(@darlene)
@@ -52,22 +41,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Password confirmation"
   end
 
-  # test "should not get edit for a different user" do
-
-  #   login_as(@elliot)
-
-  #   get "/users/#{@darlene.id}/edit"
-
-  #   assert_redirected_to root_path
-  #   follow_redirect!
-  #   assert_select 'p', "You can only edit your own account"
-  # end
-
   test "should update user" do
-    user = User.find(@darlene.id)
-    assert_equal user.name, 'Darlene'
+    assert_equal @darlene.name, 'Darlene'
     
-    login_as(user)
+    login_as(@darlene)
 
     patch "/user", params: {
       user: {
@@ -77,7 +54,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         password_confirmation: 'secret'
       }
     }
-   
+    
     updated_user = User.find(@darlene.id)
     assert_equal updated_user.name, 'Dolores'
   end
@@ -95,19 +72,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select 'p', "User #{@darlene.name} was successfully deleted"
   end
-
-  # test "should not destroy user for another user" do
-
-  #   login_as(@elliot)
-
-  #   assert_difference -> {User.count}, 0 do
-  #     delete "/users/#{@darlene.id}"
-  #   end
-    
-  #   assert_redirected_to root_path
-  #   follow_redirect!
-  #   assert_select 'p', "You can only delete your own account"
-  # end
 
   test "destroying a user destroys its associated rate" do
     previous_user_count = User.count

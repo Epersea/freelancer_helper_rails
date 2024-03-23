@@ -17,15 +17,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    # if !user_authorized?
-    #   redirect_to root_path, notice: "You can only see your own account"
-    # end
   end
 
   def edit
-    # if !user_authorized?
-    #   redirect_to root_path, notice: "You can only edit your own account"
-    # end
   end
 
   def update
@@ -37,14 +31,9 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    # if !user_authorized?
-    #   redirect_to root_path, notice: "You can only delete your own account"
-    # else
-      session[:user_id] = nil
-      @user.destroy!
-  
-      redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
-    # end
+    session[:user_id] = nil
+    @user.destroy!
+    redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
 
   private
@@ -59,8 +48,4 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-
-    # def user_authorized?
-    #   session[:user_id] == params[:id].to_i
-    # end
 end
