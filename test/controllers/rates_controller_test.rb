@@ -19,7 +19,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
 
-    get "/rate"
+    get "/rate/new"
 
     assert_response :success
     assert_select 'h1', 'Rate Calculator'

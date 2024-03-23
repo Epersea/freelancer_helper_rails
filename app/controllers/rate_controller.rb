@@ -19,7 +19,7 @@ class RateController < ApplicationController
       @rate.assign_user_id(@user_id)
     end
 
-    redirect_to show_rate_path(@rate)
+    redirect_to @rate
   end
 
   def show
@@ -35,7 +35,7 @@ class RateController < ApplicationController
   def update
     @rate.update_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
-    redirect_to show_rate_path(@rate)
+    redirect_to @rate
   end
 
   def destroy

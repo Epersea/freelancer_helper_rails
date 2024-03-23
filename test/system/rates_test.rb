@@ -12,7 +12,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should create rate" do
-    visit "/rate"
+    visit "/rate/new"
     
     fill_in "expenses[annual]", with: "1000"
     fill_in "expenses[monthly]", with: "300"
