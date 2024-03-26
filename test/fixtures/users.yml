@@ -7,3 +7,13 @@ elliot:
   name: Elliot
   email: elliot@fsociety.com
   password_digest: <%= BCrypt::Password.create("secret") %>
+
+user_with_low_rates:
+  name: Paul
+  email: paul@gmail.com
+  password_digest: <%= BCrypt::Password.create("secret") %>
+
+user_with_mixed_rates:
+  name: Mary
+  email: mary@gmail.com
+  password_digest: <%= BCrypt::Password.create("secret") %>

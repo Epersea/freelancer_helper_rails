@@ -1,14 +1,14 @@
 class RateController < ApplicationController
   skip_before_action :authorize
   before_action :set_rate, except: [:create, :index, :new]
-  before_action :set_user, except: [:index, :show, :update, :destroy]
+  before_action :set_logged_user, except: [:index, :show, :update, :destroy]
 
   def index
   end
 
   def new
-    if @user_id && Rate.find_by(user_id: @user_id)
-      redirect_to my_summary_path, notice: "Looks like you have already created a rate. You can edit it at the link below."
+    if @user_id && rate_for_user
+      redirect_to edit_rate_path(rate_for_user), notice: "Looks like you have already created a rate. You can edit it here."
     end
   end
 
@@ -19,7 +19,7 @@ class RateController < ApplicationController
       @rate.assign_user_id(@user_id)
     end
 
-    redirect_to show_rate_path(@rate)
+    redirect_to @rate
   end
 
   def show
@@ -35,7 +35,7 @@ class RateController < ApplicationController
   def update
     @rate.update_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
 
-    redirect_to show_rate_path(@rate)
+    redirect_to @rate
   end
 
   def destroy
@@ -50,8 +50,8 @@ class RateController < ApplicationController
     @rate = Rate.find(params[:id])
   end
 
-  def set_user
-    @user_id = session[:user_id]
+  def rate_for_user
+    Rate.find_by(user_id: @user_id)
   end
 
   def expenses_params

@@ -6,27 +6,17 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
+
+  resources :rate, except: [:index]
+
   root "rate#index"
 
-  get "/rate" => "rate#new"
-  post "/rate" => "rate#create"
-  get "/rate/:id" => "rate#show", as: :show_rate
-  get "/rate/:id/edit" => "rate#edit", as: :edit_rate
-  patch "/rate/:id" => "rate#update", as: :update_rate
-  delete "/rate/:id" => "rate#destroy", as: :delete_rate
+  resource :user
+  resolve('User') { [:user] }
 
-  resources :users, except: :index
+  resource :session, only: [:new, :create, :destroy]
 
-  controller :users do
-    get 'register' => :new
-    post 'register' => :create
-  end
+  resources :my_summary, only: [:index]
 
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create 
-    delete 'logout' => :destroy
-  end
-
-  get 'my_summary' => "my_summary#index"
+  resources :clients
 end

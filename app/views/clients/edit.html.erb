@@ -1,0 +1,10 @@
+<div>
+  <% if notice.present? %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
+  <h1>Edit client</h1>
+
+  <%= render "form", client: @client %>
+
+  <%= button_to "Delete Client", client_path(@client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
+</div>
