@@ -13,9 +13,9 @@ class MySummaryController < ApplicationController
 
     def client_rate_message
       if @clients.empty? || !@rate
-        return nil
+        nil
       else
-        return evaluate_rates
+        evaluate_rates
       end
     end
 
@@ -26,11 +26,11 @@ class MySummaryController < ApplicationController
       highest_rate = client_rates.last
 
       if lowest_rate > @rate.rate
-        return above_goal_message
+        above_goal_message
       elsif highest_rate < @rate.rate
-        return below_goal_message
+        below_goal_message
       else
-        return above_and_below_goal_message
+        above_and_below_goal_message
       end
     end
 

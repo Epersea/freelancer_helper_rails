@@ -12,7 +12,7 @@ class ClientsController < ApplicationController
   end
 
   def show
-    if !client_belongs_to_user?
+    unless client_belongs_to_user?
       redirect_to root_path, notice: "You can only see your own clients"
     end
   end
@@ -29,7 +29,7 @@ class ClientsController < ApplicationController
   end
 
   def edit
-    if !client_belongs_to_user?
+    unless client_belongs_to_user?
       redirect_to root_path, notice: "You can only edit your own clients"
     end
   end
@@ -41,7 +41,7 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    if !client_belongs_to_user?
+    unless client_belongs_to_user?
       redirect_to root_path, notice: "You can only delete your own clients"
     else
       @client.destroy
