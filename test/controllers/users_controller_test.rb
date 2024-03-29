@@ -8,7 +8,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
 
-    get "/user/new"
+    get new_user_path
 
     assert_response :success
     assert_select 'h1', 'New user'
@@ -17,7 +17,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create user" do
     assert_difference -> {User.count}, 1 do
-      post "/user", params: {
+      post user_path, params: {
         user: {
           name: 'Gideon',
           email: 'gideon@allsafe.com',
@@ -36,7 +36,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@darlene)
 
-    get "/user"
+    get user_path
 
     assert_response :success
     assert_select 'h1', 'My Account'
@@ -48,7 +48,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@darlene)
 
-    get "/user/edit"
+    get edit_user_path
 
     assert_response :success
     assert_select 'h1', 'Editing user'
@@ -63,7 +63,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     login_as(@darlene)
 
-    patch "/user", params: {
+    patch user_path, params: {
       user: {
         name: 'Dolores',
         email: 'darlene@fsociety.com',
@@ -80,7 +80,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_user_count = User.count
     
     login_as(@darlene)
-    delete "/user"
+    delete user_path
 
     expected_user_count = previous_user_count - 1
     assert_equal User.count, expected_user_count
@@ -95,7 +95,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_rate_count = Rate.count
 
     login_as(@darlene)
-    delete "/user"
+    delete user_path
 
     expected_user_count = previous_user_count - 1
     expected_rate_count = previous_rate_count - 1
@@ -109,7 +109,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal session[:user_id], @darlene.id
 
-    delete "/user"
+    delete user_path
 
     assert_nil session[:user_id]
   end
@@ -119,7 +119,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     previous_client_count = Client.count
 
     login_as(@darlene)
-    delete "/user"
+    delete user_path
 
     expected_user_count = previous_user_count - 1
     expected_client_count = previous_client_count - 2

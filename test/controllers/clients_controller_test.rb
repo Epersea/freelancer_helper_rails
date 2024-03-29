@@ -14,7 +14,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     
-    get "/clients/new"
+    get new_client_path
 
     assert_response :success
     assert_select 'h1', 'New client'
@@ -26,7 +26,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   test "should create client" do
     previous_client_count = Client.count
 
-    post "/clients", params: {
+    post clients_path, params: {
       client: {
         name: "New Client",
         hours_worked: 5,
@@ -43,11 +43,11 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal client.user_id, @darlene.id
     assert_equal client.rate, 60
 
-    assert_redirected_to "/clients/#{client.id}"
+    assert_redirected_to client_path(client)
   end
 
   test "should not let the user create a client with the same name" do
-    post "/clients", params: {
+    post clients_path, params: {
       client: {
         name: "#{@e_corp.name}",
         hours_worked: 5,
@@ -55,7 +55,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to "/clients/#{@e_corp.id}/edit"
+    assert_redirected_to edit_client_path(@e_corp)
     follow_redirect!
     assert_select 'p', "Looks like you have created this client already. Try editing it here!"
   end
@@ -64,7 +64,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     login_as(@elliot)
     previous_client_count = Client.count
 
-    post "/clients", params: {
+    post clients_path, params: {
       client: {
         name: "#{@e_corp.name}",
         hours_worked: 5,
@@ -84,7 +84,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show client" do
 
-    get "/clients/#{@e_corp.id}"
+    get client_path(@e_corp)
 
     assert_response :success
     assert_select 'h3', "#{@e_corp.name}"
@@ -95,7 +95,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show client to another user" do
 
-    get "/clients/#{@ten.id}"
+    get client_path(@ten)
 
     assert_redirected_to root_path
     follow_redirect!
@@ -104,7 +104,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do 
 
-    get "/clients/#{@e_corp.id}/edit"
+    get edit_client_path(@e_corp)
 
     assert_response :success
     assert_select 'h1', 'Edit client'
@@ -115,7 +115,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get edit for another user" do
 
-    get "/clients/#{@ten.id}/edit"
+    get edit_client_path(@ten)
 
     assert_redirected_to root_path
     follow_redirect!
@@ -124,7 +124,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update client" do
 
-    patch "/clients/#{@e_corp.id}", params: {
+    patch client_path(@e_corp), params: {
       client: {
         name: "Updated client",
         hours_worked: 12,
@@ -138,13 +138,13 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal updated_client.amount_billed, 2400
     assert_equal updated_client.rate, 200
 
-    assert_redirected_to "/clients/#{@e_corp.id}"
+    assert_redirected_to client_path(@e_corp)
   end
 
   test "should destroy client" do
     previous_client_count = Client.count
 
-    delete "/clients/#{@e_corp.id}"
+    delete client_path(@e_corp)
 
     expected_client_count = previous_client_count - 1
     assert_equal Client.count, expected_client_count
@@ -157,7 +157,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   test "should not destroy client from another user" do
 
     assert_difference -> {Client.count}, 0 do
-      delete "/clients/#{@ten.id}"
+      delete client_path(@ten)
     end
 
     assert_redirected_to root_path
@@ -167,7 +167,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
 
-    get "/clients"
+    get clients_path
 
     assert_response :success
     assert_select 'h1', "#{@darlene.name}'s clients"

@@ -14,7 +14,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
   test "should show login prompt to a logged out user" do
     
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_redirected_to new_session_path
     follow_redirect!
@@ -25,7 +25,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@user_with_info)
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'h1', "#{@user_with_info.name}, this is your Freelancer Summary"
     assert_select 'h2', "Your minimum rate per hour should be #{@rate.rate}"
@@ -35,7 +35,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@user_without_info)
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'p', "Looks like you haven't provided any data about your goal rates."
     assert_select 'a', "Go to Rate Calculator"
@@ -45,7 +45,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
   test "should show Clients to a logged in user with clients" do
     login_as(@user_with_info)
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'h3', "#{@e_corp.name}"
     assert_includes response.body, "#{@e_corp.hours_worked}"
@@ -61,7 +61,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@user_without_info)
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'p', "Looks like you haven't provided any data about your clients."
     assert_select 'a', "Add Client"
@@ -70,7 +70,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
   test "should display message for user with client rates above goal rates" do
     login_as(@user_with_info)
     
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'p', "All your clients are above your goal rate. Good job! Why not being a bit more ambitious?"
   end
@@ -78,7 +78,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
   test "should display message for user with client rates above and below goal rates" do
     login_as(users(:user_with_mixed_rates))
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'p', "Some of your clients are below your goal rate. Maybe you need to brush up your negotiation skills a bit?"
   end
@@ -86,7 +86,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
   test "should display message for user with client rates below goal rates" do
     login_as(users(:user_with_low_rates))
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_select 'p', "All your clients are below your goal rate. It's time to give yourself a raise!"
   end
