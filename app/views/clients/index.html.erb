@@ -6,7 +6,6 @@
 <% @clients.each do |client|%>
 <%= render "client", client: client%>
 <% end%>
-<p>If you want to see more information about your rates and clients, please visit </p><a href="/my_summary" class="hover">My Summary</a>
+<p>If you want to see more information about your rates and clients, please visit <%= link_to "My Summary", my_summary_index_path, class: "hover" %></p>
 <br>
-<br>
-<%= link_to "Add Client", "/clients/new", class: "btn", style: "text-decoration: none;" %>
+<%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none;" %>

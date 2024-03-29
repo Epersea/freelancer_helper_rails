@@ -179,7 +179,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "#{@f_corp.hours_worked}"
     assert_includes response.body, "#{@f_corp.amount_billed}"
     assert_includes response.body, "#{@f_corp.rate}"
-    assert_select 'p', 'If you want to see more information about your rates and clients, please visit'
+    assert_select 'p', 'If you want to see more information about your rates and clients, please visit My Summary'
   end
 
 end
