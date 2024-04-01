@@ -1,10 +1,9 @@
 class ClientsController < ApplicationController
-  before_action :set_logged_user, except: [:new, :update]
   before_action :set_client, except: [:new, :create, :index]
 
   def index
-    @user = User.find(@user_id)
-    @clients = Client.where(user_id: @user_id)
+    @user = Current.user
+    @clients = Current.user.clients
   end
 
   def new
@@ -18,12 +17,12 @@ class ClientsController < ApplicationController
   end
  
   def create
-    existing_client = Client.find_by(name: client_params[:name], user_id: @user_id)
+    existing_client = Client.find_by(name: client_params[:name], user_id: Current.user.id)
 
     if existing_client
       redirect_to edit_client_path(existing_client), notice: "Looks like you have created this client already. Try editing it here!"
     else
-      @client = Client.create_for(client_params, @user_id)
+      @client = Client.create_for(client_params, Current.user.id)
       redirect_to client_path(@client)
     end
   end
@@ -55,7 +54,7 @@ class ClientsController < ApplicationController
     end
 
     def client_belongs_to_user?
-      @client.user_id == @user_id
+      @client.user_id == Current.user.id
     end
 
     def client_params
