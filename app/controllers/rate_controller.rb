@@ -51,9 +51,8 @@ class RateController < ApplicationController
   end
 
   def add_rate_to_user
-    Current.user = User.find_by(id: session[:user_id])
-    if Current.user
-      Current.user.rate = @rate
+    if current_user
+      current_user.rate = @rate
     end
   end
 

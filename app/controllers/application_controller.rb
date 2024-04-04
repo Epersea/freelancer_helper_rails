@@ -10,4 +10,8 @@ protected
       redirect_to new_session_path, notice: "Please log in to use this feature"
     end
   end
+
+  def current_user
+    User.find_by(id: session[:user_id])
+  end
 end
