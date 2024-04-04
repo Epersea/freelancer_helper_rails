@@ -1,11 +1,10 @@
 class MySummaryController < ApplicationController
 
   def index
-    @user_id = session[:user_id]
-    @rate = Rate.find_by(user_id: @user_id)
-    user = User.find_by(id: @user_id)
-    @username = user.name
-    @clients = Client.where(user_id: @user_id)
+    @user_id = Current.user.id
+    @rate = Current.user.rate
+    @username = Current.user.name
+    @clients = Current.user.clients
     @message = client_rate_message
   end
 

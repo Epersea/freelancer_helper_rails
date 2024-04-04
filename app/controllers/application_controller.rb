@@ -10,8 +10,4 @@ protected
       redirect_to new_session_path, notice: "Please log in to use this feature"
     end
   end
-
-  # def set_logged_user
-  #   @user_id = session[:user_id]
-  # end
 end
