@@ -13,8 +13,11 @@ class RateController < ApplicationController
 
   def create
     @rate = Rate.create_for(expenses: expenses_params, hours: hours_params, earnings: earnings_params)
-
-    @rate.assign_user_id(session[:user_id])
+    
+    Current.user = User.find_by(id: session[:user_id])
+    if Current.user
+      Current.user.rate = @rate
+    end
 
     redirect_to @rate
   end
