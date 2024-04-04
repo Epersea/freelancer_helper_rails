@@ -11,9 +11,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    unless client_belongs_to_user?
-      redirect_to root_path, notice: "You can only see your own clients"
-    end
   end
  
   def create
@@ -26,9 +23,6 @@ class ClientsController < ApplicationController
   end
 
   def edit
-    unless client_belongs_to_user?
-      redirect_to root_path, notice: "You can only edit your own clients"
-    end
   end
 
   def update
@@ -38,25 +32,21 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    unless client_belongs_to_user?
-      redirect_to root_path, notice: "You can only delete your own clients"
-    else
-      @client.destroy
-      redirect_to clients_path, notice: "Client #{@client.name} was successfully deleted" 
-    end
+    @client.destroy
+    redirect_to clients_path, notice: "Client #{@client.name} was successfully deleted" 
   end
 
   private
     def set_client
-      @client = Client.find(params[:id])
+      begin
+        @client = Current.user.clients.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path, notice: "Invalid client"
+      end 
     end
 
     def existing_client
       Current.user.clients.find_by(name: client_params[:name])
-    end
-
-    def client_belongs_to_user?
-      Current.user.clients.include?(@client)
     end
 
     def client_params

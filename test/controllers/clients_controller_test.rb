@@ -99,7 +99,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'p', "You can only see your own clients"
+    assert_select 'p', "Invalid client"
   end
 
   test "should get edit" do 
@@ -119,7 +119,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'p', "You can only edit your own clients"
+    assert_select 'p', "Invalid client"
   end
 
   test "should update client" do
@@ -162,7 +162,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'p', "You can only delete your own clients"
+    assert_select 'p', "Invalid client"
   end
 
   test "should get index" do
