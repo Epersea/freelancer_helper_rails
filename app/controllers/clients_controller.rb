@@ -20,7 +20,7 @@ class ClientsController < ApplicationController
     if existing_client
       redirect_to edit_client_path(existing_client), notice: "Looks like you have created this client already. Try editing it here!"
     else
-      @client = Client.create_for(client_params, Current.user.id)
+      @client = Current.user.clients.create(client_params)
       redirect_to client_path(@client)
     end
   end
@@ -32,7 +32,7 @@ class ClientsController < ApplicationController
   end
 
   def update
-    @client.update_for(client_params)
+    @client.update(client_params)
 
     redirect_to client_path(@client)
   end
