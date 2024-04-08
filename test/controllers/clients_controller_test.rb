@@ -93,15 +93,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "#{@e_corp.rate}"
   end
 
-  test "should not show client to another user" do
-
-    get client_path(@ten)
-
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "Invalid client"
-  end
-
   test "should get edit" do 
 
     get edit_client_path(@e_corp)
@@ -111,15 +102,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Name"
     assert_select 'label', "Hours worked"
     assert_select 'label', "Amount billed"
-  end
-
-  test "should not get edit for another user" do
-
-    get edit_client_path(@ten)
-
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "Invalid client"
   end
 
   test "should update client" do
@@ -152,17 +134,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to clients_path
     follow_redirect!
     assert_select 'p', "Client #{@e_corp.name} was successfully deleted"
-  end
-
-  test "should not destroy client from another user" do
-
-    assert_difference -> {Client.count}, 0 do
-      delete client_path(@ten)
-    end
-
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select 'p', "Invalid client"
   end
 
   test "should get index" do

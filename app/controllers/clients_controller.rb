@@ -38,11 +38,7 @@ class ClientsController < ApplicationController
 
   private
     def set_client
-      begin
-        @client = Current.user.clients.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        redirect_to root_path, notice: "Invalid client"
-      end 
+      @client = Current.user.clients.find(params[:id])
     end
 
     def existing_client
