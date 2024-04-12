@@ -7,7 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-       sqlite: tiangolo/sqlite:latest
+       sqlite: keinos/sqlite3
     env:
       RAILS_ENV: test
       DATABASE_URL: "sqlite3://localhost/storage/test.sqlite3"
