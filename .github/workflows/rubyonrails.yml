@@ -7,8 +7,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      sqlite:
-        image: sqlite3:latest
+       sqlite:
+        image: alpine:latest
+        command: ["sh", "-c", "apk add --no-cache sqlite && tail -f /dev/null"]
+        ports:
+          - 3306:3306
     env:
       RAILS_ENV: test
       DATABASE_URL: "sqlite3://localhost/storage/test.sqlite3"
