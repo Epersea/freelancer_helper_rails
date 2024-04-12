@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     services:
        sqlite: tiangolo/sqlite:latest
-        ports:
-          - 3306:3306
     env:
       RAILS_ENV: test
       DATABASE_URL: "sqlite3://localhost/storage/test.sqlite3"
