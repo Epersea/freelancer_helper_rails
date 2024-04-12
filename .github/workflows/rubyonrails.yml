@@ -7,9 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-       sqlite:
-        image: alpine:latest
-        command: ["sh", "-c", "apk add --no-cache sqlite && tail -f /dev/null"]
+       sqlite: tiangolo/sqlite:latest
         ports:
           - 3306:3306
     env:
