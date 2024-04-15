@@ -4,6 +4,8 @@ class RatesTest < ApplicationSystemTestCase
 
   setup do
     @basic_rate = rates(:basic_rate)
+    @darlene = users(:darlene)
+    login_as(@darlene)
   end
 
   test "visiting the index" do
