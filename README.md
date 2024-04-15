@@ -9,6 +9,7 @@ This is a **practice project for learning Ruby on Rails**. These are the main fu
 - **Controller** creation and routing. Some of my controllers implement the full range of Rails `:resources`, while others only implement a few selected actions depending on functionality requirements. I have defined **methods and callbacks at the application and controller levels**, for instance, to restrict functionalities to authorized and logged in users. Controllers also make use of **strong params** for input sanitization.
 - **View** creation, including use of ERB logic and refactorization with **partials**. Many views include a notice div at the top to display useful information to users. I also modified the application layout to display a sidebar, with different links displayed depending on login status.
 - Implementation of **custom code** (RateCalculator class and subclasses), which can be found in `/lib`.
+- Use of Rail's **current attributes** to keep current user easily available to the whole application.
 - **Unit testing** with Rspec
 - **Model, controller and system testing** with fixtures using Minitest and Capybara. I also defined **helpers** for authorization methods to be shared among tests
 
@@ -19,7 +20,7 @@ In December 2023, I started studying Ruby on Rails, using mostly the following r
 - [Go Rails courses](https://gorails.com/)
 - [Agile Development with Rails 7 (book)](https://pragprog.com/titles/rails7/agile-web-development-with-rails-7/)
 
-Of course, theory only goes so far when studying a framework, so I decided to practice by re-doing a small Python/Flask project I had completed as part of HardvardX's CS50x course. And thus, Freelancer Helper was born.
+Of course, theory only goes so far when studying a framework, so I decided to practice by re-doing a small Python/Flask project I had completed as part of HardvardX's [CS50x course](https://pll.harvard.edu/course/cs50-introduction-computer-science). And thus, Freelancer Helper was born.
 
 To organize the work, I divided the project into **4 main functionalities or "slices"** that would give me the opportunity to practice creating models, controllers and views for each one of them:
 1. Rate Calculator
@@ -47,15 +48,11 @@ This functionality relies on two models:
 Tests for the Rate model focus on ensuring that validations work correctly, and that the association with Rate::Input perfoms as expected (rate inputs and rates are created and updated in tandem).
 
 ### Controllers, routers and views
-- At this point in the development process, the **#index route** just displays general information about the project and a link to the Rate Calculator.
+I have used the standard conventions provided by **resources :rate**. Some things of note:
 - The **#new route** takes the user to the Rate Calculator form, which is also divided into Expenses, Hours and Earnings sections. I used parameter naming conventions to structure the params hash to facilitate legibility and aid in further calculations.
-- The **#create route** uses a method called rate_input that sanitizes the information received using strong parameters for expenses, hours and earnings. Then, this information is sent to the create_for method of the Rate model, where the associated input is updated. Then, the input is sent to the **RateCalculator lib class**, which performs the necessary calculations. The resulting information is then stored in the Rate.
-- The **#show route** displays information related to a Rate, including the goal rate per hour and the intermediate calculations, as well as links for editing and deleting information.
-- In the **#edit route**, the user accesses a pre-filled form (information is recovered from the Input associated with the Rate to edit). This way, they only have to fill the fields they want to modify.
-- The **#update route** relies again on rate_input to sanitize information and sends it to the update method on the model, which updates both rate and input. For both this and the create_for methods, I have implemented transactions to ensure database integrity.
-- Finally, the **#destroy route** deletes a rate and its associated input.
+- The **#create route** uses a method called rate_input that sanitizes the information received using strong parameters for expenses, hours and earnings. Then, this information is sent to the create_for method of the Rate model, where the associated input is updated. For both this and the update_for methods, I have implemented transactions to ensure database integrity. Then, the input is sent to the **RateCalculator lib class**, which performs the necessary calculations. The resulting information is then stored in the Rate.
 
-I have included both **controller and (quite basic) system tests** for the above routes, which were a great opportunity to get familiar with the Minitest and Capybara suites and Rails fixtures.
+I have included both **controller and system tests** for the above routes, which were a great opportunity to get familiar with the Minitest and Capybara suites and Rails fixtures.
 
 ### RateCalculator class
 The RateCalculator class, which resides in /lib, is responsible for **performing the calculations needed to display a rate and assign them to a rate record**.
@@ -63,7 +60,7 @@ The RateCalculator class, which resides in /lib, is responsible for **performing
 To do this, it relies on three secondary objects which deal with expenses, hours and earnings. I focused on creating clean, [fractal](https://dev.37signals.com/fractal-journeys/) code with clear names, with unit testing for public methods (both at the rate calculator and secondary object levels) using Rspec. These tests can be executed locally with the command `bundle exec rspec`.
 
 ### 2. USER MANAGEMENT
-I understand most professional web apps would use a library for this. However, since this is a practice project, I decided to try to implement user management functions myself, using the tutorial in Agile Development with Rails 7 as a base.
+Since this is a practice project, I decided to try to implement user management functions myself, using the tutorial in Agile Development with Rails 7 as a base, instead of relying on a library.
 
 This "slice" includes the following functionalities:
 - **Registering** new user accounts
@@ -76,13 +73,13 @@ To achieve this, I first focused on the **User scaffolding**. I added a foreign 
 User has_one :rate, dependent: :destroy
 Rate belongs_to :user, optional: true
 ```
-The **User controller** has the standard methods to create, update and delete Users. I renamed the #new route as "register".
+The **User controller** has the standard methods to create, update and delete Users. 
 
 I also created a **Session controller** to manage the login and logout functionalities. When a user is logged in, its `user_id` is added to the `session` object. This provides an easy-to-check property so other controllers/methods can easily see if an user is logged in and identify them correctly. In this context, "logging out" just means that the `user_id` property of the `session` object is set to `nil`.
 
 To manage the display of information to logged in users, I create a **MySummary controller** with just an index method. This index displays the rate calculator information associated with the user. If the user is logged out, it redirects them to the login page. If the user is logged in but hasn't provided any Rate information, it prompts them to do so.
 
-To limit access to logged in users, I have defined a **protected `authorize` method in `application_controller.rb`** as a before_action. Some controllers/actions skip this method to allow access to non-logged users.
+To limit access to logged in users, I have defined a **protected `authorize` method in `application_controller.rb`** as a before_action, which makes use of Current Attributes to keep track of the current user. Some controllers/actions skip this method to allow access to non-logged users.
 
 I have also edited the Rate controller to display/edit the associated rate to logged in users and prevent users from creating multiple rates. I make use of **notices** to display useful information to the user, for example, informing them they are attempting a forbbiden action or confirming a successful login/logout.
 
@@ -96,17 +93,16 @@ The third slice of the app covers **client functionality**. A user can add infor
 Client information is also displayed at **My Summary** page. If the user has provided information about rates, they will also see a brief message depending on their client rates being above or below their goal rate. 
 
 Some areas of note about this functionality:
-- I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. As in the case of Rate models, we have to perform a rate calculation and assing a user to the client, so I have defined the custom model methods `create_for` and `update_for`.
-- The **Client controller** handles the standard actions. To ensure that users can only see/edit/delete their own clients, I have implemented the `client_belongs_to_user?` method. I have also included some logic to prevent a user from creating a client with the same name twice.
+- I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. As in the case of Rate models, we have to perform a rate calculation, which is handled with a `before_save` callback.
+- The **Client controller** handles the standard actions. I have included some logic to prevent a user from creating a client with the same name twice.
 - I have also created the corresponding **Client views**, with partials for `_client` and `_form`.
 - In order to display client information, I have edited **My Summary controller and view**. Now, the controller fetches the client info to display and determines the message to display based on a rate evaluation.
 - I have also created **tests** for Client model validations, Client controller routes (including authorization) and system tests for the client functionality, as well as updating My Summary tests.
 
 At this point in the development process, I also spend some time **refactoring the app**, including:
-- Defining a `set_logged_user` method in the application controller to keep things DRY-er.
 - Unifying redirections between different controllers so the app behaves in a consistent way.
-- Creating authorization methods for the Users controller via the `user_authorized?` method.
-- Creating an AuthenticationHelper for tests.
+- Making use of Current Attributes.
+- Creating an AuthenticationHelper for controller and system tests.
 
 
 ## HOW TO RUN THE APPLICATION
@@ -129,10 +125,3 @@ Follow these steps to get your development environment set up:
 To execute the application, run the development server with ```bin/dev```
 
 Visit http://localhost:3000 to access the app. If needed, you can change the default port in the bin/dev file.
-
-## UPDATES
-- 13-Jan-24: first working version of Rate Calculator completed.
-- 19-Jan-24: Rate Calculator update and delete routes completed + validations and testing.
-- 25-Jan-24: Rate Calculator model update and final refactor.
-- 26-Feb-24: User management functionalities completed.
-- 15-Mar-24: Client funcionalities completed.
