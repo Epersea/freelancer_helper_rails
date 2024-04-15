@@ -8,7 +8,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
 
-    get "/login"
+    get new_session_path
 
     assert_response :success
     assert_select 'h1', 'Please Log In'
@@ -19,7 +19,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@user)
 
-    get "/login"
+    get new_session_path
 
     assert_redirected_to root_path
     follow_redirect!
@@ -31,17 +31,17 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     login_as(@user)
 
     assert_equal session[:user_id], @user.id
-    assert_redirected_to my_summary_path
+    assert_redirected_to my_summary_index_path
   end
 
   test "user should not be logged in if password is wrong" do
 
-    post "/login", params: {
+    post session_path, params: {
       name: @user.name,
       password: 'wrong'
     }
 
-    assert_redirected_to login_path
+    assert_redirected_to new_session_path
   end
 
   test "should log user out and delete session id" do
@@ -50,7 +50,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal session[:user_id], @user.id
 
-    delete "/logout"
+    delete session_path
 
     assert_nil session[:user_id]
 

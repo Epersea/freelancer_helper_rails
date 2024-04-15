@@ -1,6 +1,6 @@
-module AuthenticationHelper
+module ControllerAuthenticationHelper
   def login_as(user)
-    post "/login", params: {
+    post session_path, params: {
       name: user.name,
       password: 'secret'
     }

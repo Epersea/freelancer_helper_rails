@@ -1,11 +1,14 @@
-<br>
+
+<% if notice.present? %>
+  <p id="notice"><%= notice %></p>
+<% end %>
 <h1>Edit your rate</h1>
 
 <p>Some times our working circumstances change, and this means our rates should change too. Fill this form again to figure out how much you should be charging now.</p>
 <p><b>Important note:</b> the form is prefilled with your previous data. You only need to edit the info you want to change.</p>
 <p>You will find detailed instructions to fill the form in each section. Let's get started!</p>
 
-<%= form_with(url: update_rate_path(@rate), method: :patch) do |form| %>
+<%= form_with(url: rate_path, method: :patch) do |form| %>
   <h2>Expenses</h2>
   <p>We are going to start reviewing your expenses.</p>
   <p>As a freelancer, you are your own business. And every business has expenses that we need to take into account.</p>

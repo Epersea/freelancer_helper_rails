@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ edit show update destroy ]
-  skip_before_action :authorize, except: %i[ edit show destroy ]
+  before_action :set_user, only: [ :edit, :show, :update, :destroy ]
+  skip_before_action :authorize, except: [ :edit, :show, :destroy ]
 
   def new
     @user = User.new
@@ -20,9 +20,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if session[:user_id] != params[:id].to_i
-      redirect_to root_path, notice: "You can only edit your own account"
-    end
   end
 
   def update
@@ -34,22 +31,15 @@ class UsersController < ApplicationController
   end
  
   def destroy
-    if session[:user_id] != params[:id].to_i
-      redirect_to root_path, notice: "You can only delete your own account"
-    end
-
-    ActiveRecord::Base.transaction do
-      session[:user_id] = nil
-      @user.destroy!
-    end
-
+    session[:user_id] = nil
+    @user.destroy!
     redirect_to root_path, notice: "User #{@user.name} was successfully deleted" 
   end
 
   private
     def set_user
       begin
-        @user = User.find(params[:id])
+        @user = User.find(session[:user_id])
       rescue ActiveRecord::RecordNotFound
         redirect_to root_path, notice: "User not found"
       end

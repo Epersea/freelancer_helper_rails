@@ -12,7 +12,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
 
     assert_not_nil session[:user_id]
 
-    get "/my_summary"
+    get my_summary_index_path
 
     assert_nil session[:user_id]
   end

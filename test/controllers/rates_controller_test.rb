@@ -9,7 +9,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
 
-    get "/"
+    get root_path
 
     assert_response :success
     assert_select 'h1', 'Welcome to Freelancer Helper'
@@ -19,7 +19,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
 
-    get "/rate"
+    get new_rate_path
 
     assert_response :success
     assert_select 'h1', 'Rate Calculator'
@@ -29,7 +29,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   test "should create rate" do
     previous_rate_count = Rate.count
 
-    post "/rate", params: {
+    post rate_index_path, params: {
       expenses: @improved_input["expenses"],
       hours: @improved_input["hours"],
       earnings: @improved_input["earnings"],
@@ -46,16 +46,15 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     assert_equal rate.net_month, 5000
     assert_equal rate.tax_percent, 20
     assert_equal rate.gross_year, 83666
-    assert_redirected_to "/rate/#{rate.id}"
+    assert_redirected_to rate_path(rate)
   end
 
   test "should show rate" do
 
-    get "/rate/#{@basic_rate.id}"
+    get rate_path(@basic_rate)
 
     assert_response :success
-    assert_select 'h2', 'Your minimum rate per hour'
-    assert_select 'h3', "Your minimum rate per hour should be #{@basic_rate.rate}"
+    assert_select 'h2', "Your minimum rate per hour should be #{@basic_rate.rate}"
     assert_includes response.body, "#{@basic_rate.annual_expenses}"
     assert_includes response.body, "#{@basic_rate.hours_day}"
     assert_includes response.body, "#{@basic_rate.hours_year}"
@@ -67,7 +66,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
 
-    get "/rate/#{@basic_rate.id}/edit"
+    get edit_rate_path(@basic_rate)
 
     assert_response :success
     assert_select 'h1', 'Edit your rate'
@@ -77,7 +76,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   test "should update rate" do
     assert_equal @basic_rate.rate, 42.3
 
-    patch "/rate/#{@basic_rate.id}", params: {
+    patch rate_path(@basic_rate), params: {
       expenses: @improved_input["expenses"],
       hours: @improved_input["hours"],
       earnings: @improved_input["earnings"],
@@ -85,13 +84,13 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
    
     updated_rate = Rate.find(@basic_rate.id)
     assert_equal updated_rate.rate, 60.1
-    assert_redirected_to "/rate/#{@basic_rate.id}"
+    assert_redirected_to rate_path(@basic_rate)
   end
 
   test "should destroy rate" do
     previous_rate_count = Rate.count
 
-    delete "/rate/#{@basic_rate.id}"
+    delete rate_path(@basic_rate)
 
     expected_rate_count = previous_rate_count - 1
     assert_equal Rate.count, expected_rate_count
@@ -101,7 +100,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   test "should add user id to rate when user is logged in" do
     login_as(@user)
 
-    post "/rate", params: {
+    post rate_index_path, params: {
       expenses: @improved_input["expenses"],
       hours: @improved_input["hours"],
       earnings: @improved_input["earnings"],

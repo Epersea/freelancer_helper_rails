@@ -1,0 +1,11 @@
+<% if notice.present? %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1><%= @user.name%>'s clients</h1>
+<% @clients.each do |client|%>
+<%= render "client", client: client%>
+<% end%>
+<p>If you want to see more information about your rates and clients, please visit <%= link_to "My Summary", my_summary_index_path, class: "hover" %></p>
+<br>
+<%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none;" %>

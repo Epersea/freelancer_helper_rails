@@ -1,4 +1,3 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 basic_rate:
   rate: 42.3
@@ -20,4 +19,26 @@ improved_rate:
   net_month: 5000
   tax_percent: 20.0
   gross_year: 83766
+
+marys_rate:
+  rate: 17.3
+  annual_expenses: 0
+  hours_day: 8
+  hours_year: 2080
+  billable_percent: 100
+  net_month: 3000
+  tax_percent: 0
+  gross_year: 36000
+  user_id: 196367642
+
+pauls_rate:
+  rate: 34.6
+  annual_expenses: 0
+  hours_day: 4
+  hours_year: 1040
+  billable_percent: 100
+  net_month: 3000
+  tax_percent: 0
+  gross_year: 36000
+  user_id: 482588578
 

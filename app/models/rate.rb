@@ -16,11 +16,6 @@ class Rate < ApplicationRecord
     end
   end
 
-  def assign_user_id(user_id)
-    self.user_id = user_id
-    self.save!
-  end
-
   def update_for(**user_input_attributes)
     transaction do
       input.update(user_input_attributes)

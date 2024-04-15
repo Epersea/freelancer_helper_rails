@@ -4,13 +4,23 @@
       <p id="notice"><%= notice %></p>
     <% end %>
 
+    <h1><%= @username%>, this is your Freelancer Summary</h1>
+    <h2>Rate info</h2>
     <% if @rate%>
-      <h1><%= @username%>, this is your Freelancer Summary</h1>
       <%= render "rate/rate", rate: @rate %>
     <% else%>
-      <h1>Freelancer Summary</h1>
-      <p> Looks like you haven't provided any data about your freelancer journey. Our <%= link_to "Rate Calculator", rate_path, class: "hover" %> is a great place to start!</p>
+      <p> Looks like you haven't provided any data about your goal rates.</p>
+      <%= link_to "Go to Rate Calculator", new_rate_path, class: "btn", style: "text-decoration: none"%>
     <% end%>
-
+    <h2>Client info</h2>
+    <p><%= @message%></p>
+    <% if @clients.size > 0%>
+      <% @clients.each do |client|%>
+        <%= render "clients/client", client: client%> 
+      <% end%>
+    <% else%>
+      <p> Looks like you haven't provided any data about your clients.</p>
+      <%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none"%>
+    <% end%>
   </div>
 </div>

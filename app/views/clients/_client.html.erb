@@ -1,0 +1,13 @@
+<div id="<%= dom_id client %>">
+  <h3><%= client.name %></h1>
+  <div>
+    <ul>
+      <li>Hours worked: <%= client.hours_worked %></li>
+      <li>Amount billed: <%= client.amount_billed %></li>
+      <li>Rate per hour: <%= client.rate %></li>
+    </ul>
+  </div>
+  <div>
+    <%= link_to "Edit this client", edit_client_path(client), class: "btn", style: "text-decoration: none;" %>
+  </div>
+</div>

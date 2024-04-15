@@ -16,18 +16,15 @@
       <aside class="bg-indigo-800 text-white font-bold text-xl p-6 w-60 inset-y-0 left-0 fixed">
           <nav>
               <% if session[:user_id] %>
-                  <% if Rate.find_by(user_id: session[:user_id]) %>
-                    <%= link_to "Rate Calculator", "/rate/#{session[:user_id]}/edit", class: "block py-2" %>
-                  <% else %>
-                    <a href="/rate" class="block py-2">Rate Calculator</a>
-                  <% end %>
-                  <a href="/my_summary" class="block py-2">My Summary</a>
-                  <%= link_to "My account", "/users/#{session[:user_id]}", class: "block py-2" %>
-                  <%= button_to 'Logout', logout_path, method: :delete, class: "block py-2" %>
+                  <%= link_to "Rate Calculator", new_rate_path, class: "block py-2" %>
+                  <%= link_to "My Summary", my_summary_index_path, class: "block py-2" %>
+                  <%= link_to "My Account", user_path, class: "block py-2" %>
+                  <%= link_to "My Clients", clients_path, class: "block py-2" %>
+                  <%= button_to 'Logout', session_path, method: :delete, class: "block py-2" %>
               <% else %>
-                  <a href="/rate" class="block py-2">Rate Calculator</a>
-                  <a href="/register" class="block py-2">Register</a>
-                  <a href="/login" class="block py-2">Login</a>
+                  <%= link_to "Rate Calculator", new_rate_path, class: "block py-2" %>
+                  <%= link_to "Register", new_user_path, class: "block py-2" %>
+                  <%= link_to "Login", new_session_path, class: "block py-2" %>
               <% end %>
           </nav>
       </aside>
