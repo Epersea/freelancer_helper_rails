@@ -20,6 +20,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    login_as(@user_with_no_rate)
 
     get new_rate_path
 

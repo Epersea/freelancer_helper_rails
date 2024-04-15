@@ -5,7 +5,7 @@ class RatesTest < ApplicationSystemTestCase
   setup do
     @basic_rate = rates(:basic_rate)
     @darlene = users(:darlene)
-    login_as(@darlene)
+    @user_with_no_rate = users(:user_with_no_rate)
   end
 
   test "visiting the index" do
@@ -14,7 +14,9 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should create rate" do
-    visit new_rate_path
+    login_as(@user_with_no_rate)
+
+    click_on "Go to Rate Calculator"
     
     fill_in "expenses[annual]", with: "1000"
     fill_in "expenses[monthly]", with: "300"
@@ -30,7 +32,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should get edit" do
-    visit rate_path(@basic_rate)
+    login_as(@darlene)
 
     click_on "Edit"
 
@@ -38,7 +40,10 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should update rate" do
-    visit edit_rate_path(@basic_rate)
+    login_as(@darlene)
+
+    click_on "Edit"
+
     fill_in "earnings[net_month]", with: "3000"
 
     click_on "Calculate"
@@ -47,7 +52,7 @@ class RatesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Rate" do
-    visit rate_path(@basic_rate)
+    login_as(@darlene)
 
     click_on "Delete"
     page.accept_alert
