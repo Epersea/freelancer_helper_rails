@@ -12,6 +12,23 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     login_as(@darlene)
   end
 
+  test "should get index" do
+
+    get clients_path
+
+    assert_response :success
+    assert_select 'h1', "#{@darlene.name}'s clients"
+    assert_select 'h3', "#{@e_corp.name}"
+    assert_includes response.body, "#{@e_corp.hours_worked}"
+    assert_includes response.body, "#{@e_corp.amount_billed}"
+    assert_includes response.body, "#{@e_corp.rate}"
+    assert_select 'h3', "#{@f_corp.name}"
+    assert_includes response.body, "#{@f_corp.hours_worked}"
+    assert_includes response.body, "#{@f_corp.amount_billed}"
+    assert_includes response.body, "#{@f_corp.rate}"
+    assert_select 'p', 'If you want to see more information about your rates and clients, please visit My Summary'
+  end
+
   test "should get new" do
     
     get new_client_path
@@ -134,23 +151,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to clients_path
     follow_redirect!
     assert_select 'p', "Client #{@e_corp.name} was successfully deleted"
-  end
-
-  test "should get index" do
-
-    get clients_path
-
-    assert_response :success
-    assert_select 'h1', "#{@darlene.name}'s clients"
-    assert_select 'h3', "#{@e_corp.name}"
-    assert_includes response.body, "#{@e_corp.hours_worked}"
-    assert_includes response.body, "#{@e_corp.amount_billed}"
-    assert_includes response.body, "#{@e_corp.rate}"
-    assert_select 'h3', "#{@f_corp.name}"
-    assert_includes response.body, "#{@f_corp.hours_worked}"
-    assert_includes response.body, "#{@f_corp.amount_billed}"
-    assert_includes response.body, "#{@f_corp.rate}"
-    assert_select 'p', 'If you want to see more information about your rates and clients, please visit My Summary'
   end
 
 end

@@ -1,0 +1,9 @@
+<% if notice.present? %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1><%= @client.name%>'s projects</h1>
+<% @projects.each do |project|%>
+<%= render "project", project: project%>
+<% end%>
+<br>

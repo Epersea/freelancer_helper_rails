@@ -1,0 +1,15 @@
+logo:
+  name: Logo Design
+  description: Logo redesign with bolder colors
+  hours_worked: 10.0
+  amount_billed: 1650.0
+  rate: 165.0
+  client_id: 927255371
+
+translation:
+  name: Website translation
+  description: Website translation - Homepage, About Me, Careers
+  hours_worked: 6.0
+  amount_billed: 360.0
+  rate: 60.0
+  client_id: 927255371
