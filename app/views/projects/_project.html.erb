@@ -5,7 +5,7 @@
       <li>Hours worked: <%= project.hours_worked %></li>
       <li>Amount billed: <%= project.amount_billed %></li>
       <li>Rate per hour: <%= project.rate %></li>
-      <% if project.description %>
+      <% if !project.description.empty? %>
         <li>Description: <%= project.description %></li>
       <% end%>
     </ul>

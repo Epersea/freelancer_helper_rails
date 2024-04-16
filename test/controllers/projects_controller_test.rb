@@ -62,4 +62,15 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to project_path(project)
   end
+
+  test "should show project" do
+
+    get project_path(@logo)
+
+    assert_response :success
+    assert_select 'h3', "#{@logo.name}"
+    assert_includes response.body, "#{@logo.hours_worked}"
+    assert_includes response.body, "#{@logo.amount_billed}"
+    assert_includes response.body, "#{@logo.rate}"
+  end
 end
