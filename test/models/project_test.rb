@@ -51,31 +51,18 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "updates client stats after creating" do
-    project = Project.new
+    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
 
-    project.name = "Website front-end"
-    project.hours_worked = 100
-    project.amount_billed = 5000
-    project.client_id = @ecorp.id
-    project.save
+    @ecorp.reload
+    assert_equal @ecorp.hours_worked, 100
+    assert_equal @ecorp.amount_billed, 5000
+    assert_equal @ecorp.rate, 50
 
-    client = Client.find_by(id: @ecorp.id)
-    assert_equal client.hours_worked, 100
-    assert_equal client.amount_billed, 5000
-    assert_equal client.rate, 50
-
-    project2 = Project.new
-
-    project2.name = "Website back-end"
-    project2.hours_worked = 100
-    project2.amount_billed = 6000
-    project2.client_id = @ecorp.id
-    project2.save
-
-    client = Client.find_by(id: @ecorp.id)
-    assert_equal client.hours_worked, 200
-    assert_equal client.amount_billed, 11000
-    assert_equal client.rate, 55
-
+    Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, amount_billed: 6000)
+    
+    @ecorp.reload
+    assert_equal @ecorp.hours_worked, 200
+    assert_equal @ecorp.amount_billed, 11000
+    assert_equal @ecorp.rate, 55
   end
 end

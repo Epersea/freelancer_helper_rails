@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
-  belongs_to :user, dependent: :destroy
-  has_many :projects
+  belongs_to :user
+  has_many :projects, dependent: :destroy
   validates :name, :hours_worked, :amount_billed, :user_id, presence: true
   validates :hours_worked, :amount_billed, numericality: { greater_than_or_equal_to: 0.5 }
   before_save :set_rate
