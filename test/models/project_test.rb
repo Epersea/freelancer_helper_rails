@@ -50,6 +50,12 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.valid?
   end
 
+  test "calculates and adds rate" do
+    project = Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
+
+    assert_equal project.rate, 50
+  end
+
   test "updates client stats after creating" do
     Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
 
