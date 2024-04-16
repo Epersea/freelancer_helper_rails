@@ -3,7 +3,7 @@ require "test_helper"
 class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = users(:darlene)
+    @darlene = users(:darlene)
   end
 
   test "should get new" do
@@ -17,7 +17,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show login page to logged in user" do
 
-    login_as(@user)
+    login_as(@darlene)
 
     get new_session_path
 
@@ -28,16 +28,16 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should login an existing user" do
 
-    login_as(@user)
+    login_as(@darlene)
 
-    assert_equal session[:user_id], @user.id
+    assert_equal session[:user_id], @darlene.id
     assert_redirected_to my_summary_index_path
   end
 
   test "user should not be logged in if password is wrong" do
 
     post session_path, params: {
-      name: @user.name,
+      name: @darlene.name,
       password: 'wrong'
     }
 
@@ -46,9 +46,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should log user out and delete session id" do
     
-    login_as(@user)
+    login_as(@darlene)
 
-    assert_equal session[:user_id], @user.id
+    assert_equal session[:user_id], @darlene.id
 
     delete session_path
 

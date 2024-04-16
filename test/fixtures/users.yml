@@ -17,3 +17,8 @@ user_with_mixed_rates:
   name: Mary
   email: mary@gmail.com
   password_digest: <%= BCrypt::Password.create("secret") %>
+
+user_with_no_rate:
+  name: Peter
+  email: peter@gmail.com
+  password_digest: <%= BCrypt::Password.create("secret") %>

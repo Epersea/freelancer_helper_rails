@@ -42,3 +42,14 @@ pauls_rate:
   gross_year: 36000
   user_id: 482588578
 
+elliots_rate:
+  rate: 42.3
+  annual_expenses: 5250
+  hours_day: 6
+  hours_year: 1070.4
+  billable_percent: 80
+  net_month: 2500
+  tax_percent: 25.0
+  gross_year: 45250
+  user_id: 918740831
+

@@ -2,7 +2,7 @@ require "test_helper"
 
 class MySummaryControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:elliot)
+    @user = users(:user_with_no_rate)
   end
 
   test 'logs out a deleted user before doing an action that requires login' do

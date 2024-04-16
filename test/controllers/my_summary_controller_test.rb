@@ -7,7 +7,7 @@ class MySummaryControllerTest < ActionDispatch::IntegrationTest
     @e_corp = clients(:ecorp)
     @f_corp = clients(:fcorp)
 
-    @user_without_info = users(:elliot)
+    @user_without_info = users(:user_with_no_rate)
     @user_with_low_rates = users(:user_with_low_rates)
     @user_with_mixed_rates = users(:user_with_mixed_rates)
   end
