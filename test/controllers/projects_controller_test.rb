@@ -73,4 +73,16 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "#{@logo.amount_billed}"
     assert_includes response.body, "#{@logo.rate}"
   end
+
+  test "should get edit" do 
+
+    get edit_project_path(@logo)
+
+    assert_response :success
+    assert_select 'h1', 'Edit project'
+    assert_select 'label', "Name"
+    assert_select 'label', "Hours worked"
+    assert_select 'label', "Amount billed"
+    assert_select 'label', "Description (optional)"
+  end
 end

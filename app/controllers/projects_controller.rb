@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_client, except: [:show]
+  before_action :set_client, except: [:show, :edit]
 
   def index
     @projects = @client.projects
@@ -15,6 +15,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:id])
+  end
+
+  def edit
     @project = Project.find(params[:id])
   end
 
