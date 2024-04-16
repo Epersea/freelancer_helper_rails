@@ -4,9 +4,9 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @elliots_rate = rates(:elliots_rate)
     @improved_input = rate_inputs(:improved_rate_input)
-    @user = users(:elliot)
+    @elliot = users(:elliot)
     @user_with_no_rate = users(:user_with_no_rate)
-    login_as(@user)
+    login_as(@elliot)
   end
 
   test "should get index" do
@@ -102,7 +102,6 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should add user id to rate when user is logged in" do
-    login_as(@user)
 
     post rate_index_path, params: {
       expenses: @improved_input["expenses"],
@@ -111,6 +110,6 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     }
 
     rate = Rate.last
-    assert_equal rate.user_id, @user.id
+    assert_equal rate.user_id, @elliot.id
   end
 end
