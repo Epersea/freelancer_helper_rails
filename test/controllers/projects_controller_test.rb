@@ -4,10 +4,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @darlene = users(:darlene)
-    login_as(@darlene)
     @f_corp = clients(:fcorp)
+    @e_corp = clients(:ecorp)
     @logo = projects(:logo)
     @translation = projects(:translation)
+
+    login_as(@darlene)
   end
 
   test "should get index" do
@@ -35,5 +37,29 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', 'Hours worked'
     assert_select 'label', 'Amount billed'
     assert_select 'label', 'Description (optional)'
+  end
+
+  test "should create project" do
+    previous_project_count = Project.count
+
+    post client_projects_path(@e_corp), params: {
+      project: {
+        name: "New Project",
+        hours_worked: 5,
+        amount_billed: 300,
+        description: "Initial consulting session"
+      }
+    }
+
+    expected_project_count = previous_project_count + 1
+    assert_equal Project.count, expected_project_count
+    project = Project.last
+    assert_equal project.name, "New Project"
+    assert_equal project.hours_worked, 5
+    assert_equal project.amount_billed, 300
+    assert_equal project.client_id, @e_corp.id
+    assert_equal project.rate, 60
+
+    assert_redirected_to project_path(project)
   end
 end
