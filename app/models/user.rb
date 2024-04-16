@@ -4,5 +4,6 @@ class User < ApplicationRecord
   
   has_one :rate, dependent: :destroy
   has_many :clients, dependent: :destroy
+  has_many :projects, through: :clients
   has_secure_password
 end

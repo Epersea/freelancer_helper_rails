@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_client, except: [:show, :edit]
+  before_action :set_project, only: [:show, :edit]
 
   def index
     @projects = @client.projects
@@ -15,16 +16,18 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   private
     def set_client
       @client = Current.user.clients.find(params[:client_id])
+    end
+
+    def set_project
+      @project = Current.user.projects.find(params[:id])
     end
 
     def project_params
