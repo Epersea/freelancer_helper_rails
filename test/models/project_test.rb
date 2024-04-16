@@ -65,4 +65,17 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal @ecorp.amount_billed, 11000
     assert_equal @ecorp.rate, 55
   end
+
+  test "updates client stats after update" do
+    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
+
+    second_project = Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, amount_billed: 6000)
+    @ecorp.reload
+    
+    second_project.update(hours_worked: 150, amount_billed: 10500)
+   
+    assert_equal @ecorp.hours_worked, 250
+    assert_equal @ecorp.amount_billed, 15500
+    assert_equal @ecorp.rate, 62
+  end
 end
