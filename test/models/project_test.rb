@@ -2,6 +2,10 @@ require "test_helper"
 
 class ProjectTest < ActiveSupport::TestCase
 
+  setup do
+    @ecorp = clients(:ecorp)
+  end
+
   test "project attributes must not be empty" do
     project = Project.new
 
@@ -40,8 +44,38 @@ class ProjectTest < ActiveSupport::TestCase
     project.name = "Logo design"
     project.hours_worked = 5.5
     project.amount_billed = 200
-    project.client_id = clients(:ecorp).id
+    project.client_id = @ecorp.id
+    project.description = "Proposal for new logo with bolder colors"
 
     assert project.valid?
+  end
+
+  test "updates client stats after creating" do
+    project = Project.new
+
+    project.name = "Website front-end"
+    project.hours_worked = 100
+    project.amount_billed = 5000
+    project.client_id = @ecorp.id
+    project.save
+
+    client = Client.find_by(id: @ecorp.id)
+    assert_equal client.hours_worked, 100
+    assert_equal client.amount_billed, 5000
+    assert_equal client.rate, 50
+
+    project2 = Project.new
+
+    project2.name = "Website back-end"
+    project2.hours_worked = 100
+    project2.amount_billed = 6000
+    project2.client_id = @ecorp.id
+    project2.save
+
+    client = Client.find_by(id: @ecorp.id)
+    assert_equal client.hours_worked, 200
+    assert_equal client.amount_billed, 11000
+    assert_equal client.rate, 55
+
   end
 end
