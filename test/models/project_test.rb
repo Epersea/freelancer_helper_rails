@@ -71,23 +71,23 @@ class ProjectTest < ActiveSupport::TestCase
   test "calculates and adds rate" do
     project = Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
 
-    assert_equal project.rate, 50
+    assert_equal 50, project.rate
   end
 
   test "updates client stats after creating" do
     Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
 
     @ecorp.reload
-    assert_equal @ecorp.hours_worked, 100
-    assert_equal @ecorp.amount_billed, 5000
-    assert_equal @ecorp.rate, 50
+    assert_equal 100, @ecorp.hours_worked
+    assert_equal 5000, @ecorp.amount_billed
+    assert_equal 50, @ecorp.rate
 
     Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 6000)
     
     @ecorp.reload
-    assert_equal @ecorp.hours_worked, 200
-    assert_equal @ecorp.amount_billed, 11000
-    assert_equal @ecorp.rate, 55
+    assert_equal 200, @ecorp.hours_worked
+    assert_equal 11000, @ecorp.amount_billed
+    assert_equal 55, @ecorp.rate
   end
 
   test "updates client stats after update" do
@@ -97,9 +97,9 @@ class ProjectTest < ActiveSupport::TestCase
     
     second_project.update(hours_worked: 150, amount_billed: 10500)
    
-    assert_equal @ecorp.hours_worked, 250
-    assert_equal @ecorp.amount_billed, 15500
-    assert_equal @ecorp.rate, 62
+    assert_equal 250, @ecorp.hours_worked
+    assert_equal 15500, @ecorp.amount_billed
+    assert_equal 62, @ecorp.rate
   end
 
   test "updates client stats after destroy" do
@@ -108,9 +108,9 @@ class ProjectTest < ActiveSupport::TestCase
     
     second_project.destroy
     
-    assert_equal @ecorp.hours_worked, 100
-    assert_equal @ecorp.amount_billed, 5000
-    assert_equal @ecorp.rate, 50
+    assert_equal 100, @ecorp.hours_worked
+    assert_equal 5000, @ecorp.amount_billed
+    assert_equal 50, @ecorp.rate
   end
 
   def start_date

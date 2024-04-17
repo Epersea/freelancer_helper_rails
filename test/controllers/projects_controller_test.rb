@@ -54,13 +54,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     }
 
     expected_project_count = previous_project_count + 1
-    assert_equal Project.count, expected_project_count
+    assert_equal expected_project_count, Project.count
     project = Project.last
-    assert_equal project.name, "New Project"
-    assert_equal project.hours_worked, 5
-    assert_equal project.amount_billed, 300
-    assert_equal project.client_id, @e_corp.id
-    assert_equal project.rate, 60
+    assert_equal "New Project", project.name
+    assert_equal 5, project.hours_worked
+    assert_equal 300, project.amount_billed
+    assert_equal @e_corp.id, project.client_id
+    assert_equal 60, project.rate
 
     assert_redirected_to project_path(project)
   end
@@ -99,10 +99,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     }
 
     updated_project = Project.find(@translation.id)
-    assert_equal updated_project.name, "Updated project"
-    assert_equal updated_project.hours_worked, 12
-    assert_equal updated_project.amount_billed, 600
-    assert_equal updated_project.rate, 50
+    assert_equal "Updated project", updated_project.name 
+    assert_equal 12, updated_project.hours_worked
+    assert_equal 600, updated_project.amount_billed
+    assert_equal 50, updated_project.rate
 
     assert_redirected_to project_path(@translation)
   end
@@ -113,7 +113,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     delete project_path(@logo)
 
     expected_project_count = previous_project_count - 1
-    assert_equal Project.count, expected_project_count
+    assert_equal expected_project_count, Project.count
 
     assert_redirected_to client_projects_path(@f_corp)
     follow_redirect!
