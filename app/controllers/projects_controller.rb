@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_client, except: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:index, :new, :create]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
