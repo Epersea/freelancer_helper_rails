@@ -38,6 +38,20 @@
   <%= form.text_field :amount_billed %>
   </div>
 
+   <div>
+  <%= form.label :start_date %>
+  </div>
+  <div>
+  <%= form.date_field :start_date %>
+  </div>
+
+   <div>
+  <%= form.label :end_date %>
+  </div>
+  <div>
+  <%= form.date_field :end_date %>
+  </div>
+
   <div>
   <%= form.label :description, "Description (optional)" %>
   </div>
@@ -49,4 +63,5 @@
     <%= form.submit class: "btn" %>
   </div>
 <% end %>
+
 </div>
