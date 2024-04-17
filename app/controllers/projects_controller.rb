@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_client, except: [:show, :edit, :update]
-  before_action :set_project, only: [:show, :edit, :update]
+  before_action :set_client, except: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
     @projects = @client.projects.sort_by(&:start_date)
@@ -24,6 +24,11 @@ class ProjectsController < ApplicationController
   def update
     @project.update(project_params)
     redirect_to project_path(@project)
+  end
+
+  def destroy
+    @project.destroy
+    redirect_to client_projects_path(@project.client), notice: "Project #{@project.name} was successfully deleted" 
   end
 
   private

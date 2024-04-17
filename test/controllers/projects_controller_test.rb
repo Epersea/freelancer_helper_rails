@@ -106,4 +106,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to project_path(@translation)
   end
+
+  test "should destroy project" do
+    previous_project_count = Project.count
+
+    delete project_path(@logo)
+
+    expected_project_count = previous_project_count - 1
+    assert_equal Project.count, expected_project_count
+
+    assert_redirected_to client_projects_path(@f_corp)
+    follow_redirect!
+    assert_select 'p', "Project #{@logo.name} was successfully deleted"
+  end
 end
