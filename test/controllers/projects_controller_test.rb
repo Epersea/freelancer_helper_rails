@@ -32,7 +32,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     get new_client_project_path(@f_corp)
 
     assert_response :success
-    assert_select 'h1', 'New Project'
+    assert_select 'h1', "New #{@f_corp.name} Project"
     assert_select 'label', 'Name'
     assert_select 'label', 'Hours worked'
     assert_select 'label', 'Amount billed'
@@ -82,7 +82,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     get edit_project_path(@logo)
 
     assert_response :success
-    assert_select 'h1', 'Edit project'
+    assert_select 'h1', "Edit #{@f_corp.name} Project"
     assert_select 'label', "Name"
     assert_select 'label', "Hours worked"
     assert_select 'label', "Amount billed"
