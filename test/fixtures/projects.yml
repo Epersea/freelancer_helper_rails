@@ -3,8 +3,8 @@ logo:
   description: Logo redesign with bolder colors
   hours_worked: 10.0
   amount_billed: 1650.0
-  start_date: <%= (Time.zone.now - 1.week).to_date %> 
-  end_date: <%= Time.zone.now.to_date %>
+  start_date: <%= Date.new(2024, 4, 1) %>
+  end_date: <%= Date.new(2024, 4, 3) %>
   rate: 165.0
   client_id: 927255371
 
@@ -13,7 +13,7 @@ translation:
   description: Website translation - Homepage, About Me, Careers
   hours_worked: 6.0
   amount_billed: 360.0
-  start_date: <%= (Time.zone.now - 1.week).to_date %> 
-  end_date: <%= Time.zone.now.to_date %>
+  start_date: <%= Date.new(2024, 4, 3) %> 
+  end_date: <%= Date.new(2024, 4, 5) %>
   rate: 60.0
   client_id: 927255371

@@ -3,8 +3,12 @@
 <% end %>
 
 <h1><%= @client.name%>'s projects</h1>
-<% @projects.each do |project|%>
-<%= render "project", project: project%>
+<% if !@projects.empty?%>
+  <% @projects.each do |project|%>
+  <%= render "project", project: project%>
+  <% end%>
+<% else%>
+  <p>Looks like you don't have any projects for this client yet. Click on the button below to start adding!</p>
 <% end%>
 <br>
 <%= link_to "Add Project", new_client_project_path(@client), class: "btn", style: "text-decoration: none;" %>
