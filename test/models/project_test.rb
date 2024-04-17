@@ -13,6 +13,8 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.errors[:name].any?
     assert project.errors[:hours_worked].any?
     assert project.errors[:amount_billed].any?
+    assert project.errors[:start_date].any?
+    assert project.errors[:end_date].any?
     assert project.errors[:client_id].any?
   end
 
@@ -44,6 +46,8 @@ class ProjectTest < ActiveSupport::TestCase
     project.name = "Logo design"
     project.hours_worked = 5.5
     project.amount_billed = 200
+    project.start_date = start_date
+    project.end_date = end_date
     project.client_id = @ecorp.id
     project.description = "Proposal for new logo with bolder colors"
 
@@ -51,20 +55,20 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "calculates and adds rate" do
-    project = Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
+    project = Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
 
     assert_equal project.rate, 50
   end
 
   test "updates client stats after creating" do
-    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
+    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
 
     @ecorp.reload
     assert_equal @ecorp.hours_worked, 100
     assert_equal @ecorp.amount_billed, 5000
     assert_equal @ecorp.rate, 50
 
-    Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, amount_billed: 6000)
+    Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 6000)
     
     @ecorp.reload
     assert_equal @ecorp.hours_worked, 200
@@ -73,8 +77,8 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "updates client stats after update" do
-    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
-    second_project = Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, amount_billed: 6000)
+    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
+    second_project = Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 6000)
     @ecorp.reload
     
     second_project.update(hours_worked: 150, amount_billed: 10500)
@@ -85,13 +89,21 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "updates client stats after destroy" do
-    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, amount_billed: 5000)
-    second_project = Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, amount_billed: 6000)
+    Project.create(client: @ecorp, name: "Website front-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 5000)
+    second_project = Project.create(client: @ecorp, name: "Website back-end", hours_worked: 100, start_date: start_date, end_date: end_date, amount_billed: 6000)
     
     second_project.destroy
     
     assert_equal @ecorp.hours_worked, 100
     assert_equal @ecorp.amount_billed, 5000
     assert_equal @ecorp.rate, 50
+  end
+
+  def start_date
+    Date.new(2024, 4, 15)
+  end
+
+  def end_date
+    Date.new(2024, 4, 17)
   end
 end
