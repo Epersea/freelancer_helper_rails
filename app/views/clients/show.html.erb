@@ -1,4 +1,5 @@
 <div>
   <%= render "client", client: @client %>
   <%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none;" %>
+  <%= button_to "Delete Client", client_path(@client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
 </div>

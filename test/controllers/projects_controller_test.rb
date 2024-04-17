@@ -71,6 +71,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select 'h3', "#{@logo.name}"
+    assert_includes response.body, "#{@logo.client.name}"
     assert_includes response.body, "#{@logo.hours_worked}"
     assert_includes response.body, "#{@logo.amount_billed}"
     assert_includes response.body, "#{@logo.rate}"
