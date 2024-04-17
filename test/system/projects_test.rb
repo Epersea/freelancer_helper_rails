@@ -17,6 +17,7 @@ class ProjectsTest < ApplicationSystemTestCase
     click_on "See F-Corp's projects"
 
     assert_text "F-Corp's projects"
+
     assert_text "Logo Design"
     assert_text "Hours worked: 10.0"
     assert_text "Amount billed: 1650.0"
@@ -41,8 +42,8 @@ class ProjectsTest < ApplicationSystemTestCase
     fill_in "Name", with: "Software consulting"
     fill_in "Hours worked", with: "20"
     fill_in "Amount billed", with: "5000"
-    fill_in "Start date", with: "10/03/2023"
-    fill_in "End date", with: "20/03/2023"
+    fill_in "Start date", with: Date.new(2023, 3, 10)
+    fill_in "End date", with: Date.new(2023, 3, 20)
     
     click_on "Create Project"
 
