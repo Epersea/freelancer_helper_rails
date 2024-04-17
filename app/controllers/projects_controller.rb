@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit]
 
   def index
-    @projects = @client.projects
+    @projects = @client.projects.sort_by(&:start_date)
   end
 
   def new
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:name, :hours_worked, :amount_billed, :description)
+      params.require(:project).permit(:name, :hours_worked, :amount_billed, :start_date, :end_date, :description)
     end
 
 end

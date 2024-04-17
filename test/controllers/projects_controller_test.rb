@@ -47,6 +47,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
         name: "New Project",
         hours_worked: 5,
         amount_billed: 300,
+        start_date: Date.new(2024, 4, 11),
+        end_date: Date.new(2024, 4, 15),
         description: "Initial consulting session"
       }
     }
