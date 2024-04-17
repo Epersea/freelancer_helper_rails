@@ -87,4 +87,23 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Amount billed"
     assert_select 'label', "Description (optional)"
   end
+
+  test "should update project" do
+
+    patch project_path(@translation), params: {
+      project: {
+        name: "Updated project",
+        hours_worked: 12,
+        amount_billed: 600
+      }
+    }
+
+    updated_project = Project.find(@translation.id)
+    assert_equal updated_project.name, "Updated project"
+    assert_equal updated_project.hours_worked, 12
+    assert_equal updated_project.amount_billed, 600
+    assert_equal updated_project.rate, 50
+
+    assert_redirected_to project_path(@translation)
+  end
 end
