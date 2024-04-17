@@ -6,8 +6,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-       sqlite: keinos/sqlite3
     env:
       RAILS_ENV: test
       DATABASE_URL: "sqlite3://localhost/storage/test.sqlite3"
@@ -18,7 +16,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' 
+          ruby-version: '3.2.2' 
           bundler-cache: true 
       # Add or replace database setup steps here
       - name: Set up database schema
