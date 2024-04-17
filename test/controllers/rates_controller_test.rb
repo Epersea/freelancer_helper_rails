@@ -40,16 +40,16 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     }
  
     expected_rate_count = previous_rate_count + 1
-    assert_equal Rate.count, expected_rate_count
+    assert_equal expected_rate_count, Rate.count
     rate = Rate.last
-    assert_equal rate.rate, 60.1
-    assert_equal rate.annual_expenses, 8666
-    assert_equal rate.hours_day, 8
-    assert_equal rate.hours_year, 1391.5
-    assert_equal rate.billable_percent, 78
-    assert_equal rate.net_month, 5000
-    assert_equal rate.tax_percent, 20
-    assert_equal rate.gross_year, 83666
+    assert_equal 60.1, rate.rate
+    assert_equal 8666, rate.annual_expenses
+    assert_equal 8, rate.hours_day
+    assert_equal 1391.5, rate.hours_year
+    assert_equal 78, rate.billable_percent
+    assert_equal 5000, rate.net_month
+    assert_equal 20, rate.tax_percent
+    assert_equal 83666, rate.gross_year
     assert_redirected_to rate_path(rate)
   end
 
@@ -78,7 +78,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update rate" do
-    assert_equal @elliots_rate.rate, 42.3
+    assert_equal 42.3, @elliots_rate.rate
 
     patch rate_path(@elliots_rate), params: {
       expenses: @improved_input["expenses"],
@@ -87,7 +87,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     }
    
     updated_rate = Rate.find(@elliots_rate.id)
-    assert_equal updated_rate.rate, 60.1
+    assert_equal 60.1, updated_rate.rate
     assert_redirected_to rate_path(@elliots_rate)
   end
 
@@ -97,7 +97,7 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     delete rate_path(@elliots_rate)
 
     expected_rate_count = previous_rate_count - 1
-    assert_equal Rate.count, expected_rate_count
+    assert_equal expected_rate_count, Rate.count
     assert_redirected_to root_path
   end
 
@@ -110,6 +110,6 @@ class RatesControllerTest < ActionDispatch::IntegrationTest
     }
 
     rate = Rate.last
-    assert_equal rate.user_id, @elliot.id
+    assert_equal @elliot.id, rate.user_id
   end
 end

@@ -35,13 +35,13 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     }
 
     expected_client_count = previous_client_count + 1
-    assert_equal Client.count, expected_client_count
+    assert_equal expected_client_count, Client.count
     client = Client.last
-    assert_equal client.name, "New Client"
-    assert_equal client.hours_worked, 5
-    assert_equal client.amount_billed, 300
-    assert_equal client.user_id, @darlene.id
-    assert_equal client.rate, 60
+    assert_equal "New Client", client.name
+    assert_equal 5, client.hours_worked
+    assert_equal 300, client.amount_billed
+    assert_equal @darlene.id, client.user_id
+    assert_equal 60, client.rate
 
     assert_redirected_to client_path(client)
   end
@@ -73,13 +73,13 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     }
 
     expected_client_count = previous_client_count + 1
-    assert_equal Client.count, expected_client_count
+    assert_equal expected_client_count, Client.count
     client = Client.last
-    assert_equal client.name, "#{@e_corp.name}"
-    assert_equal client.hours_worked, 5
-    assert_equal client.amount_billed, 300
-    assert_equal client.user_id, @elliot.id
-    assert_equal client.rate, 60
+    assert_equal "#{@e_corp.name}", client.name
+    assert_equal 5, client.hours_worked
+    assert_equal 300, client.amount_billed
+    assert_equal @elliot.id, client.user_id
+    assert_equal 60, client.rate
   end
 
   test "should show client" do
@@ -115,10 +115,10 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     }
 
     updated_client = Client.find(@e_corp.id)
-    assert_equal updated_client.name, "Updated client"
-    assert_equal updated_client.hours_worked, 12
-    assert_equal updated_client.amount_billed, 2400
-    assert_equal updated_client.rate, 200
+    assert_equal "Updated client", updated_client.name
+    assert_equal 12, updated_client.hours_worked
+    assert_equal 2400, updated_client.amount_billed
+    assert_equal 200, updated_client.rate
 
     assert_redirected_to client_path(@e_corp)
   end
@@ -129,7 +129,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     delete client_path(@e_corp)
 
     expected_client_count = previous_client_count - 1
-    assert_equal Client.count, expected_client_count
+    assert_equal expected_client_count, Client.count
 
     assert_redirected_to clients_path
     follow_redirect!
