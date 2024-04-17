@@ -40,6 +40,20 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal ["must be greater than or equal to 0.5"], project.errors[:amount_billed]
   end
 
+  test "start date can't be later than end date" do
+    project = Project.new
+
+    project.name = "Logo design"
+    project.hours_worked = 5.5
+    project.amount_billed = 200
+    project.start_date = start_date
+    project.end_date = earlier_end_date
+    project.client_id = @ecorp.id
+
+    assert project.invalid?
+    assert_equal ["must be before or the same as end date"], project.errors[:start_date]
+  end
+
   test "validates a correct project" do
     project = Project.new
 
@@ -105,5 +119,9 @@ class ProjectTest < ActiveSupport::TestCase
 
   def end_date
     Date.new(2024, 4, 17)
+  end
+
+  def earlier_end_date
+    Date.new(2024, 4, 14)
   end
 end
