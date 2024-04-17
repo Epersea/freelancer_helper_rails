@@ -94,9 +94,9 @@ class RateTest < ActiveSupport::TestCase
 
     input = Rate::Input.find_by(rate_id: rate.id)
     assert input.valid?
-    assert_equal input.expenses, @basic_input["expenses"]
-    assert_equal input.hours, @basic_input["hours"]
-    assert_equal input.earnings, @basic_input["earnings"]
+    assert_equal @basic_input["expenses"], input.expenses
+    assert_equal @basic_input["hours"], input.hours
+    assert_equal @basic_input["earnings"], input.earnings
   end
 
   test "an input is updated when a rate is updated" do
@@ -104,9 +104,9 @@ class RateTest < ActiveSupport::TestCase
     @basic_rate.update_for(expenses: @improved_input["expenses"], hours: @improved_input["hours"], earnings: @improved_input["earnings"])
 
     updated_input = Rate::Input.find_by(rate_id: @basic_rate.id)
-    assert_equal updated_input.expenses, @improved_input["expenses"]
-    assert_equal updated_input.hours, @improved_input["hours"]
-    assert_equal updated_input.earnings, @improved_input["earnings"]
+    assert_equal @improved_input["expenses"], updated_input.expenses
+    assert_equal @improved_input["hours"], updated_input.hours
+    assert_equal @improved_input["earnings"], updated_input.earnings
   end
 
   test "user id must be numeric" do

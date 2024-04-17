@@ -28,8 +28,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     user = User.last
-    assert_equal user.name, 'Gideon'
-    assert_equal user.email, 'gideon@allsafe.com'
+    assert_equal 'Gideon', user.name
+    assert_equal 'gideon@allsafe.com', user.email
   end
 
   test "should show user" do
@@ -59,7 +59,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update user" do
-    assert_equal @darlene.name, 'Darlene'
+    assert_equal 'Darlene', @darlene.name
     
     login_as(@darlene)
 
@@ -73,7 +73,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     }
     
     updated_user = User.find(@darlene.id)
-    assert_equal updated_user.name, 'Dolores'
+    assert_equal 'Dolores', updated_user.name
   end
 
   test "should destroy user" do
@@ -83,7 +83,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     delete user_path
 
     expected_user_count = previous_user_count - 1
-    assert_equal User.count, expected_user_count
+    assert_equal expected_user_count, User.count
 
     assert_redirected_to root_path
     follow_redirect!
@@ -99,15 +99,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     expected_user_count = previous_user_count - 1
     expected_rate_count = previous_rate_count - 1
-    assert_equal User.count, expected_user_count
-    assert_equal Rate.count, expected_rate_count
+    assert_equal expected_user_count, User.count
+    assert_equal expected_rate_count, Rate.count
   end
 
   test "destroying a user ends its associated session" do
 
     login_as(@darlene)
 
-    assert_equal session[:user_id], @darlene.id
+    assert_equal @darlene.id, session[:user_id]
 
     delete user_path
 
@@ -123,7 +123,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     expected_user_count = previous_user_count - 1
     expected_client_count = previous_client_count - 2
-    assert_equal User.count, expected_user_count
-    assert_equal Client.count, expected_client_count
+    assert_equal expected_user_count, User.count
+    assert_equal expected_client_count, Client.count
   end
 end

@@ -30,7 +30,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     login_as(@darlene)
 
-    assert_equal session[:user_id], @darlene.id
+    assert_equal @darlene.id, session[:user_id]
     assert_redirected_to my_summary_index_path
   end
 
@@ -48,7 +48,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     
     login_as(@darlene)
 
-    assert_equal session[:user_id], @darlene.id
+    assert_equal @darlene.id, session[:user_id]
 
     delete session_path
 
