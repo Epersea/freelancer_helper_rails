@@ -17,6 +17,7 @@
     <% if @clients.size > 0%>
       <% @clients.each do |client|%>
         <%= render "clients/client", client: client%> 
+        <br>
       <% end%>
     <% else%>
       <p> Looks like you haven't provided any data about your clients.</p>

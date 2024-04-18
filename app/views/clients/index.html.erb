@@ -5,6 +5,7 @@
 <h1><%= @user.name%>'s clients</h1>
 <% @clients.each do |client|%>
 <%= render "client", client: client%>
+<%= link_to "Edit this client", edit_client_path(client), class: "btn", style: "text-decoration: none;" %>
 <% end%>
 <p>If you want to see more information about your rates and clients, please visit <%= link_to "My Summary", my_summary_index_path, class: "hover" %></p>
 <%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none;" %>

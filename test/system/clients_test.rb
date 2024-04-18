@@ -27,6 +27,8 @@ class ClientsTest < ApplicationSystemTestCase
   test "should edit and delete a client" do
     login_as(@darlene)
 
+    click_on "My Clients"
+
     click_on "Edit this client", match: :first
 
     assert_text "Edit client"
