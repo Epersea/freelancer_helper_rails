@@ -23,5 +23,6 @@ class Client < ApplicationRecord
     def set_defaults
       self.hours_worked = 0 if self.hours_worked.blank?
       self.amount_billed = 0 if self.amount_billed.blank?
+      self.rate = 0 if self.rate.blank?
     end
 end
