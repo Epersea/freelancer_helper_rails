@@ -5,6 +5,7 @@ class Client < ApplicationRecord
   has_many :projects, dependent: :destroy
   validates :name, :user_id, presence: true
   validates :hours_worked, :amount_billed, numericality: { greater_than_or_equal_to: 0 }
+  before_validation :set_defaults
 
   def update_stats
     self.hours_worked = 0
@@ -17,4 +18,10 @@ class Client < ApplicationRecord
     
     self.save!
   end
+
+  private
+    def set_defaults
+      self.hours_worked = 0 if self.hours_worked.blank?
+      self.amount_billed = 0 if self.amount_billed.blank?
+    end
 end

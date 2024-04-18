@@ -3,6 +3,7 @@
     <p id="notice"><%= notice %></p>
   <% end %>
   <h1>Edit client</h1>
+  <p>Note: if you want to edit hours worked or amount billed, please add or edit a project for this client. You can see all the projects completed for this client <%= link_to "here", client_projects_path(@client), class: "hover", style: "text-decoration: none;" %>.</p>
 
   <%= render "form", client: @client %>
 
