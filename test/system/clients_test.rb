@@ -21,7 +21,7 @@ class ClientsTest < ApplicationSystemTestCase
     assert_text "A"
     assert_text "Hours worked: 0"
     assert_text "Amount billed: 0"
-    assert_text "Rate per hour: n/a"
+    assert_text "Rate per hour: 0"
   end
 
   test "should edit and delete a client" do

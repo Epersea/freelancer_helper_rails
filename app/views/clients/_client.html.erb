@@ -4,11 +4,7 @@
     <ul>
       <li>Hours worked: <%= client.hours_worked %></li>
       <li>Amount billed: <%= client.amount_billed %></li>
-      <% if client.rate %>
-        <li>Rate per hour: <%= client.rate %></li>
-      <% else %>
-        <li>Rate per hour: n/a</li>
-      <% end %>
+      <li>Rate per hour: <%= client.rate %></li>
     </ul>
   </div>
   <div>

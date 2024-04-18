@@ -54,7 +54,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 0, client.hours_worked
     assert_equal 0, client.amount_billed
     assert_equal @darlene.id, client.user_id
-    assert_nil client.rate
+    assert_equal 0, client.rate
 
     assert_redirected_to client_path(client)
   end

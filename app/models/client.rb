@@ -15,6 +15,8 @@ class Client < ApplicationRecord
       self.hours_worked += project.hours_worked
       self.amount_billed += project.amount_billed
     end
+
+    set_rate
     
     self.save!
   end
