@@ -55,6 +55,7 @@ class ProjectsTest < ApplicationSystemTestCase
     assert_text "Start date: 2023-03-10"
     assert_text "End date: 2023-03-20"
 
+    click_on "Edit this project"
     click_on "Delete Project"
     page.accept_alert
 
