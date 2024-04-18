@@ -7,8 +7,6 @@ class ClientTest < ActiveSupport::TestCase
 
     assert client.invalid?
     assert client.errors[:name].any?
-    assert client.errors[:hours_worked].any?
-    assert client.errors[:amount_billed].any?
     assert client.errors[:user_id].any?
   end
 
@@ -38,9 +36,9 @@ class ClientTest < ActiveSupport::TestCase
     client = Client.new
 
     client.name = "E Corp"
-    client.hours_worked = 5.5
-    client.amount_billed = 200
     client.user_id = users(:darlene).id
+    client.hours_worked = 0
+    client.amount_billed = 0
 
     assert client.valid?
   end
