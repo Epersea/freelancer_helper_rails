@@ -4,14 +4,16 @@ Currently, this a work in progress. Please check [this presentation](https://doc
 
 ## KEY POINTS: WHAT I LEARNED
 This is a **practice project for learning Ruby on Rails**. These are the main functionalities I have used:
-- **Model** creation and validation, including **associations** (`Rate` and `Rate::Input`), `has_one, has_many` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** to ensure database integrity.
+- **Model** creation and validation, including **associations** `has_one, has_many, has_many through` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** and created callbacks with custom methods to ensure database integrity.
 - Use of **migrations** to create and update database tables.
-- **Controller** creation and routing. Some of my controllers implement the full range of Rails `:resources`, while others only implement a few selected actions depending on functionality requirements. I have defined **methods and callbacks at the application and controller levels**, for instance, to restrict functionalities to authorized and logged in users. Controllers also make use of **strong params** for input sanitization.
+- **Controller** creation and routing. Some of my controllers implement the full range of Rails `:resources`, while others only implement a few selected actions depending on functionality requirements. Also, the Project routes implement **shallow nesting** to avoid cumbersome URLs. 
+- I have defined **methods and callbacks at the application and controller levels** to restrict functionalities to authorized and logged in users. Controllers also make use of **strong params** for input sanitization.
 - **View** creation, including use of ERB logic and refactorization with **partials**. Many views include a notice div at the top to display useful information to users. I also modified the application layout to display a sidebar, with different links displayed depending on login status.
 - Implementation of **custom code** (RateCalculator class and subclasses), which can be found in `/lib`.
 - Use of Rail's **current attributes** to keep current user easily available to the whole application.
+- Model **concerns** and test authorization **helpers** to DRY the code.
 - **Unit testing** with Rspec
-- **Model, controller and system testing** with fixtures using Minitest and Capybara. I also defined **helpers** for authorization methods to be shared among tests
+- **Model, controller and system testing** with fixtures using Minitest and Capybara. 
 
 ## THE WHY AND THE HOW
 
@@ -33,7 +35,7 @@ A rough blueprint of the functionalities can be found [in this document](https:/
 ### 1. RATE CALCULATOR
 The rate calculator is the **core functionality of the application**. The user visits a form and fills it with information regarding several aspects of their business, such as their planned expenses, how many hours a day and days a week they want to work and their desired earnings.
 
-After clicking on "Calculate", the user is redirected to a page where they can see what is the minimum rate per hour they should be charging in order to achieve their goals, as well as an explanation of the calculations. They can easily edit their input information to play with the variables, for example, what would happen if they decide to work 4 days a week instead of 5.
+After clicking on "Calculate", the user is redirected to a page where they can see what is the minimum rate per hour they should be charging in order to achieve their goals, as well as an explanation of the calculations. They can easily edit their input information to play with the variables, for example, what would happen if they decided to work 4 days a week instead of 5.
 
 ![](/app/assets/images/rate_calculator_show.png)
 
@@ -45,7 +47,7 @@ This functionality relies on two models:
   - **Hours**: data related to the time the user plans to work, taking into account factors like the number of hours per day / days per week, holidays and training.
   - **Earnings**: data related to the user's earning goals (expected net monthly earnings and taxes).
 
-Tests for the Rate model focus on ensuring that validations work correctly, and that the association with Rate::Input perfoms as expected (rate inputs and rates are created and updated in tandem).
+Tests for the Rate model focus on ensuring that validations work correctly, and that the association with Rate::Input performs as expected (rate inputs and rates are created and updated in tandem).
 
 ### Controllers, routers and views
 I have used the standard conventions provided by **resources :rate**. Some things of note:
@@ -88,12 +90,12 @@ To provide easier access to the new functionalities, I have created a **sidebar*
 Finally, I have created **tests** for the User model and the User, Session and MySummary controllers, as well as system tests covering the users and sessions functionality.
 
 ### 3. CLIENTS
-The third slice of the app covers **client functionality**. A user can add information about a client (name, hours worked and amount billed) and the app will calculate the rate per hour for that particular client. Clients are stored in the database and the user can check them individually or see a summary of all their clients. 
+The third slice of the app covers **client functionality**. A user can add a new client introducing its name. They can also add information about projects completed for this client (see 4 below), that will be used to calculate the total number of hours worked, amount billed and rate per hour. Clients are stored in the database and the user can check them individually or see a summary of all their clients. 
 
 Client information is also displayed at **My Summary** page. If the user has provided information about rates, they will also see a brief message depending on their client rates being above or below their goal rate. 
 
 Some areas of note about this functionality:
-- I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. As in the case of Rate models, we have to perform a rate calculation, which is handled with a `before_save` callback.
+- I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. 
 - The **Client controller** handles the standard actions. I have included some logic to prevent a user from creating a client with the same name twice.
 - I have also created the corresponding **Client views**, with partials for `_client` and `_form`.
 - In order to display client information, I have edited **My Summary controller and view**. Now, the controller fetches the client info to display and determines the message to display based on a rate evaluation.
@@ -104,6 +106,19 @@ At this point in the development process, I also spend some time **refactoring t
 - Making use of Current Attributes.
 - Creating an AuthenticationHelper for controller and system tests.
 
+## 4. PROJECTS
+The **project functionality** allows the user to create projects for each client, detailing the work completed. For instance, a project may be a logo redesign or a website translation. Projects include information about hours worked, amount billed and start and end dates.
+
+Each project belongs to a client, and every time that a project is added, deleted or updated, the corresponding client's information updates in sync. The user can also see a list of all the projects belonging to a client or check them individually.
+
+Some areas of note about this functionality:
+- I have implemented the project routes with **shallow nesting** to avoid cumbersome URLs and facilitate access to project resources.
+- The **Project model** validates the input data, including a custom method to check that the end date is later than the start date. It also calculates the individual project's rate via a before_save callback.
+- Now Clients are initialized with 0 hours worked and amount billed, and this information is added later through Projects.
+- Before saving or destroying a record, the Project model calls the Client model `update_stats` method, so the new project information is incorporated.
+- Since both the Project and the Client models have to calculate rates, I have created a **RateSetter concern** that is included in both.
+- Finally, I have also updated the User model with a `has_many :through` **association**, which allows the Project controller to access projects directly via Current.user.
+- As usual, I have included **tests** for model validations and callbacks and controller actions, as well as system tests.
 
 ## HOW TO RUN THE APPLICATION
 
