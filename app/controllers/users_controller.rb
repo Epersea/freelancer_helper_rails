@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   skip_before_action :authorize, except: [ :edit, :show, :destroy ]
 
   def new
+    if session[:user_id]
+      redirect_to root_path, notice: "You are already logged in. To create an account, please log out first."
+    end
     @user = User.new
   end
 

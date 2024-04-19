@@ -15,6 +15,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', 1
   end
 
+  test "should not let a logged in user create a new account" do
+    login_as(@darlene)
+
+    get new_user_path
+
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select 'p', "You are already logged in. To create an account, please log out first."
+  end
+
   test "should create user" do
     assert_difference -> {User.count}, 1 do
       post user_path, params: {
@@ -27,6 +37,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
+    assert_redirected_to new_session_path
     user = User.last
     assert_equal 'Gideon', user.name
     assert_equal 'gideon@allsafe.com', user.email
