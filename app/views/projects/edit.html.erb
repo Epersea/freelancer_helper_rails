@@ -4,65 +4,6 @@
   <% end %>
   <h1>Edit <%= @project.client.name %> Project</h1>
   <p>Not the client you are looking for? Go to your <%= link_to "client index", clients_path, class: "hover" %> and select the right client.</p>
-
-  <%= form_with(model: @project, class: "contents") do |form| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-        <% @project.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-  <%= form.label :name %>
-  </div>
-  <div>
-  <%= form.text_field :name %>
-  </div>
-
-  <div>
-  <%= form.label :hours_worked %>
-  </div>
-  <div>
-  <%= form.text_field :hours_worked %>
-  </div>
-
-  <div>
-  <%= form.label :amount_billed %>
-  </div>
-  <div>
-  <%= form.text_field :amount_billed %>
-  </div>
-
-   <div>
-  <%= form.label :start_date %>
-  </div>
-  <div>
-  <%= form.date_field :start_date %>
-  </div>
-
-   <div>
-  <%= form.label :end_date %>
-  </div>
-  <div>
-  <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-  <%= form.label :description, "Description (optional)" %>
-  </div>
-  <div>
-  <%= form.text_field :description %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "btn" %>
-  </div>
-<% end %>
+  <%= render "form", project: @project %>
 <%= button_to "Delete Project", project_path(@project), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
 </div>
