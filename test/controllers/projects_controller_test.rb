@@ -21,10 +21,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h3', "#{@logo.name}"
     assert_includes response.body, "#{@logo.hours_worked}"
     assert_includes response.body, "#{@logo.amount_billed}"
+    assert_includes response.body, "#{@logo.start_date}"
+    assert_includes response.body, "#{@logo.start_date}"
     assert_includes response.body, "#{@logo.rate}"
     assert_select 'h3', "#{@translation.name}"
     assert_includes response.body, "#{@translation.hours_worked}"
     assert_includes response.body, "#{@translation.amount_billed}"
+    assert_includes response.body, "#{@translation.start_date}"
+    assert_includes response.body, "#{@translation.start_date}"
     assert_includes response.body, "#{@translation.rate}"
   end
 
@@ -36,6 +40,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', 'Name'
     assert_select 'label', 'Hours worked'
     assert_select 'label', 'Amount billed'
+    assert_select 'label', 'Start date'
+    assert_select 'label', 'End date'
     assert_select 'label', 'Description (optional)'
   end
 
@@ -59,6 +65,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "New Project", project.name
     assert_equal 5, project.hours_worked
     assert_equal 300, project.amount_billed
+    assert_equal Date.new(2024, 4, 11), project.start_date
+    assert_equal Date.new(2024, 4, 15), project.end_date
     assert_equal @e_corp.id, project.client_id
     assert_equal 60, project.rate
 
@@ -74,6 +82,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "#{@logo.client.name}"
     assert_includes response.body, "#{@logo.hours_worked}"
     assert_includes response.body, "#{@logo.amount_billed}"
+    assert_includes response.body, "#{@logo.start_date}"
+    assert_includes response.body, "#{@logo.end_date}"
     assert_includes response.body, "#{@logo.rate}"
   end
 
@@ -86,6 +96,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'label', "Name"
     assert_select 'label', "Hours worked"
     assert_select 'label', "Amount billed"
+    assert_select 'label', "Start date"
+    assert_select 'label', "End date"
     assert_select 'label', "Description (optional)"
   end
 
@@ -103,6 +115,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Updated project", updated_project.name 
     assert_equal 12, updated_project.hours_worked
     assert_equal 600, updated_project.amount_billed
+    assert_equal @translation.start_date, updated_project.start_date
+    assert_equal @translation.end_date, updated_project.end_date
     assert_equal 50, updated_project.rate
 
     assert_redirected_to project_path(@translation)
