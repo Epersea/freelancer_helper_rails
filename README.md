@@ -1,17 +1,18 @@
-Freelancer Helper is a web app with utilities to help freelancers get organized, earn more and work less. This is version 2.0 using Ruby on Rails, with a major code refactor and new functionalities. You can check the first version (using Python and Flask) in [this repo](https://github.com/Epersea/freelancerhelperLEGACY).
+Freelancer Helper is a web app with utilities to **help freelancers get organized, earn more and work less**. This is version 2.0 using **Ruby on Rails**, with a major code refactor and new functionalities. You can check the first version (using Python and Flask) in [this repo](https://github.com/Epersea/freelancerhelperLEGACY).
 
 ## KEY POINTS: WHAT I LEARNED
 This is a **practice project for learning Ruby on Rails**. These are the main functionalities I have used:
-- **Model** creation and validation, including **associations** `has_one, has_many, has_many through` and `belongs_to` **relationships**, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** and created callbacks with custom methods to ensure database integrity.
+- **Model** creation and validation, including **associations** `has_one, has_many, has_many through` and `belongs_to`, and custom methods for creating and updating Model objects (which make use of the `tap` method). I have also implemented **transactions** and created callbacks with custom methods to ensure database integrity.
 - Use of **migrations** to create and update database tables.
 - **Controller** creation and routing. Some of my controllers implement the full range of Rails `:resources`, while others only implement a few selected actions depending on functionality requirements. Also, the Project routes implement **shallow nesting** to avoid cumbersome URLs. 
 - I have defined **methods and callbacks at the application and controller levels** to restrict functionalities to authorized and logged in users. Controllers also make use of **strong params** for input sanitization.
-- **View** creation, including use of ERB logic and refactorization with **partials**. Many views include a notice div at the top to display useful information to users. I also modified the application layout to display a sidebar, with different links displayed depending on login status.
+- **View** creation, including use of ERB logic and refactorization with **partials**. Many views include a notice div at the top to display useful information to users. I also modified the **application layout** to display a sidebar, with different links displayed depending on login status.
 - Implementation of **custom code** (RateCalculator class and subclasses), which can be found in `/lib`.
 - Use of Rail's **current attributes** to keep current user easily available to the whole application.
 - Model **concerns** and test authorization **helpers** to DRY the code.
 - **Unit testing** with Rspec
 - **Model, controller and system testing** with fixtures, using Minitest and Capybara. 
+
 I have also seized the opportunity to learn a bit about **GitHub Actions** and have implemented a job that runs the test on pushes and pull requests.
 
 ## THE WHY AND THE HOW
@@ -25,7 +26,7 @@ Of course, theory only goes so far when studying a framework, so I decided to pr
 
 ### PROJECT SCOPE
 
-The first Python/Flask version of this project provided basic login, rate and client registry functionalities. To better understand how the project was structured, please check these diagrams:
+The first Python/Flask version of this project provided basic login, rate and client registry functionalities. To better understand how the project was structured, feel free to check these diagrams:
 - [Main arquitecture](https://docs.google.com/drawings/d/1nIko25347kkcLwLU92kMBPFsx5e0ZW8EgUFST3ifFMs/edit)
 - [User login](https://docs.google.com/drawings/d/1PcuCHxusH1pOC_cuX2Jw8syg4l4Onk9l0NLB-suJx7k/edit)
 - [Rate calculator](https://docs.google.com/drawings/d/1lDKDnqO1IVDD7xzCaR2aIuvh38-cLiNgl-O-04UjpwY/edit)
@@ -45,17 +46,17 @@ To organize the work, I divided the project into **4 main functionalities or "sl
 ### 1. RATE CALCULATOR
 
 #### DESCRIPTION AND ACCEPTANCE CRITERIA
-The rate calculator is the **core functionality of the application**. The user visits a form and fills it with information regarding several aspects of their business, such as their planned expenses, how many hours a day and days a week they want to work and their desired earnings.
+The rate calculator is the **core functionality of the application**. The user visits a form and fills it with information regarding several aspects of their business, such as their planned expenses, how much they want to work and their desired earnings.
 
-After clicking on "Calculate", the user is redirected to a page where they can see what is the **minimum rate per hour** they should be charging in order to achieve their goals, as well as an explanation of the calculations. 
+After clicking on "Calculate", the user is redirected to a page where they can see what is the **minimum rate per hour** they should be charging to achieve their goals, as well as an explanation of the calculations. 
 
 The main **acceptance criteria** for this functionality are:
 - Users should be able to input information about their long-term, annual and monthly **expenses**
-- Users should be able to input information about the number of hours per day and days per week they want to work, as well as planned off days.
+- Users should be able to input information about the number of hours per day and days per week they want to work, as well as planned off days
 - Users should be able to input information about their desired **net monthly salary** and **expected taxes**
 - Users should see information about their desired **rate per hour** and an explanation of the calculations
 - Users should be able to **edit the information provided** and see their adjusted rate
-- The rate info should be stored so users can revisit it later.
+- The rate info should be stored so users can revisit it later
 - Users should be able to **delete their rate**
 
 ![](/app/assets/images/rate_calculator_show.png)
@@ -65,7 +66,7 @@ The main **acceptance criteria** for this functionality are:
 #### Models
 This functionality relies on two models:
 - The **Rate model** handles the information related to a user's final goal rate and the intermediate calculations displayed (total annual expenses, tax percent, net monthly earnings, hours worked per year an so on). It includes methods for both creating a new rate and updating an existing one.
-- The **Rate::Input model** is a Rate association that handles the information introduced by a user in order to calculate a Rate, and is created and updated in tandem with a Rate. This information is organized in three attributes:
+- The **Rate::Input model** is a Rate association that handles the information introduced by a user to calculate a Rate, and is created and updated in tandem with a Rate. This information is organized in three attributes:
   - **Expenses**: data related to long term, annual and monthly expenses.
   - **Hours**: data related to the time the user plans to work, taking into account factors like the number of hours per day / days per week, holidays and training.
   - **Earnings**: data related to the user's earning goals (expected net monthly earnings and taxes).
@@ -75,7 +76,7 @@ Tests for the Rate model focus on ensuring that validations work correctly, and 
 #### Controllers, routers and views
 I have used the standard conventions provided by **resources :rate**. Some things of note:
 - The **#new route** takes the user to the Rate Calculator form, which is also divided into Expenses, Hours and Earnings sections. I used parameter naming conventions to structure the params hash to facilitate legibility and aid in further calculations.
-- The **#create route** uses a method called rate_input that sanitizes the information received using strong parameters for expenses, hours and earnings. Then, this information is sent to the create_for method of the Rate model, where the associated input is updated. For both this and the update_for methods, I have implemented transactions to ensure database integrity. Then, the input is sent to the **RateCalculator lib class**, which performs the necessary calculations. The resulting information is then stored in the Rate.
+- The **#create route** uses a method called `rate_input` that sanitizes the information received using strong parameters for expenses, hours and earnings. Then, this information is sent to the `create_for` method of the Rate model, where the associated input is updated. For both this and the `update_for` methods, I have implemented transactions to ensure database integrity. Then, the input is sent to the **RateCalculator lib class**, which performs the necessary calculations. The resulting information is then stored in the Rate.
 
 I have included both **controller and system tests** for the above routes.
 
@@ -102,7 +103,7 @@ The **acceptance** criteria for this functionality are:
 
 #### IMPLEMENTATION
 
-- I first focused on the **User scaffolding**, and defined the following **relationship between models**:
+- I defined the following **relationship between models**:
 ```
 User has_one :rate, dependent: :destroy
 Rate belongs_to :user, optional: true
@@ -134,7 +135,7 @@ The **acceptance** criteria for this functionality are:
 - I defined a **Client model**. A client `belongs_to` a user, and a user `has_many` clients. 
 - The **Client controller** handles the standard actions. I have included some logic to prevent a user from creating a client with the same name twice.
 - I have also created the corresponding **Client views**, with partials for `_client` and `_form`.
-- In order to display client information, I have edited **My Summary controller and view**. Now, the controller fetches the client info to display and determines the message to display based on a rate evaluation.
+- To display client information, I have edited **My Summary controller and view**. Now, the controller fetches the client info to display and determines the message to display based on a rate evaluation.
 - I have also created **tests** for Client model validations, Client controller routes (including authorization) and system tests for the client functionality, as well as updating My Summary tests.
 
 
@@ -158,7 +159,7 @@ The **acceptance criteria** for this functionality are:
 
 #### IMPLEMENTATION
 - I have implemented the project routes with **shallow nesting** to avoid cumbersome URLs and facilitate access to project resources.
-- The **Project model** validates the input data, including a custom method to check that the end date is later than the start date. It also calculates the individual project's rate via a before_save callback.
+- The **Project model** validates the input data, including a custom method to check that the end date is later than the start date. It also calculates the individual project's rate via a `before_save` callback.
 - Now Clients are initialized with 0 hours worked and amount billed, and this information is added later through Projects.
 - Before saving or destroying a record, the Project model calls the Client model `update_stats` method, so the new project information is incorporated.
 - Since both the Project and the Client models have to calculate rates, I have created a **RateSetter concern** that is included in both.
