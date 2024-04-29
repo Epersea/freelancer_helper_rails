@@ -1,59 +1,61 @@
-<%= form_with(model: (defined?(client)) ? [client, project] : project, class: "contents") do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<div>
+  <%= form_with(model: (defined?(client)) ? [client, project] : project, class: "contents") do |form| %>
+    <% if project.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
-      <ul>
-        <% project.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% project.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+    <%= form.label :name %>
+    </div>
+    <div>
+    <%= form.text_field :name %>
+    </div>
+
+    <div>
+    <%= form.label :hours_worked %>
+    </div>
+    <div>
+    <%= form.text_field :hours_worked %>
+    </div>
+
+    <div>
+    <%= form.label :amount_billed %>
+    </div>
+    <div>
+    <%= form.text_field :amount_billed %>
+    </div>
+
+    <div>
+    <%= form.label :start_date %>
+    </div>
+    <div>
+    <%= form.date_field :start_date %>
+    </div>
+
+    <div>
+    <%= form.label :end_date %>
+    </div>
+    <div>
+    <%= form.date_field :end_date %>
+    </div>
+
+    <div>
+    <%= form.label :description, "Description (optional)" %>
+    </div>
+    <div>
+    <%= form.text_field :description %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit class: "btn" %>
     </div>
   <% end %>
-
-  <div>
-  <%= form.label :name %>
-  </div>
-  <div>
-  <%= form.text_field :name %>
-  </div>
-
-  <div>
-  <%= form.label :hours_worked %>
-  </div>
-  <div>
-  <%= form.text_field :hours_worked %>
-  </div>
-
-  <div>
-  <%= form.label :amount_billed %>
-  </div>
-  <div>
-  <%= form.text_field :amount_billed %>
-  </div>
-
-   <div>
-  <%= form.label :start_date %>
-  </div>
-  <div>
-  <%= form.date_field :start_date %>
-  </div>
-
-   <div>
-  <%= form.label :end_date %>
-  </div>
-  <div>
-  <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-  <%= form.label :description, "Description (optional)" %>
-  </div>
-  <div>
-  <%= form.text_field :description %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "btn" %>
-  </div>
-<% end %>
+</div>

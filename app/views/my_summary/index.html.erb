@@ -5,7 +5,11 @@
     <% end %>
   </div>
 
+  <div>
     <h1><%= @username%>, this is your Freelancer Summary</h1>
+  </div>
+
+  <div>
     <h2>Rate info</h2>
     <% if @rate%>
       <%= render "rate/rate", rate: @rate %>
@@ -13,6 +17,9 @@
       <p> Looks like you haven't provided any data about your goal rates.</p>
       <%= link_to "Go to Rate Calculator", new_rate_path, class: "btn", style: "text-decoration: none"%>
     <% end%>
+  </div>
+
+  <div>
     <h2>Client info</h2>
     <p><%= @message%></p>
     <% if @clients.size > 0%>
@@ -24,5 +31,5 @@
       <p> Looks like you haven't provided any data about your clients.</p>
       <%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none"%>
     <% end%>
-  
+  </div>
 </div>

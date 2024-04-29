@@ -1,5 +1,8 @@
-<h2>Your minimum rate per hour should be <%= rate.rate%></h2>
+
+<div>
   <div>
+    <h2>Your minimum rate per hour should be <%= rate.rate%></h2>
+  
     <p>How did we arrive at that number? Let's do some math to find out!</p>
     <p>You said you want to work <b><%= rate.hours_day%> hours</b> per day. Of those, <b><%= rate.billable_percent%>%</b> will be billable.</p>
     <p>Taking weekend, vacation, training and sick time into account, this means you will charge your clients for <b><%= rate.hours_year%> hours</b> per year.</p>
@@ -7,10 +10,16 @@
     <p><b><%= rate.gross_year%> income / <%= rate.hours_year%> hours = <%= rate.rate%> per hour</b>. Easy peasy!</p>
     <p>And remember... this is the minimum you should charge to achieve your goals, but the sky is the limit!</p>
     <br>
+  </div>
+
+  <div>
     <p><b>Do you want to try different variables? Edit your rate to see how it works out:
     <%=link_to "Edit", edit_rate_path(rate), class: "btn", style: "text-decoration: none;"%></b></p>
+  </div>
 
+  <div>
     <p>You can also delete this rate:</p>
     <%= button_to "Delete", rate_path(rate), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
     <br>
   </div>
+</div>
