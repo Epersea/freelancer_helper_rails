@@ -1,9 +1,18 @@
 <div>
-  <% if notice.present? %>
-    <p id="notice"><%= notice %></p>
-  <% end %>
-  <h1>Edit <%= @project.client.name %> Project</h1>
-  <p>Not the client you are looking for? Go to your <%= link_to "client index", clients_path, class: "hover" %> and select the right client.</p>
+  <div>
+    <% if notice.present? %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <h1>Edit <%= @project.client.name %> Project</h1>
+    <p>Not the client you are looking for? Go to your <%= link_to "client index", clients_path, class: "hover" %> and select the right client.</p>
+  </div>
+  
   <%= render "form", project: @project %>
-<%= button_to "Delete Project", project_path(@project), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
+  
+  <div>
+    <%= button_to "Delete Project", project_path(@project), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
+  </div>
 </div>

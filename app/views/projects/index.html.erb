@@ -1,15 +1,23 @@
-<% if notice.present? %>
-  <p id="notice"><%= notice %></p>
-<% end %>
+<div>
+  <div>
+    <% if notice.present? %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+  </div>
 
-<h1><%= @client.name%>'s projects</h1>
-<%= link_to "Add Project", new_client_project_path(@client), class: "btn", style: "text-decoration: none;" %>
-<br>
-<% if !@projects.empty?%>
-  <% @projects.each do |project|%>
-  <%= render "project", project: project%>
-  <% end%>
-<% else%>
-  <p>Looks like you don't have any projects for this client yet. Click on the button below to start adding!</p>
-<% end%>
-<br>
+  <div>
+    <h1><%= @client.name%>'s projects</h1>
+    <%= link_to "Add Project", new_client_project_path(@client), class: "btn", style: "text-decoration: none;" %>
+  </div>
+  <br>
+  <div>
+    <% if !@projects.empty?%>
+      <% @projects.each do |project|%>
+      <%= render "project", project: project%>
+      <% end%>
+    <% else%>
+      <p>Looks like you don't have any projects for this client yet. Click on the button below to start adding!</p>
+    <% end%>
+    <br>
+  </div>
+</div>

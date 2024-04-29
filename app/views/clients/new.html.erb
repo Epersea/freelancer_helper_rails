@@ -1,9 +1,12 @@
 <div>
-  <h1>New client</h1>
+  <div>
+    <h1>New client</h1>
 
-  <p>Note: to add information about hours worked or amount billed, create the client first and then click on "Add project for this client" </p>
+    <p>Note: to add information about hours worked or amount billed, create the client first and then click on "Add project for this client" </p>
+  </div>
 
   <%= render "form", client: @client %>
-
-  <%= link_to "Back to home", root_path, class: "link" %>
+  <div>
+    <%= link_to "Back to home", root_path, class: "link" %>
+  </div>
 </div>

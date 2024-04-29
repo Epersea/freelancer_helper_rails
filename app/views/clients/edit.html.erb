@@ -1,11 +1,16 @@
 <div>
-  <% if notice.present? %>
-    <p id="notice"><%= notice %></p>
-  <% end %>
-  <h1>Edit client</h1>
-  <p>Note: if you want to edit hours worked or amount billed, please add or edit a project for this client. You can see all the projects completed for this client <%= link_to "here", client_projects_path(@client), class: "hover", style: "text-decoration: none;" %>.</p>
-
+  <div>
+    <% if notice.present? %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+  </div>
+  <div>
+    <h1>Edit client</h1>
+    <p>Note: if you want to edit hours worked or amount billed, please add or edit a project for this client. You can see all the projects completed for this client <%= link_to "here", client_projects_path(@client), class: "hover", style: "text-decoration: none;" %>.</p>
+  </div>
   <%= render "form", client: @client %>
 
-  <%= button_to "Delete Client", client_path(@client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
+  <div>
+    <%= button_to "Delete Client", client_path(@client), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-btn" %>
+  </div>
 </div>
