@@ -1,0 +1,19 @@
+<div id="<%= dom_id project %>">
+  <h3><%= project.name %></h1>
+  <div>
+    <ul>
+      <% if !@client %>
+        <li>Client: <%= project.client.name %></li>
+      <% end%>
+      <li>Hours worked: <%= project.hours_worked %></li>
+      <li>Amount billed: <%= project.amount_billed %></li>
+      <li>Rate per hour: <%= project.rate %></li>
+      <li>Start date: <%= project.start_date %></li>
+      <li>End date: <%= project.end_date %></li>
+      <% if !project.description.empty? %>
+        <li>Description: <%= project.description %></li>
+      <% end%>
+    </ul>
+    <%= link_to "Edit this project", edit_project_path(project), class: "btn", style: "text-decoration: none;" %>
+  </div>
+</div>

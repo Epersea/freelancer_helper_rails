@@ -8,14 +8,21 @@
   }
 
   .btn {
-    @apply bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded inline-block;
+    @apply bg-green-600 hover:bg-green-500 text-white font-bold py-1 px-2 rounded inline-block;
     margin-top: 1%;
     margin-right: 1%;
     margin-botton: 1%;
   }
 
   .delete-btn {
-    @apply bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-block;
+    @apply bg-red-700 hover:bg-red-600 text-white font-bold py-1 px-2 rounded inline-block;
+    margin-top: 1%;
+    margin-right: 1%;
+    margin-botton: 1%;
+  }
+
+  .blue-btn {
+    @apply bg-blue-700 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded inline-block;
     margin-top: 1%;
     margin-right: 1%;
     margin-botton: 1%;

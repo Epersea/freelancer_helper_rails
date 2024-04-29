@@ -18,5 +18,7 @@ Rails.application.routes.draw do
 
   resources :my_summary, only: [:index]
 
-  resources :clients
+  resources :clients do
+    resources :projects, shallow: true
+  end
 end

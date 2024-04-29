@@ -12,6 +12,23 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     login_as(@darlene)
   end
 
+  test "should get index" do
+
+    get clients_path
+
+    assert_response :success
+    assert_select 'h1', "#{@darlene.name}'s clients"
+    assert_select 'h3', "#{@e_corp.name}"
+    assert_includes response.body, "#{@e_corp.hours_worked}"
+    assert_includes response.body, "#{@e_corp.amount_billed}"
+    assert_includes response.body, "#{@e_corp.rate}"
+    assert_select 'h3', "#{@f_corp.name}"
+    assert_includes response.body, "#{@f_corp.hours_worked}"
+    assert_includes response.body, "#{@f_corp.amount_billed}"
+    assert_includes response.body, "#{@f_corp.rate}"
+    assert_select 'p', 'If you want to see more information about your rates and clients, please visit My Summary'
+  end
+
   test "should get new" do
     
     get new_client_path
@@ -19,8 +36,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'New client'
     assert_select 'label', 'Name'
-    assert_select 'label', 'Hours worked'
-    assert_select 'label', 'Amount billed'
   end
 
   test "should create client" do
@@ -28,9 +43,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     post clients_path, params: {
       client: {
-        name: "New Client",
-        hours_worked: 5,
-        amount_billed: 300
+        name: "New Client"
       }
     }
 
@@ -38,10 +51,10 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_client_count, Client.count
     client = Client.last
     assert_equal "New Client", client.name
-    assert_equal 5, client.hours_worked
-    assert_equal 300, client.amount_billed
+    assert_equal 0, client.hours_worked
+    assert_equal 0, client.amount_billed
     assert_equal @darlene.id, client.user_id
-    assert_equal 60, client.rate
+    assert_equal 0, client.rate
 
     assert_redirected_to client_path(client)
   end
@@ -49,9 +62,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   test "should not let the user create a client with the same name" do
     post clients_path, params: {
       client: {
-        name: "#{@e_corp.name}",
-        hours_worked: 5,
-        amount_billed: 300
+        name: "#{@e_corp.name}"
       }
     }
 
@@ -66,9 +77,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     post clients_path, params: {
       client: {
-        name: "#{@e_corp.name}",
-        hours_worked: 5,
-        amount_billed: 300
+        name: "#{@e_corp.name}"
       }
     }
 
@@ -76,10 +85,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_client_count, Client.count
     client = Client.last
     assert_equal "#{@e_corp.name}", client.name
-    assert_equal 5, client.hours_worked
-    assert_equal 300, client.amount_billed
     assert_equal @elliot.id, client.user_id
-    assert_equal 60, client.rate
   end
 
   test "should show client" do
@@ -100,25 +106,21 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'Edit client'
     assert_select 'label', "Name"
-    assert_select 'label', "Hours worked"
-    assert_select 'label', "Amount billed"
   end
 
   test "should update client" do
 
     patch client_path(@e_corp), params: {
       client: {
-        name: "Updated client",
-        hours_worked: 12,
-        amount_billed: 2400
+        name: "Updated client"
       }
     }
 
     updated_client = Client.find(@e_corp.id)
     assert_equal "Updated client", updated_client.name
-    assert_equal 12, updated_client.hours_worked
-    assert_equal 2400, updated_client.amount_billed
-    assert_equal 200, updated_client.rate
+    assert_equal @e_corp.hours_worked, updated_client.hours_worked
+    assert_equal @e_corp.amount_billed, updated_client.amount_billed
+    assert_equal @e_corp.rate, updated_client.rate
 
     assert_redirected_to client_path(@e_corp)
   end
@@ -134,23 +136,6 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to clients_path
     follow_redirect!
     assert_select 'p', "Client #{@e_corp.name} was successfully deleted"
-  end
-
-  test "should get index" do
-
-    get clients_path
-
-    assert_response :success
-    assert_select 'h1', "#{@darlene.name}'s clients"
-    assert_select 'h3', "#{@e_corp.name}"
-    assert_includes response.body, "#{@e_corp.hours_worked}"
-    assert_includes response.body, "#{@e_corp.amount_billed}"
-    assert_includes response.body, "#{@e_corp.rate}"
-    assert_select 'h3', "#{@f_corp.name}"
-    assert_includes response.body, "#{@f_corp.hours_worked}"
-    assert_includes response.body, "#{@f_corp.amount_billed}"
-    assert_includes response.body, "#{@f_corp.rate}"
-    assert_select 'p', 'If you want to see more information about your rates and clients, please visit My Summary'
   end
 
 end

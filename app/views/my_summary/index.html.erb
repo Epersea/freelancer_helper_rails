@@ -3,6 +3,7 @@
     <% if notice.present? %>
       <p id="notice"><%= notice %></p>
     <% end %>
+  </div>
 
     <h1><%= @username%>, this is your Freelancer Summary</h1>
     <h2>Rate info</h2>
@@ -17,10 +18,11 @@
     <% if @clients.size > 0%>
       <% @clients.each do |client|%>
         <%= render "clients/client", client: client%> 
+        <br>
       <% end%>
     <% else%>
       <p> Looks like you haven't provided any data about your clients.</p>
       <%= link_to "Add Client", new_client_path, class: "btn", style: "text-decoration: none"%>
     <% end%>
-  </div>
+  
 </div>

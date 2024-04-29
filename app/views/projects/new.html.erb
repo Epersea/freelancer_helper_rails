@@ -1,0 +1,8 @@
+<div>
+  <h1>New <%= @client.name %> Project</h1>
+  <p>Not the client you are looking for? Go to your <%= link_to "client index", clients_path, class: "hover" %> and select the right client.</p>
+
+  <%= render "form", client: @client, project: @project %>
+
+  <%= link_to "Back to home", root_path, class: "link" %>
+</div>
