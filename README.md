@@ -198,7 +198,7 @@ Follow these steps to get your development environment set up:
 ### Running the tests
 - To run the model, controller and system tests: ```rails test:all -v```
 - To run the library tests: ```rspec```
-- Alternatively, you can run all tests with this rake task: ```rake tests:run_all```
+- Alternatively, you can run all tests with this command: ```rake tests:run_all```
 
 ### Running the application
 To execute the application, run the development server with ```bin/dev```
