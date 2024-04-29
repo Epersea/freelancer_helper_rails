@@ -12,6 +12,7 @@ This is a **practice project for learning Ruby on Rails**. These are the main fu
 - Model **concerns** and test authorization **helpers** to DRY the code.
 - **Unit testing** with Rspec
 - **Model, controller and system testing** with fixtures, using Minitest and Capybara. 
+- Customized **rake** task to run all tests with a single command.
 
 I have also seized the opportunity to learn a bit about **GitHub Actions** and have implemented a job that runs the test on pushes and pull requests.
 
@@ -196,7 +197,8 @@ Follow these steps to get your development environment set up:
 
 ### Running the tests
 - To run the model, controller and system tests: ```rails test:all -v```
-- To run the library tests: ```bundle exec rspec```
+- To run the library tests: ```rspec```
+- Alternatively, you can run all test with this rake task: ```rake tests:run_all```
 
 ### Running the application
 To execute the application, run the development server with ```bin/dev```
