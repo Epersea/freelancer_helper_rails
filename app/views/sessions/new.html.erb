@@ -1,29 +1,36 @@
-<div> <% if notice.present? %>
-  <p id="notice">
-  <%= notice %> </p>
-<% end %>
-
-<%= form_tag session_path, method: :post do %>
-
-  <h1>Please Log In</h2>
+<div> 
 
   <div>
-  <%= label_tag :name, 'Name' %>
-  </div>
-  <div>
-  <%= text_field_tag :name, params[:name]%>
+    <% if notice.present? %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
   </div>
 
   <div>
-  <%= label_tag :password, 'Password' %>
-  </div>
-  <div>
-  <%= password_field_tag :password, params[:password]%>
+    <%= form_tag session_path, method: :post do %>
+
+    <h1>Please Log In</h2>
+
+    <div>
+    <%= label_tag :name, 'Name' %>
+    </div>
+    <div>
+    <%= text_field_tag :name, params[:name]%>
+    </div>
+
+    <div>
+    <%= label_tag :password, 'Password' %>
+    </div>
+    <div>
+    <%= password_field_tag :password, params[:password]%>
+    </div>
+
+    <div>
+    <%= submit_tag "Login", class: "btn" %>
+    </div>
+  <% end %>
+
   </div>
 
-  <div>
-  <%= submit_tag "Login", class: "btn" %>
-  </div>
-<% end %>
-
+</div>
 

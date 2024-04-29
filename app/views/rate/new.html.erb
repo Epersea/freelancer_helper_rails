@@ -1,137 +1,140 @@
-<br>
-<h1>Rate Calculator</h1>
+<div> 
+  <br>
+  <div>
+    <h1>Rate Calculator</h1>
 
-<p>Welcome to our rate calculator! This tool will help you find out how much you should charge per hour to make your freelance business profitable.</p>
-<p>You will find detailed instructions to fill the form in each section. Let's get started!</p>
-
-<%= form_with(url: rate_index_path, method: :post) do |form| %>
-  <h2>Expenses</h2>
-  <p>We are going to start reviewing your expenses.</p>
-  <p>As a freelancer, you are your own business. And every business has expenses that we need to take into account.</p>
-  <p>For the sake of this calculation, we have divided expenses in 3 groups:</p>
-  <ol>
-    <li>Long-term investments, like a computer or office furniture.</li>
-    <li>Annual expenses, such as software licenses or professional memberships.</li>
-    <li>Monthly expenses, like renting office space.</li>
-  </ol>
-  <p>Use whatever currency you are used to work with.</p>
-  <p>For long-term investments, please include the amount spent and number of years you plan to use them. For instance, if your laptop costs 1,000 dollars and you plan to use it for 5 years, write “1000” in the amount field and “5” in the years field.</p>
-  <p>For annual and monthly expenses, just write the estimated total.</p>
-  <p>If any of the fields does not apply to your situation, just leave it empty.</p>
-  <h3>Long-term expenses</h3>
-    <div>
-      <p>Computer and other hardware:</p>
-      <div class="longterm1">
-        <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
+    <p>Welcome to our rate calculator! This tool will help you find out how much you should charge per hour to make your freelance business profitable.</p>
+    <p>You will find detailed instructions to fill the form in each section. Let's get started!</p>
+  </div>
+  <%= form_with(url: rate_index_path, method: :post) do |form| %>
+    <h2>Expenses</h2>
+    <p>We are going to start reviewing your expenses.</p>
+    <p>As a freelancer, you are your own business. And every business has expenses that we need to take into account.</p>
+    <p>For the sake of this calculation, we have divided expenses in 3 groups:</p>
+    <ol>
+      <li>Long-term investments, like a computer or office furniture.</li>
+      <li>Annual expenses, such as software licenses or professional memberships.</li>
+      <li>Monthly expenses, like renting office space.</li>
+    </ol>
+    <p>Use whatever currency you are used to work with.</p>
+    <p>For long-term investments, please include the amount spent and number of years you plan to use them. For instance, if your laptop costs 1,000 dollars and you plan to use it for 5 years, write “1000” in the amount field and “5” in the years field.</p>
+    <p>For annual and monthly expenses, just write the estimated total.</p>
+    <p>If any of the fields does not apply to your situation, just leave it empty.</p>
+    <h3>Long-term expenses</h3>
+      <div>
+        <p>Computer and other hardware:</p>
+        <div class="longterm1">
+          <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
+        </div>
+        <div class="longterm1">
+          <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+        </div>
+        <br>
       </div>
-      <div class="longterm1">
-        <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+
+      <div>
+        <p>Office equipment:</p>
+        <div class="longterm2">
+          <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
+        </div>
+        <div class="longterm2">
+          <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+        </div>
+        <br>
+      </div>
+
+      <div>
+        <p>Set-up marketing costs (for example, creating a website):</p>
+        <div class="longterm3">
+          <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
+        </div>
+        <div class="longterm3">
+          <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+        </div>
+        <br>
+      </div>
+
+      <div>
+        <p>Other long-term expenses:</p>
+        <div class="longterm4">
+          <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
+        </div>
+        <div class="longterm4">
+          <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+        </div>
+        <br>
+      </div>
+    <div>
+    <h3>Annual expenses</h3>
+      <p>For example: training, software with annual licenses, office supplies, professional memberships, Internet domains, marketing and advertising, business trips…</p>
+      <div class="annual">
+        <%= form.text_field 'expenses[annual]', type: "number", placeholder: "Amount" %>
+      </div>
+    </div>
+    <br>
+    <div>
+    <h3>Monthly expenses</h3>
+      <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
+      <div class="monthly">
+        <%= form.text_field 'expenses[monthly]', type: "number", placeholder: "Amount" %>
+      </div>
+    </div>
+    <br>
+
+    <div>
+    <h2>Working time</h2>
+      <p>Next, you will need to decide how much do you want to work per day and per week. We encourage you to be realistic and mindful of your health and work-life balance. We do not recommend working more than 8 hours per day or 5 days per week long-term.</p>
+      <p>So... how many hours do you want to work per day?</p>
+      <div class="hoursday">
+        <%= form.text_field 'hours[hours_day]', type: "number", required: true, min: 1, placeholder: "Hours" %>
+      </div>
+      <br>
+      <p>What percentage of this time will be spent in non-billable tasks? For instance, replying to emails, accounting, looking for new clients… If you are not sure, we think 20% is a reasonable estimation in most cases.</p>
+      <div class="nonbillable">
+        <%= form.text_field 'hours[non_billable]', type: "number", placeholder: "Percent" %>
+      </div>
+      <br>
+      <p>How many days do you want to work per week?</p>
+      <div class="daysweek">
+        <%= form.text_field 'hours[days_week]', type: "number", required: true, min: 1, placeholder: "Days" %>
+      </div>
+      <br>
+      <p>How many holidays are you taking a year?</p>
+      <div class="holidays">
+        <%= form.text_field 'hours[holidays]', type: "number", placeholder: "Days" %>
+      </div>
+      <br>
+      <p>How many days per year will you spend in training and conferences?</p>
+      <div class="training">
+        <%= form.text_field 'hours[training]', type: "number", placeholder: "Days" %>
+      </div>
+      <br>
+      <p>How many sick days do you estimate to take a year?</p>
+      <div class="sick">
+        <%= form.text_field 'hours[sick]', type: "number", placeholder: "Days" %>
       </div>
       <br>
     </div>
 
     <div>
-      <p>Office equipment:</p>
-      <div class="longterm2">
-        <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
-      </div>
-      <div class="longterm2">
-        <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
-      </div>
-      <br>
-    </div>
-
-    <div>
-      <p>Set-up marketing costs (for example, creating a website):</p>
-      <div class="longterm3">
-        <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
-      </div>
-      <div class="longterm3">
-        <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+    <h2>Earnings</h2>
+      <p>And finally, you will have to input how much do you want to earn per month and what percentage will be dedicated to taxes.</p>
+      <p>When you are done, just click on "Calculate"!</p>
+      <p>How much do you want to earn per month net?</p>
+      <div class="salary">
+        <%= form.text_field 'earnings[net_month]', type: "number", required:true, min: 1, placeholder: "Amount" %>
       </div>
       <br>
-    </div>
-
-    <div>
-      <p>Other long-term expenses:</p>
-      <div class="longterm4">
-        <%= form.text_field 'expenses[long_term][][amount]', type: "number", placeholder: "Amount" %>
-      </div>
-      <div class="longterm4">
-        <%= form.text_field 'expenses[long_term][][years]', type: "number", placeholder: "Years" %>
+      <p>What percentage of your earnings will be dedicated to taxes? This can vary a lot between countries and income brackets, so please do your research!</p>
+      <div class="taxes">
+        <%= form.text_field 'earnings[tax_percent]', type: "number", placeholder: "Percent" %>
       </div>
       <br>
-    </div>
-  <div>
-  <h3>Annual expenses</h3>
-    <p>For example: training, software with annual licenses, office supplies, professional memberships, Internet domains, marketing and advertising, business trips…</p>
-    <div class="annual">
-      <%= form.text_field 'expenses[annual]', type: "number", placeholder: "Amount" %>
-    </div>
-  </div>
-  <br>
-  <div>
-  <h3>Monthly expenses</h3>
-    <p>For example: rent, bills such as phone and Internet, software with monthly licenses…</p>
-    <div class="monthly">
-      <%= form.text_field 'expenses[monthly]', type: "number", placeholder: "Amount" %>
-    </div>
-  </div>
-  <br>
 
-  <div>
-  <h2>Working time</h2>
-    <p>Next, you will need to decide how much do you want to work per day and per week. We encourage you to be realistic and mindful of your health and work-life balance. We do not recommend working more than 8 hours per day or 5 days per week long-term.</p>
-    <p>So... how many hours do you want to work per day?</p>
-    <div class="hoursday">
-      <%= form.text_field 'hours[hours_day]', type: "number", required: true, min: 1, placeholder: "Hours" %>
+    <div class="btn">
+      <%= form.submit "Calculate" %>
     </div>
     <br>
-    <p>What percentage of this time will be spent in non-billable tasks? For instance, replying to emails, accounting, looking for new clients… If you are not sure, we think 20% is a reasonable estimation in most cases.</p>
-    <div class="nonbillable">
-      <%= form.text_field 'hours[non_billable]', type: "number", placeholder: "Percent" %>
-    </div>
     <br>
-    <p>How many days do you want to work per week?</p>
-    <div class="daysweek">
-      <%= form.text_field 'hours[days_week]', type: "number", required: true, min: 1, placeholder: "Days" %>
-    </div>
-    <br>
-    <p>How many holidays are you taking a year?</p>
-    <div class="holidays">
-      <%= form.text_field 'hours[holidays]', type: "number", placeholder: "Days" %>
-    </div>
-    <br>
-    <p>How many days per year will you spend in training and conferences?</p>
-    <div class="training">
-      <%= form.text_field 'hours[training]', type: "number", placeholder: "Days" %>
-    </div>
-    <br>
-    <p>How many sick days do you estimate to take a year?</p>
-    <div class="sick">
-      <%= form.text_field 'hours[sick]', type: "number", placeholder: "Days" %>
-    </div>
-    <br>
-  </div>
-
-  <div>
-  <h2>Earnings</h2>
-    <p>And finally, you will have to input how much do you want to earn per month and what percentage will be dedicated to taxes.</p>
-    <p>When you are done, just click on "Calculate"!</p>
-    <p>How much do you want to earn per month net?</p>
-    <div class="salary">
-      <%= form.text_field 'earnings[net_month]', type: "number", required:true, min: 1, placeholder: "Amount" %>
-    </div>
-    <br>
-    <p>What percentage of your earnings will be dedicated to taxes? This can vary a lot between countries and income brackets, so please do your research!</p>
-    <div class="taxes">
-      <%= form.text_field 'earnings[tax_percent]', type: "number", placeholder: "Percent" %>
-    </div>
-    <br>
-
-  <div class="btn">
-    <%= form.submit "Calculate" %>
-  </div>
-  <br>
-  <br>
-<% end %>
+  <% end %>
+</div>
