@@ -14,4 +14,6 @@ protected
   def current_user
     User.find_by(id: session[:user_id])
   end
+
+  alias logged_in? current_user
 end
