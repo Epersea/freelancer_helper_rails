@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authorize
   
   def new
-    if session[:user_id]
+    if logged_in?
       redirect_to root_path, notice: "You are already logged in"
     end
   end
